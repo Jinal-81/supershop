@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="icons-1.7.2/font/bootstrap-icons.css">
+</head>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #AEB6BF">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a href="#" class="navbar-brand">SuperShop</a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="Homepage.html">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Product</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#Contactsection">contact us</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-10 col-11 mx-auto">
+        <!--left side div-->
+        <div class="col-md-12 col-lg-8 col-11 mx-auto main_cart mb-lg-0 mb-5 shadow">
+          <div class="card p-4">
+            <h2 class="py-4 font-weight-bold">Cart item</h2>
+            <div class="row">
+              <div class="col-md-5 col-11 mx-auto bg-light d-flex justify-content-center align-items-center shadow product">
+                <img src="login4.jpg" class="img-fluid" alt="carimage">
+              </div>
+              <!--cart product details-->
+              <div class="col-md-7 col-11 mx-auto px-4 mt-2">
+                <div class="row">
+                  <!--product name-->
+                  <div class="col-6 card-title">
+                    <h1 class="mb-4 product_name">Blue Zara Shirt</h1>
+                    <p class="mb-2">SHIRT - BLUE</p>
+                    <p class="mb-2">COLOR: BLUE</p>
+                    <p class="mb-3">SIZE: M</p>
+                  </div>
+                  <!--quantity inc dec-->
+                  <div class="col-6">
+                    <ul class="pagination justify-content-end set_quantity">
+                      <li class="page-item">
+                        <button class="page-link" onclick="increaseNumber()"><i class="bi bi-dash"></i></button>
+                      </li>
+                      <li class="page-item">
+                        <input type="text" name="" class="page-link" value="1" id="textbox" style="width: 40px">
+                      </li>
+                      <li class="page-item">
+                        <button class="page-link" onclick="decreaseNumber()"><i class="bi bi-plus"></i></button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!--remover move and price-->
+                <div class="row">
+                  <div class="col-8 d-flex justify-content-between remve_item">
+                    <p><i class="bi bi-trash">REMOVE ITEM</i></p>
+                  </div>
+                  <div class="col-4 d-flex justify-content-end price_money">
+                    <h3>$<span id="itemval"></span>0.00</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--right side div-->
+        <div class="col-md-12 col-lg-4 col-11 mx-auto mt-lg-0 mt-md-5">
+          <div class="right_side p-3 shadow bg-white">
+            <h2 class="product_name mb-5">The Total Amount Of</h2>
+            <div class="price_indiv d-flex justify-content-between">
+              <p>Product Amount</p>
+              <p>$<span>0.00</span></p>
+            </div>
+            <div class="price_indiv d-flex justify-content-between">
+              <p>Shipping Charge</p>
+              <p>$50.0</p>
+            </div>
+            <hr/>
+            <div class="total-amt d-flex justify-content-between font-weight-bold">
+              <p>The total amount of (including VAT)</p>
+              <p>$<span id="total_cart_amt">0.00</span></p>
+            </div>
+            <button class="btn btn-primary text-uppercase">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- Footer -->
+<footer class="text-center text-lg-start text-black" id="gotofooter" style="background-color: #e3f2fd">
+    <!-- Grid container -->
+    <div class="container">
+      <!-- Section: Links -->
+      <section>
+        <!--Grid row-->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h2 class="text-uppercase mb-4 font-weight-bold">
+              SuperShop
+            </h2>
+            <h6 class="text-uppercase mb-4 font-weight-bold">About us</h6>
+            <p>Here you can use buy all the latest Clothes for women's, Men's and children's. All the latest clothes are available here. You can find clothes by Searching the category.</p>
+          </div>
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none" />
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+            <p><a class="text-black">Men's Wear</a></p>
+            <p><a class="text-black">Women's Wear</a></p>
+            <p><a class="text-black">Children's Wera</a></p>
+          </div>
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none" />
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none" />
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold" id="Contactsection">Contact</h6>
+            <p><i class="fas fa-home mr-3"></i> B-Square-1,Antriksh Colony,Ahmedabad,India</p>
+            <p><i class="fas fa-envelope mr-3"></i> supershop@gmail.com</p>
+            <p><i class="fas fa-phone mr-3"></i> +98754182654</p>
+            <p><i class="fas fa-print mr-3"></i> +88754821534</p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+
+            <!-- Facebook -->
+            <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998" href="#!" role="button"><i class="bi bi-facebook"></i></a>
+            <!-- Twitter -->
+            <a class="btn btn-primary btn-floating m-1" style="background-color: #55acee" href="#!" role="button"><i class="bi bi-twitter"></i></a>
+            <!-- Google -->
+            <a class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39" href="#!" role="button"><i class="bi bi-google"></i></a>
+            <!-- Instagram -->
+            <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac" href="#!" role="button"><i class="bi bi-instagram"></i></a>
+            <!-- Linkedin -->
+            <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca" href="#!" role="button"><i class="bi bi-linkedin"></i></a>
+            <!-- Github -->
+            <a class="btn btn-primary btn-floating m-1" style="background-color: #333333" href="#!" role="button"><i class="bi bi-github"></i></a>
+          </div>
+        </div>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      &copy; 2021 Copyright:
+      <a class="text-black" href="#">ShuperShop.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+</html>

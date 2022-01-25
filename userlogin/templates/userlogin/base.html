@@ -1,0 +1,122 @@
+{% load static %}
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>base page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'userlogin/bootstrap.bundle.min.js' %}"></script>
+    <link rel="stylesheet" href="/static/css/icons-1.7.2/font/bootstrap-icons.css">
+    <link type="text/css" href="/static/css/style.css" rel="stylesheet">
+</head>
+<!--Nav bar start-->
+<nav class="navbar navbar-expand-sm navbar-light" id="borderstyle">
+  <div class="container-fluid">
+    <button class="navbar-toggler" id="navtoggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+        <i class="fas fa-align-justify"></i>
+    </button>
+    <a href="#" class="navbar-brand">SuperShop</a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart' %}" target="_self">Cart</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Product</a>
+        </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">login</a>
+            </li>
+        {% endif %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% static '#Contactsection' %}">contact us</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--Nav bar end-->
+<body>
+{% block content %}{% endblock %}
+<!-- Footer start -->
+<footer class="text-center text-lg-start text-black" id="footer">
+    <!-- Grid container -->
+    <div class="container">
+      <!-- Section: Links -->
+      <section>
+        <!--Grid row-->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-5 col-xl-3 mx-auto mt-4">
+<!--            <h2 class="text-uppercase mb-4 font-weight-bold">-->
+<!--              SuperShop-->
+<!--            </h2>-->
+            <h6 class="text-uppercase mb-4 font-weight-bold">About us</h6>
+            <p>Here you can use buy all the latest Clothes for women's, Men's and children's. All the latest clothes are available here. You can find clothes by Searching the category.</p>
+          </div>
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none" />
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-4">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+            <p><a class="text-black">Men's Wear</a></p>
+            <p><a class="text-black">Women's Wear</a></p>
+            <p><a class="text-black">Children's Wear</a></p>
+          </div>
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none" />
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none" />
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-4">
+            <h6 class="text-uppercase mb-4 font-weight-bold" id="Contactsection">Contact</h6>
+            <p><i class="fas fa-home mr-3"></i> B-Square-1,Antriksh Colony,Ahmedabad,India</p>
+            <p><i class="fas fa-envelope mr-3"></i> supershop@gmail.com</p>
+            <p><i class="fas fa-phone mr-3"></i> +98754182654</p>
+            <p><i class="fas fa-print mr-3"></i> +88754821534</p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-4">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+
+            <!-- Facebook -->
+            <a class="btn btn-primary btn-floating m-1" id="facebook" href="{% static '#!' %}" role="button"><i class="bi bi-facebook"></i></a>
+            <!-- Twitter -->
+            <a class="btn btn-primary btn-floating m-1" id="twitter" href="{% static '#!' %}" role="button"><i class="bi bi-twitter"></i></a>
+            <!-- Google -->
+            <a class="btn btn-primary btn-floating m-1" id="google" href="{% static '#!' %}" role="button"><i class="bi bi-google"></i></a>
+            <!-- Instagram -->
+            <a class="btn btn-primary btn-floating m-1" id="insta" href="{% static '#!' %}" role="button"><i class="bi bi-instagram"></i></a>
+            <!-- Linkedin -->
+            <a class="btn btn-primary btn-floating m-1" id="linkedin" href="{% static '#!' %}" role="button"><i class="bi bi-linkedin"></i></a>
+            <!-- Github -->
+            <a class="btn btn-primary btn-floating m-1" id="github" href="{% static '#!' %}" role="button"><i class="bi bi-github"></i></a>
+          </div>
+        </div>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+    <!-- Copyright -->
+    <div class="text-center p-3" id="copyright">
+      &copy; 2021 Copyright:
+      <a class="text-black" href="#">SuperShop.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer end-->
+</body>
+</html>

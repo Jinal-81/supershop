@@ -1,0 +1,66 @@
+/* Centered text */
+#borderstyle{
+    border-bottom: 1px solid black;
+}
+#contact {
+    background-color: #898989;
+}
+#facebook{
+    background-color: #3b5998;
+}
+#twitter{
+    background-color: #55acee;
+}
+#google{
+    background-color: #dd4b39;
+}
+#insta{
+    background-color: #ac2bac;
+}
+#linkedin{
+    background-color: #0082ca;
+}
+#github{
+    background-color: #333333;
+}
+#copyright{
+    background-color: rgba(0, 0, 0, 0.2)
+}
+#footer{
+    background-color: #e3f2fd;
+}
+#textbox{
+    width: 40px;
+}
+#logincardbg{
+    color: #ff6219;
+}
+#loginletterspacing{
+    letter-spacing: 1px;
+}
+#registartionlinkbg
+{
+    color: #393f81;
+}
+#logincardradius{
+    border-radius: 1rem;
+}
+#loginbg{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+#productlistbuttonwidth{
+    width: 100px;
+}
+#navtoggle{
+    background-color: #ee2b63;
+    border: None;
+}
+#toggleline{
+    color: #fff;
+}
+#errormessage{
+    color: red;
+}
+#imageheight{
+    height:330px;
+}

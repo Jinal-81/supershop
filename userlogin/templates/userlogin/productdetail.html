@@ -1,0 +1,45 @@
+{% extends 'userlogin/base.html' %}
+{% load static %}
+{% block content %}
+<section id="loginbg">
+  <div class="container py-5 mx-auto">
+    <div class="row d-flex justify-content-center align-items-center mx-auto">
+      <div class="col col-xl-10">
+        <div class="card mb-3" id="logincardradius">
+          <div class="row g-0">
+            <div class="card">
+              <img src="{% static 'userlogin/login4.jpg' %}" alt="login form" class="card-img-top"/>
+            </div>
+            <div class="col-md-6 col-lg-7 mx-auto d-flex align-items-center">
+              <div class="card-body p-sm-1 text-black">
+                <!--form start-->
+                <form action="{% url 'login' %}" method="POST">
+                  {% csrf_token %}
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                    <i class="fas fa-cubes fa-2x me-3" id="logincardbg"></i>
+                    <span class="h1 fw-bold mb-0">SuperShop</span>
+                  </div>
+                  <h5 class="card-title">Product Detail</h5>
+                  <p class="card-text">
+                    <p class="lead">
+                      <span class="mr-1"><del>$200</del></span>
+                      <span>$100</span>
+                    </p>
+                    <p class="fw-bold">Description</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et dolor suscipit libero eos atque quia ipsasint voluptatibus!Beatae sit assumenda asperiores iure at maxime atque repellendus maiores quia sapiente.</p>
+                    <form class="d-flex justify-content-left">
+                      <input type="number" value="1" aria-label="Search" class="form-control" id="productlistbuttonwidth">
+                    </form>
+                  </p>
+                  <a href="#" class="btn btn-primary">Add TO Cart</a>  <a href="#" class="btn btn-primary">Buy Now</a>
+                </form>
+                <!--form end-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
