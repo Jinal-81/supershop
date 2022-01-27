@@ -1,4 +1,5 @@
 import datetime
+import pdb
 from unittest import mock
 
 from django.contrib.auth.tokens import default_token_generator
@@ -61,13 +62,27 @@ class ViewsTestCase(BaseTest):
         response = self.client.get(self.register_url)
         self.assertEqual(response.status_code, 200)
 
+    def test_user_profile_page_load(self):
+        """
+        test that user profile page load properly.
+        """
+        response = self.client.get(reverse('profile'))
+        self.assertEqual(response.status_code, 302)
+
     def test_password_confirm_page_load_properly(self):
         """
         test that password confirms page load properly.
         """
-        response = self.client.get(reverse('password_reset_confirm', kwargs={'uidb64': urlsafe_base64_encode(force_bytes(self.user.pk)), 'token': default_token_generator.make_token(self.user)}))
+        response = self.client.get(
+            reverse(
+                'password_reset_confirm', kwargs={
+                    'uidb64': urlsafe_base64_encode(force_bytes(self.user.pk)),
+                    'token': default_token_generator.make_token(self.user)
+                }
+            )
+        )
         # self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('password_reset/done/'))
+        self.assertTrue(response.url.find("set-password") != -1)
 
 
 class LoginTest(BaseTest):
@@ -192,13 +207,6 @@ class ForgotPasswordTest(BaseTest):
         response = self.client.post(PASSWORD_RESET_URL, {'email': self.user.email})
         self.assertContains(response, INVALID_EMAIL_SUBJECT)
 
-    def test_logout_load(self):
-        """
-        check that if user click on logout than user logout successfully
-        """
-        response = self.client.post(LOGOUT_URL)
-        self.assertTrue(response, reverse('index'))
-
 
 class ProductTest(BaseTest):
     def test_product_page_load(self):
@@ -216,3 +224,22 @@ class CartTest(BaseTest):
         """
         response = self.client.post(reverse('cart'))
         self.assertEqual(response.status_code, 200)
+
+
+class UserProfileTest(BaseTest):
+    def test_user_profile_page_load(self):
+        """
+        test that user profile page load properly.
+        """
+        response = self.client.get(reverse('profile'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_user_profile_update_successfully(self):
+        """
+        test that data updated successfully.
+        """
+        response = self.client.get(reverse('profile'), {'first_name':self.user.first_name, 'last_name':self.user.last_name,
+                                                            'username':self.user.username,
+                                                            'birth_date':self.user.birth_date,
+                                                            'profile_pic':self.user.profile_pic})
+        self.assertContains(response, self.index_url)

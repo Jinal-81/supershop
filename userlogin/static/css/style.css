@@ -64,3 +64,10 @@
 #imageheight{
     height:330px;
 }
+#card
+{
+    border:None;
+}
+#font-colour{
+    color:#212529;
+}

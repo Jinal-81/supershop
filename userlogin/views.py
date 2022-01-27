@@ -1,15 +1,16 @@
 from django import forms
 from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from .models import MyUser
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import NewUserForm, UserLoginForm, PasswordConfirmationForm, UpdateProfile
 from django.contrib.auth.forms import PasswordResetForm
 
@@ -110,16 +111,6 @@ def signup(request):
     return render(request, SIGNUP_URL, {'register_form': form})
 
 
-def view_logout(request):
-    """
-    logout user.
-    """
-    if request.method == 'POST':
-        # call auth.logout
-        auth.logout(request)
-    return redirect('index')
-
-
 def password_reset_request(request):
     """
     password reset function for user.
@@ -127,58 +118,41 @@ def password_reset_request(request):
     if request.method == "POST":
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
-            # email of the user
-            data = password_reset_form.cleaned_data['email']
-            print(data)
-            # return queryset of particular user
-            associated_users = MyUser.objects.filter(email=data)
-            print(associated_users)
-            # check that user is existed or not
-            if associated_users.exists():
-                # fetch all the details about user
-                for user in associated_users:
-                    print(user)
+            data = password_reset_form.cleaned_data['email']    # email of the user
+            associated_users = MyUser.objects.filter(email=data)    # return queryset of particular user
+            if associated_users.exists():   # check that user is existed or not
+                for user in associated_users:   # fetch all the details about user
                     subject = PASSWORD_RESET_MESSAGE
-                    # template path for password reset
-                    email_template_name = EMAIL_TEMPLATE_PATH
-                    # stored all the value related to user
-                    user_detail = {
-                        "email": MyUser.email, 'domain': DOMAIN_NAME,
-                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                        'user': MyUser, 'token': default_token_generator.make_token(user), 'protocol': PROTOCOL
-                    }
-                    print(user.pk)
-                    # load the template and call render method
-                    email = render_to_string(email_template_name, user_detail)
+                    email_template_name = EMAIL_TEMPLATE_PATH   # template path for password reset
+                    user_detail = {"email": MyUser.email, 'domain': DOMAIN_NAME,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'user': MyUser, 'token': default_token_generator.make_token(user), 'protocol': PROTOCOL
+                    }   # stored all the value related to user
+                    email = render_to_string(email_template_name, user_detail)  # load the template and callrendermethod
                     try:
-                        # send mail to user console
-                        send_mail(subject, email, 'admin@example.com', [user.email], fail_silently=False)
-                    # rais exception if subject is not proper
-                    except BadHeaderError:
+                        send_mail(subject, email, 'admin@example.com', [user.email], fail_silently=False)   # send mail to user console
+                    except BadHeaderError:  # rais exception if subject is not proper
                         return HttpResponse(INVALID_EMAIL_SUBJECT)
                     return redirect(PASSWORD_RESET_DONE_URL)
             messages.error(request, EMAIL_INVALID_MSG)
-    # if form method is not post then redirect to same page
-    password_reset_form = PasswordResetForm()
+    password_reset_form = PasswordResetForm()   # if form method is not post then redirect to same page
     return render(request, PASSWORD_RESET_URL, {"password_reset_form": password_reset_form})
 
 
-def password_confirmation_done(request):
-    """
-    password confirmation done form called for new password
-    """
-    form = PasswordConfirmationForm()
-    return render(request, PASSWORD_CONFIRMATION_URL, {'form': form})
-
-
+@login_required
 def user_profile(request):
     """
     user can view and update their profile.
     """
     if request.method == "POST" or None:
-        form = UpdateProfile(request.POST or None, request.FIELS)
-        
-    return render(request, USER_PROFILE_URL)
+        # update profile of request.user (that particular user's profile)
+        form = UpdateProfile(request.POST or None, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()    # save form
+            messages.success(request, "Your profile updated successfully..")
+            return redirect('index')
+    form = UpdateProfile(instance=request.user)
+    return render(request, USER_PROFILE_URL, {'form': form})
 
 
 def cart(request):

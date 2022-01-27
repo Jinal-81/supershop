@@ -16,3 +16,4 @@ class UserFactory(factory.django.DjangoModelFactory):
     mobile_number = '7984842865'
     birth_date = datetime.date.today()
     profile_pic = 'images/girl1.jpg'
+
