@@ -1,10 +1,6 @@
-import datetime
-import pdb
 from unittest import mock
 
 from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import send_mail, BadHeaderError, EmailMessage
-from django.template.loader import render_to_string
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.encoding import force_bytes
@@ -12,15 +8,14 @@ from django.utils.http import urlsafe_base64_encode
 
 from .factories import UserFactory
 from .forms import EMAIL_EXISTS_MSG, USERNAME_EXISTS_MSG, MOBILE_NUMBER_EXISTS_MSG
-from .models import MyUser
-from .views import LOGIN_ERROR_MSG, EMAIL_INVALID_MSG, PASSWORD_RESET_MESSAGE, EMAIL_TEMPLATE_PATH, DOMAIN_NAME, \
-    PROTOCOL, INVALID_EMAIL_SUBJECT
+from .views import LOGIN_ERROR_MSG, EMAIL_INVALID_MSG, INVALID_EMAIL_SUBJECT
 
 PASSWORD_RESET_URL = reverse('password_reset')
 PASSWORD_RESET_DONE = reverse('password_reset_done')
 USER_FIELD_INVALID_MSG = "please fill in this field"
 PASSWORD_FIELD_INVALID_MSG = "please fill in this field"
 LOGOUT_URL = reverse('logout')
+USER_PROFILE_UPDATE_URL = reverse('profile')
 
 
 class BaseTest(TestCase):
@@ -231,15 +226,16 @@ class UserProfileTest(BaseTest):
         """
         test that user profile page load properly.
         """
-        response = self.client.get(reverse('profile'))
+        response = self.client.get(USER_PROFILE_UPDATE_URL)
         self.assertEqual(response.status_code, 302)
 
     def test_user_profile_update_successfully(self):
         """
         test that data updated successfully.
         """
-        response = self.client.get(reverse('profile'), {'first_name':self.user.first_name, 'last_name':self.user.last_name,
-                                                            'username':self.user.username,
-                                                            'birth_date':self.user.birth_date,
-                                                            'profile_pic':self.user.profile_pic})
-        self.assertContains(response, self.index_url)
+        response = self.client.post(USER_PROFILE_UPDATE_URL, {'first_name': self.user.first_name,
+                                                              'last_name': self.user.last_name,
+                                                              'username': self.user.username,
+                                                              'birth_date': self.user.birth_date,
+                                                              'profile_pic': self.user.profile_pic})
+        self.assertRedirects(response, self.index_url, status_code=302)
