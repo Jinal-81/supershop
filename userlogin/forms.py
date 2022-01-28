@@ -87,8 +87,6 @@ class UpdateProfile(forms.ModelForm):
     """
     update profile
     """
-    # password = forms.CharField(widget=forms.PasswordInput)
-    # birth_date = forms.DateField(widget=forms.DateInput)
     profile_pic = forms.ImageField()
 
     class Meta:

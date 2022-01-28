@@ -11,15 +11,13 @@
           <div class="row g-0">
             <div class="col-md-6 col-lg-7 mx-auto d-flex align-items-center">
               <div class="card-body p-sm-1 text-black">
-<!--                {% include 'userlogin/messages.html' %}-->
-                <!--form start-->
+                    <!--form start-->
                 <form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" id="logincardbg"></i>
-                    <span class="h1 fw-bold mb-0">SuperShop</span>
                   </div>
-                  <h5 class="fw-normal mb-3 pb-3" id="loginletterspacing">create your account</h5>
+                  <h5 class="h3 fw-normal mb-3 pb-3" id="loginletterspacing">create your account</h5>
                   {% for field in register_form %}
                     <div class="form-group row">
                         <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label"> {{field.label_tag}}</div>

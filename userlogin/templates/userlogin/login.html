@@ -16,9 +16,8 @@
                   {% csrf_token %}
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" id="logincardbg"></i>
-                    <span class="h1 fw-bold mb-0">SuperShop</span>
                   </div>
-                  <h5 class="fw-normal mb-3 pb-3" id="loginletterspacing">create your account</h5>
+                  <h5 class="h1 fw-bold mb-3 pb-3" id="loginletterspacing">Login</h5>
                   {% for field in form %}
                     <div class="form-group row">
                         <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label"> {{field.label_tag}}</div>

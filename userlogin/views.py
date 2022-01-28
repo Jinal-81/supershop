@@ -35,6 +35,7 @@ VIEW_PRODUCT_URL = "userlogin/productdetail.html"
 LOGIN_SUCCESS_MSG = "login successfully.."
 REGISTRATION_SUCCESS_MSG = "Registered successfully.."
 USER_PROFILE_URL = 'userlogin/userprofile.html'
+USER_PROFILE_UPDATE_MSG = "Your profile updated successfully.."
 
 
 def index(request):
@@ -149,7 +150,7 @@ def user_profile(request):
         form = UpdateProfile(request.POST or None, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()    # save form
-            messages.success(request, "Your profile updated successfully..")
+            messages.success(request, USER_PROFILE_UPDATE_MSG)
             return redirect('index')
     form = UpdateProfile(instance=request.user)
     return render(request, USER_PROFILE_URL, {'form': form})

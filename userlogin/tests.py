@@ -8,7 +8,7 @@ from django.utils.http import urlsafe_base64_encode
 
 from .factories import UserFactory
 from .forms import EMAIL_EXISTS_MSG, USERNAME_EXISTS_MSG, MOBILE_NUMBER_EXISTS_MSG
-from .views import LOGIN_ERROR_MSG, EMAIL_INVALID_MSG, INVALID_EMAIL_SUBJECT
+from .views import LOGIN_ERROR_MSG, EMAIL_INVALID_MSG, INVALID_EMAIL_SUBJECT, USER_PROFILE_UPDATE_MSG
 
 PASSWORD_RESET_URL = reverse('password_reset')
 PASSWORD_RESET_DONE = reverse('password_reset_done')
@@ -26,7 +26,7 @@ class BaseTest(TestCase):
         self.login_url = reverse('login')
         self.register_url = reverse('signup')
         self.index_url = reverse('index')
-
+        self.update_url = reverse('profile')
         self.user = UserFactory()
         self.user.set_password(self.user.password)
         self.user.save()
@@ -52,17 +52,11 @@ class ViewsTestCase(BaseTest):
 
     def test_signup_load_properly(self):
         """
-        test that signup page load properly.
+        test that signup page load properly when user click on link.
         """
         response = self.client.get(self.register_url)
+        # compare status code with 200
         self.assertEqual(response.status_code, 200)
-
-    def test_user_profile_page_load(self):
-        """
-        test that user profile page load properly.
-        """
-        response = self.client.get(reverse('profile'))
-        self.assertEqual(response.status_code, 302)
 
     def test_password_confirm_page_load_properly(self):
         """
@@ -226,16 +220,14 @@ class UserProfileTest(BaseTest):
         """
         test that user profile page load properly.
         """
-        response = self.client.get(USER_PROFILE_UPDATE_URL)
-        self.assertEqual(response.status_code, 302)
+        # import pdb;pdb.set_trace();
+        response = self.client.get(USER_PROFILE_UPDATE_URL, follow=True)
+        self.assertEqual(response.status_code, 200)
 
     def test_user_profile_update_successfully(self):
         """
         test that data updated successfully.
         """
-        response = self.client.post(USER_PROFILE_UPDATE_URL, {'first_name': self.user.first_name,
-                                                              'last_name': self.user.last_name,
-                                                              'username': self.user.username,
-                                                              'birth_date': self.user.birth_date,
-                                                              'profile_pic': self.user.profile_pic})
-        self.assertRedirects(response, self.index_url, status_code=302)
+        # import pdb;pdb.set_trace()
+        response = self.client.get(USER_PROFILE_UPDATE_URL, {'first_name': 'Jinu', 'last_name': 'patel', 'username': 'jinu', 'birth_date': '10/01/2021', 'profile_pic': 'girl1.jpg'}, follow=True)
+        self.assertRedirects(response, self.index_url)

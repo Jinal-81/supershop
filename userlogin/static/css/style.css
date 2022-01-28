@@ -3,7 +3,7 @@
     border-bottom: 1px solid black;
 }
 #contact {
-    background-color: #898989;
+    background-color: #EFEFEF;
 }
 #facebook{
     background-color: #3b5998;
@@ -64,10 +64,28 @@
 #imageheight{
     height:330px;
 }
+#profileimageheightwidth{
+    height:250px;
+    width:250px;
+}
 #card
 {
     border:None;
 }
 #font-colour{
     color:#212529;
+}
+::-webkit-file-upload-button {
+  background: None;
+  color: red;
+  border-radius: 1rem;
+  height:2.5rem;
+  width:7rem;
+/*
+  border: 1px solid #d5d5d5;
+*/
+}
+#profilephoto{
+    width="250px";
+    height="250px";
 }
