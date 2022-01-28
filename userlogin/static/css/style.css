@@ -89,3 +89,7 @@
     width="250px";
     height="250px";
 }
+input[type=file]::file-selector-button:hover {
+  background-color: #EFEFEF;
+  border: 2px solid #ff6219;
+}

@@ -220,7 +220,7 @@ class UserProfileTest(BaseTest):
         """
         test that user profile page load properly.
         """
-        # import pdb;pdb.set_trace();
+        self.client.force_login(self.user)
         response = self.client.get(USER_PROFILE_UPDATE_URL, follow=True)
         self.assertEqual(response.status_code, 200)
 
@@ -228,6 +228,6 @@ class UserProfileTest(BaseTest):
         """
         test that data updated successfully.
         """
-        # import pdb;pdb.set_trace()
-        response = self.client.get(USER_PROFILE_UPDATE_URL, {'first_name': 'Jinu', 'last_name': 'patel', 'username': 'jinu', 'birth_date': '10/01/2021', 'profile_pic': 'girl1.jpg'}, follow=True)
+        self.client.force_login(self.user)
+        response = self.client.post(USER_PROFILE_UPDATE_URL, {'first_name': 'Jinu', 'last_name': 'patel', 'username': 'jinu', 'birth_date': '10/01/2021', 'profile_pic': 'girl1.jpg'}, follow=True)
         self.assertRedirects(response, self.index_url)
