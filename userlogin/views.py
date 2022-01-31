@@ -9,9 +9,9 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from .models import MyUser
+from .models import MyUser, Address
 from django.contrib.auth import authenticate, login, logout
-from .forms import NewUserForm, UserLoginForm, PasswordConfirmationForm, UpdateProfile
+from .forms import NewUserForm, UserLoginForm, PasswordConfirmationForm, UpdateProfile, AddAddress
 from django.contrib.auth.forms import PasswordResetForm
 
 LOGIN_ERROR_MSG = "Please enter valid username and password"
@@ -20,6 +20,7 @@ EMAIL_TEMPLATE_PATH = 'userlogin/password/password_reset_email'
 PASSWORD_RESET_MESSAGE = "Password Reset Requested"
 DOMAIN_NAME = '127.0.0.1:8000'
 PROTOCOL = 'http'
+ADDRESS_ADDED_SUCCESSFULLY_MSG = "Add address successfully.."
 PASSWORD_CONFIRMATION_URL = "userlogin/password/password_reset_confirmation.html"
 PASSWORD_RESET_URL = "userlogin/password/password_reset.html"
 SIGNUP_URL = "userlogin/signin.html"
@@ -31,11 +32,14 @@ HOME_URL = "userlogin/Homepage.html"
 INDEX_URL = "userlogin/Homepage.html"
 EMAIL_INVALID_MSG = "Email is not valid, please enter registered email"
 CART_URL = "userlogin/carttry.html"
+USER_ADDRESS_URL = 'userlogin/addresses.html'
 VIEW_PRODUCT_URL = "userlogin/productdetail.html"
 LOGIN_SUCCESS_MSG = "login successfully.."
 REGISTRATION_SUCCESS_MSG = "Registered successfully.."
 USER_PROFILE_URL = 'userlogin/userprofile.html'
 USER_PROFILE_UPDATE_MSG = "Your profile updated successfully.."
+ADD_ADDRESS_URL = 'userlogin/Add_address.html'
+ADDRESS_DELETED_MSG = "Address deleted successfully.."
 
 
 def index(request):
@@ -61,6 +65,23 @@ def user_create(data: dict):
             dict1.update({key: make_password(data.get(key))})
     # create user
     MyUser.objects.create(**dict1)
+
+
+def user_address_create(data: dict, user_pk):
+    """
+    create new address for user.
+    """
+    list_of_keys = ['city', 'zipcode', 'landmark', 'state', 'MyUser_id']
+    dict1 = {}
+    # fetch one by one key from the list
+    for key in list_of_keys:
+        # update value accordingly
+        dict1.update({key: data.get(key)})
+        # if key value is password that format is change for insert data
+        if key == "MyUser_id":
+            dict1.update({key: user_pk})
+    # create user
+    Address.objects.create(**dict1)
 
 
 def view_login(request):
@@ -156,6 +177,14 @@ def user_profile(request):
     return render(request, USER_PROFILE_URL, {'form': form})
 
 
+def user_address(request, id):
+    """
+    user can view their exist addresses.
+    """
+    address = Address.objects.filter(MyUser_id_id=id)  # filter record by user id
+    return render(request, USER_ADDRESS_URL, {'address': address})
+
+
 def cart(request):
     """
     redirect to cart page
@@ -168,3 +197,34 @@ def view_product(request):
     view available product details.
     """
     return render(request, VIEW_PRODUCT_URL)
+
+
+def add_address(request):
+    """
+    add new address.
+    """
+    if request.method == 'POST' or None:
+        form = AddAddress(request.POST or None)
+        if form.is_valid():
+            # called user create function for new user
+            user_pk = request.user
+            print(user_pk.id)
+            user_address_create(form.cleaned_data, user_pk)
+            # display message after successfully registration
+            messages.success(request, ADDRESS_ADDED_SUCCESSFULLY_MSG)
+            # redirect to index page
+            return redirect('index')
+        # messages.error(request, FORM_NOT_VALID)
+        return render(request, ADD_ADDRESS_URL, {'form': form})
+    form = AddAddress()
+    return render(request, ADD_ADDRESS_URL, {'form': form})
+
+
+def remove_address(request, id):
+    """
+    user cane able to remove address from the addresses.
+    """
+    address = Address.objects.get(id=id)  # compare id
+    address.delete()  # delete record from particular id
+    messages.error(request, ADDRESS_DELETED_MSG)  # give message to user
+    return redirect("index")  # redirect to index page

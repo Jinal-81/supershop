@@ -1,6 +1,6 @@
 import factory
 from django.contrib.auth import get_user_model
-from .models import MyUser
+from .models import MyUser, Address
 import datetime
 
 
@@ -17,3 +17,13 @@ class UserFactory(factory.django.DjangoModelFactory):
     birth_date = datetime.date.today()
     profile_pic = 'images/girl1.jpg'
 
+
+class AddressFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Address
+
+    city = 'Ahmedabad'
+    zipcode = '387100'
+    landmark = 'PK'
+    state = 'Gujarat'
+    MyUser_id_id = 1

@@ -1,5 +1,5 @@
 from django import forms
-from .models import MyUser
+from .models import MyUser, Address
 
 USERNAME_EXISTS_MSG = "username already exists."
 EMAIL_EXISTS_MSG = "email already exists."
@@ -92,3 +92,12 @@ class UpdateProfile(forms.ModelForm):
     class Meta:
         model = MyUser
         fields = ("username", "first_name", "last_name", "birth_date", "profile_pic")
+
+
+class AddAddress(forms.ModelForm):
+    """
+    add addresses from here
+    """
+    class Meta:
+        model = Address
+        fields = ("city", "zipcode", "landmark", "state")

@@ -10,5 +10,8 @@ urlpatterns = [
     path('view_product/', views.view_product, name='view_product'),
     path('logout/', LogoutView.as_view(template_name='userlogin/Homepage.html'), name="logout"),
     path("password_reset", views.password_reset_request, name="password_reset"),
-    path('profile/', views.user_profile, name='profile')
+    path('profile/', views.user_profile, name='profile'),
+    path('address/<int:id>', views.user_address, name='user_address'),
+    path('add_address/', views.add_address, name='add_address'),
+    path('remove_address/<int:id>', views.remove_address, name='remove_address')
 ]

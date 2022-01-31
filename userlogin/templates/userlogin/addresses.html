@@ -1,0 +1,35 @@
+{% extends 'userlogin/base.html' %}
+{% load static %}
+{% block content %}
+<section id="loginbg">
+    {% if user.is_authenticated %}
+    <div class="container py-5 mx-auto">
+      <div class="justify-content-md-end py-3">
+<!--      <button class="btn btn-outline-success" type="button">Add</button>-->
+          <a href="{% url 'add_address' %}" class="btn btn-primary">Add New Address</a>
+    </div>
+        {% for i in address %}
+        <div class="accordion" id="accordionPanelsStayOpenExample{{i}}">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                Address
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
+                <strong>{{ i.id }} , </strong>
+                <strong>{{ i.city }} , </strong>
+                <strong>{{ i.landmark }} , </strong>
+                <strong>{{ i.zipcode }} , </strong>
+                <strong>{{ i.state }}  </strong>
+                <a href="{% url 'remove_address' i.id %}" class="btn btn-outline-danger">Remove</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+</section>
+{% endblock %}

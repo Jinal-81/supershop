@@ -1,0 +1,53 @@
+{% extends 'userlogin/base.html' %}
+{% load static %}
+{% block content %}
+<!--section start-->
+<section id="loginbg">
+  <!--container start-->
+  <div class="container py-5 mx-auto">
+    <div class="row d-flex justify-content-center align-items-center mx-auto">
+      <div class="col col-xl-10">
+        <div class="card mb-3" id="logincardradius">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-7 mx-auto d-flex align-items-center">
+              <div class="card-body p-sm-1 text-black">
+                    <!--form start-->
+                  {% if user.is_authenticated %}
+                  <form action="{% url 'add_address' %}" method="POST">
+                  {% csrf_token %}
+                    <div class="d-flex align-items-center mb-3 pb-1">
+                    <i class="fas fa-cubes fa-2x me-3" id="logincardbg"></i>
+                  </div>
+                  <h5 class="h3 fw-normal mb-3 pb-3" id="loginletterspacing">Add New Address</h5>
+                    <div class="form-group row">
+                </div>
+                {% for field in form %}
+                <div class="form-group row">
+                    <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label"> {{ field.label_tag }}</div>
+                    <div class="col-lg-8 col-md-3 cold-sm-6"> {{field}} </div>
+                </div>
+                {% endfor %}
+                    {% for error in field.errors %}
+                    <div id="errormessage">
+                        *{{ error|escape }}
+                    </div>
+                    {% endfor %}
+                  <div class="pt-1 mb-4">
+                    <button class="btn btn-dark btn-lg btn-block" type="submit">Submit</button>
+                  </div>
+                </form>
+                {% endif %}
+                <!--form end-->
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--container end-->
+</section>
+<!--section end-->
+
+{% endblock %}

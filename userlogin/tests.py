@@ -6,8 +6,9 @@ from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
-from .factories import UserFactory
+from .factories import UserFactory, AddressFactory
 from .forms import EMAIL_EXISTS_MSG, USERNAME_EXISTS_MSG, MOBILE_NUMBER_EXISTS_MSG
+from .models import MyUser, Address
 from .views import LOGIN_ERROR_MSG, EMAIL_INVALID_MSG, INVALID_EMAIL_SUBJECT, USER_PROFILE_UPDATE_MSG
 
 PASSWORD_RESET_URL = reverse('password_reset')
@@ -16,6 +17,8 @@ USER_FIELD_INVALID_MSG = "please fill in this field"
 PASSWORD_FIELD_INVALID_MSG = "please fill in this field"
 LOGOUT_URL = reverse('logout')
 USER_PROFILE_UPDATE_URL = reverse('profile')
+# USER_VIEW_ADDRESS_URL = reverse('user_address')
+USER_ADD_ADDRESS_URL = reverse('add_address')
 
 
 class BaseTest(TestCase):
@@ -30,6 +33,9 @@ class BaseTest(TestCase):
         self.user = UserFactory()
         self.user.set_password(self.user.password)
         self.user.save()
+
+        self.user1 = AddressFactory()
+        self.user1.save()
 
 
 # Create your tests here.
@@ -231,3 +237,28 @@ class UserProfileTest(BaseTest):
         self.client.force_login(self.user)
         response = self.client.post(USER_PROFILE_UPDATE_URL, {'first_name': 'Jinu', 'last_name': 'patel', 'username': 'jinu', 'birth_date': '10/01/2021', 'profile_pic': 'girl1.jpg'}, follow=True)
         self.assertRedirects(response, self.index_url)
+
+
+class UserAddressTest(BaseTest):
+    def test_user_add_address_load(self):
+        """
+        test that user add address page load properly.
+        """
+        response = self.client.get(USER_ADD_ADDRESS_URL)
+        self.assertEqual(response.status_code, 200)
+
+    def test_user_add_address_successfully(self):
+        """
+        test that user add address successfully.
+        """
+        record = MyUser.objects.create(username='jhk', password='abc', first_name='kdh', last_name='ydf',
+                                       email='sds@gmail.com', mobile_number='7894561232', birth_date='2000-10-10',
+                                       profile_pic='girl1.jpg')
+        record_pk=MyUser.objects.filter(pk=record.pk)
+        response = self.client.post(USER_ADD_ADDRESS_URL, {'city': self.user1.city,
+                                                           'zipcode': self.user1.zipcode,
+                                                           'landmark': self.user1.landmark,
+                                                           'state': self.user1.state,
+                                                           'MyUser_id_id': record_pk})
+        # Check that we got a response "success"
+        self.assertEqual(response.status_code, 200)
