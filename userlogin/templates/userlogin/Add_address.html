@@ -26,12 +26,12 @@
                     <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label"> {{ field.label_tag }}</div>
                     <div class="col-lg-8 col-md-3 cold-sm-6"> {{field}} </div>
                 </div>
-                {% endfor %}
                     {% for error in field.errors %}
                     <div id="errormessage">
                         *{{ error|escape }}
                     </div>
                     {% endfor %}
+                {% endfor %}
                   <div class="pt-1 mb-4">
                     <button class="btn btn-dark btn-lg btn-block" type="submit">Submit</button>
                   </div>

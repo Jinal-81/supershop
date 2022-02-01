@@ -11,7 +11,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from .models import MyUser, Address
 from django.contrib.auth import authenticate, login, logout
-from .forms import NewUserForm, UserLoginForm, PasswordConfirmationForm, UpdateProfile, AddAddress
+from .forms import NewUserForm, UserLoginForm, PasswordConfirmationForm, UpdateProfile, AddAddress, UpdateAddress
 from django.contrib.auth.forms import PasswordResetForm
 
 LOGIN_ERROR_MSG = "Please enter valid username and password"
@@ -38,8 +38,10 @@ LOGIN_SUCCESS_MSG = "login successfully.."
 REGISTRATION_SUCCESS_MSG = "Registered successfully.."
 USER_PROFILE_URL = 'userlogin/userprofile.html'
 USER_PROFILE_UPDATE_MSG = "Your profile updated successfully.."
+USER_ADDRESS_UPDATE_MSG = "Your Address update successfully.."
 ADD_ADDRESS_URL = 'userlogin/Add_address.html'
 ADDRESS_DELETED_MSG = "Address deleted successfully.."
+USER_ADDRESS_UPDATE_URL = "userlogin/useraddressupdate.html"
 
 
 def index(request):
@@ -181,22 +183,30 @@ def user_address(request, id):
     """
     user can view their exist addresses.
     """
-    address = Address.objects.filter(MyUser_id_id=id)  # filter record by user id
+    address = Address.objects.filter(MyUser_id=id)  # filter record by user id
     return render(request, USER_ADDRESS_URL, {'address': address})
 
 
-def cart(request):
+@login_required
+def user_addresses_update(request, id):
     """
-    redirect to cart page
+    user can update their addresses.
     """
-    return render(request, CART_URL)
-
-
-def view_product(request):
-    """
-    view available product details.
-    """
-    return render(request, VIEW_PRODUCT_URL)
+    # if request.method == "POST" or None:
+    #     # update profile of request.user (that particular user's profile)
+    #     form = UpdateAddress(request.POST or None, instance=request.user)
+    #     if form.is_valid():
+    #         form.save()    # save form
+    #         messages.success(request, USER_ADDRESS_UPDATE_MSG)
+    #         return redirect('index')
+    # form = UpdateAddress(instance=request.user)
+    # return render(request, USER_ADDRESS_UPDATE_URL, {'form': form})
+    address = Address.objects.get(id=id)
+    form = UpdateAddress(request.POST, instance=address)
+    if form.is_valid():
+        form.save()
+        return redirect('index')
+    return render(request, USER_ADDRESS_UPDATE_URL, {'address': address})
 
 
 def add_address(request):
@@ -208,7 +218,6 @@ def add_address(request):
         if form.is_valid():
             # called user create function for new user
             user_pk = request.user
-            print(user_pk.id)
             user_address_create(form.cleaned_data, user_pk)
             # display message after successfully registration
             messages.success(request, ADDRESS_ADDED_SUCCESSFULLY_MSG)
@@ -228,3 +237,18 @@ def remove_address(request, id):
     address.delete()  # delete record from particular id
     messages.error(request, ADDRESS_DELETED_MSG)  # give message to user
     return redirect("index")  # redirect to index page
+
+
+def cart(request):
+    """
+    redirect to cart page
+    """
+    return render(request, CART_URL)
+
+
+def view_product(request):
+    """
+    view available product details.
+    """
+    return render(request, VIEW_PRODUCT_URL)
+

@@ -27,7 +27,7 @@
     background-color: rgba(0, 0, 0, 0.2)
 }
 #footer{
-    background-color: #e3f2fd;
+    background-color: #FFFFFF;
 }
 #textbox{
     width: 40px;
@@ -93,3 +93,4 @@ input[type=file]::file-selector-button:hover {
   background-color: #EFEFEF;
   border: 2px solid #ff6219;
 }
+

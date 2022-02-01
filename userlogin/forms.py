@@ -4,6 +4,7 @@ from .models import MyUser, Address
 USERNAME_EXISTS_MSG = "username already exists."
 EMAIL_EXISTS_MSG = "email already exists."
 MOBILE_NUMBER_EXISTS_MSG = "mobile_number already exists."
+LANDMARK_EXISTS_MSG = "Landmark exists."
 
 
 class NewUserForm(forms.ModelForm):
@@ -97,6 +98,24 @@ class UpdateProfile(forms.ModelForm):
 class AddAddress(forms.ModelForm):
     """
     add addresses from here
+    """
+    def clean_landmark(self):
+        """
+        check that username is exists or not.
+        """
+        landmark = self.cleaned_data.get("landmark")
+        if Address.objects.filter(landmark=landmark).exists():
+            self.add_error("landmark", LANDMARK_EXISTS_MSG)
+        return landmark
+
+    class Meta:
+        model = Address
+        fields = ("city", "zipcode", "landmark", "state")
+
+
+class UpdateAddress(forms.ModelForm):
+    """
+    update Addresses
     """
     class Meta:
         model = Address
