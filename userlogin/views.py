@@ -1,17 +1,16 @@
-from django import forms
-from django.contrib import auth, messages
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from .models import MyUser, Address
-from django.contrib.auth import authenticate, login, logout
-from .forms import NewUserForm, UserLoginForm, PasswordConfirmationForm, UpdateProfile, AddAddress, UpdateAddress
+from django.contrib.auth import authenticate, login
+from .forms import NewUserForm, UserLoginForm, UpdateProfile, AddAddress, UpdateAddress
 from django.contrib.auth.forms import PasswordResetForm
 
 LOGIN_ERROR_MSG = "Please enter valid username and password"
@@ -73,14 +72,14 @@ def user_address_create(data: dict, user_pk):
     """
     create new address for user.
     """
-    list_of_keys = ['city', 'zipcode', 'landmark', 'state', 'MyUser_id']
+    list_of_keys = ['city', 'zipcode', 'landmark', 'state', 'user']
     dict1 = {}
     # fetch one by one key from the list
     for key in list_of_keys:
         # update value accordingly
         dict1.update({key: data.get(key)})
         # if key value is password that format is change for insert data
-        if key == "MyUser_id":
+        if key == "user":
             dict1.update({key: user_pk})
     # create user
     Address.objects.create(**dict1)
@@ -149,12 +148,13 @@ def password_reset_request(request):
                     subject = PASSWORD_RESET_MESSAGE
                     email_template_name = EMAIL_TEMPLATE_PATH   # template path for password reset
                     user_detail = {"email": MyUser.email, 'domain': DOMAIN_NAME,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'user': MyUser, 'token': default_token_generator.make_token(user), 'protocol': PROTOCOL
-                    }   # stored all the value related to user
+                                   'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                                   'user': MyUser, 'token': default_token_generator.make_token(user),
+                                   'protocol': PROTOCOL
+                                   }   # stored all the value related to user
                     email = render_to_string(email_template_name, user_detail)  # load the template and callrendermethod
-                    try:
-                        send_mail(subject, email, 'admin@example.com', [user.email], fail_silently=False)   # send mail to user console
+                    try:  # send mail to user console
+                        send_mail(subject, email, 'admin@example.com', [user.email], fail_silently=False)
                     except BadHeaderError:  # rais exception if subject is not proper
                         return HttpResponse(INVALID_EMAIL_SUBJECT)
                     return redirect(PASSWORD_RESET_DONE_URL)
@@ -183,29 +183,23 @@ def user_address(request, id):
     """
     user can view their exist addresses.
     """
-    address = Address.objects.filter(MyUser_id=id)  # filter record by user id
+    address = Address.objects.filter(user=id)  # filter record by user id
     return render(request, USER_ADDRESS_URL, {'address': address})
 
 
-@login_required
 def user_addresses_update(request, id):
     """
     user can update their addresses.
     """
-    # if request.method == "POST" or None:
-    #     # update profile of request.user (that particular user's profile)
-    #     form = UpdateAddress(request.POST or None, instance=request.user)
-    #     if form.is_valid():
-    #         form.save()    # save form
-    #         messages.success(request, USER_ADDRESS_UPDATE_MSG)
-    #         return redirect('index')
-    # form = UpdateAddress(instance=request.user)
-    # return render(request, USER_ADDRESS_UPDATE_URL, {'form': form})
+    if request.method == "POST" or None:
+        # compare id for the address
+        address = Address.objects.get(id=id)
+        form = UpdateAddress(request.POST, instance=address)  # pass instance of address
+        if form.is_valid():
+            form.save()  # save form
+            messages.success(request, USER_ADDRESS_UPDATE_MSG)  # display success message to user
+            return redirect('index')
     address = Address.objects.get(id=id)
-    form = UpdateAddress(request.POST, instance=address)
-    if form.is_valid():
-        form.save()
-        return redirect('index')
     return render(request, USER_ADDRESS_UPDATE_URL, {'address': address})
 
 
@@ -251,4 +245,3 @@ def view_product(request):
     view available product details.
     """
     return render(request, VIEW_PRODUCT_URL)
-

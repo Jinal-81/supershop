@@ -17,7 +17,7 @@ class Address(models.Model):
     create address for user.
     """
     objects = None
-    MyUser_id = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE,blank=True, null=True)
     city = models.CharField(max_length=20)
     zipcode = models.CharField(max_length=6)
     landmark = models.CharField(max_length=25)

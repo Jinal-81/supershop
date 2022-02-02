@@ -26,4 +26,3 @@ class AddressFactory(factory.django.DjangoModelFactory):
     zipcode = '387100'
     landmark = 'PK'
     state = 'Gujarat'
-    MyUser_id_id = 1
