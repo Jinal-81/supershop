@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'userlogin',
+    'cart',
+    'product',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +83,7 @@ WSGI_APPLICATION = 'supershop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'supershop',
+        'NAME': 'SuperShop',
         'USER': 'myuser',
         'PASSWORD': 'mypass',
         'HOST': 'localhost',
@@ -126,6 +130,7 @@ APPEND_SLASH = False
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# print(STATIC_ROOT)
 # BASE URL TO SERVER MEDIA FILES
 MEDIA_URL = '/media/'
 
