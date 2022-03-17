@@ -1,10 +1,13 @@
 import factory
 from django.contrib.auth import get_user_model
-from .models import MyUser, Address
 import datetime
+from userlogin.models import Address
 
 
 class UserFactory(factory.django.DjangoModelFactory):
+    """
+    factory for user.
+    """
     class Meta:
         model = get_user_model()
 
@@ -19,6 +22,9 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class AddressFactory(factory.django.DjangoModelFactory):
+    """
+    factory for address.
+    """
     class Meta:
         model = Address
 
@@ -26,3 +32,4 @@ class AddressFactory(factory.django.DjangoModelFactory):
     zipcode = '387100'
     landmark = 'PK'
     state = 'Gujarat'
+    address_type = 'home'

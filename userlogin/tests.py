@@ -1,15 +1,14 @@
 from unittest import mock
-
 from django.contrib.auth.tokens import default_token_generator
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-
+from product.factories import ProductFactory, CategoryFactory
 from .factories import UserFactory, AddressFactory
 from .forms import EMAIL_EXISTS_MSG, USERNAME_EXISTS_MSG, MOBILE_NUMBER_EXISTS_MSG
-from .models import MyUser, Address
-from .views import LOGIN_ERROR_MSG, USER_ADDRESS_UPDATE_MSG, EMAIL_INVALID_MSG, INVALID_EMAIL_SUBJECT, USER_PROFILE_UPDATE_MSG
+from .views import LOGIN_ERROR_MSG, EMAIL_INVALID_MSG, INVALID_EMAIL_SUBJECT, USER_PROFILE_UPDATE_MSG,  \
+    REGISTRATION_SUCCESS_MSG
 
 PASSWORD_RESET_URL = reverse('password_reset')
 PASSWORD_RESET_DONE = reverse('password_reset_done')
@@ -17,7 +16,7 @@ USER_FIELD_INVALID_MSG = "please fill in this field"
 PASSWORD_FIELD_INVALID_MSG = "please fill in this field"
 LOGOUT_URL = reverse('logout')
 USER_PROFILE_UPDATE_URL = reverse('profile')
-USER_ADD_ADDRESS_URL = reverse('add_address')
+USER_ADD_ADDRESS_URL = reverse('user_address')
 
 
 class BaseTest(TestCase):
@@ -33,9 +32,15 @@ class BaseTest(TestCase):
         self.user.set_password(self.user.password)
         self.user.save()
 
-        self.user1 = AddressFactory()
-        self.user1.user = self.user
-        self.user1.save()
+        self.address = AddressFactory()
+        self.address.user = self.user
+        self.address.save()
+
+        self.products = ProductFactory()
+        self.products.save()
+
+        self.categories = CategoryFactory()
+        self.categories.save()
 
 
 # Create your tests here.
@@ -79,6 +84,58 @@ class ViewsTestCase(BaseTest):
         # self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.find("set-password") != -1)
 
+    def test_pagination_is_String_or_not(self):
+        """
+        test the pagination.
+        """
+        response = self.client.get(reverse('index')+'?page=dsdf')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(str(response.context['products_item'].number), '1')
+
+    def test_lists_all_products(self):
+        """
+        Get second page and confirm it has (exactly) remaining 3 items
+        """
+        no_products = 10
+        for product_id in range(no_products):
+            """
+            create products using product factory.
+            """
+            ProductFactory()
+        response = self.client.get(reverse('index')+'?page=2')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['products_item']), 3)
+
+    def test_products_has_next_page(self):
+        """
+        Get second page and confirm it has (exactly) remaining 3 items
+        """
+        no_products = 10
+        for product_id in range(no_products):
+            """
+            create products using product factory.
+            """
+            ProductFactory()
+        response = self.client.get(reverse('index')+'?page=2')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['products_item']), 3)
+        self.assertEqual(response.context['products_item'].has_next(), True)
+
+    def test_empty_page(self):
+        """
+        test that next page is available or not if not then page is empty.
+        """
+        no_products = 10
+        for product_id in range(no_products):
+            """
+            create products using product factory.
+            """
+            ProductFactory()
+        # Get second page and confirm it has (exactly) remaining 3 items
+        response = self.client.get(reverse('index')+'?page=5')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['products_item'].has_next(), False)
+
 
 class LoginTest(BaseTest):
     def test_login_success_redirect(self):
@@ -97,6 +154,40 @@ class LoginTest(BaseTest):
                                     {'username': 'xyz', 'password': 'xyz'})
         self.assertContains(response, LOGIN_ERROR_MSG)
 
+    def test_category_search_load(self):
+        """
+        test that categories wise search page load properly.
+        """
+        self.client.force_login(self.user)
+        url = reverse('category_search', args=(self.categories.id, ))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_pagination_is_String_or_not_category(self):
+        """
+        test the pagination.
+        """
+        url = reverse('category_search', args=(self.categories.id, ))
+        response = self.client.get(url+'?page=dsdf')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(str(response.context['products_item'].number), '1')
+
+    def test_empty_page_for_category(self):
+        """
+        test that next page is available or not if not then page is empty.
+        """
+        no_products = 10
+        for product_id in range(no_products):
+            """
+            create products using product factory.
+            """
+            ProductFactory()
+        # Get second page and confirm it has (exactly) remaining 3 items
+        url = reverse('category_search', args=(self.categories.id, ))
+        response = self.client.get(url+'?page=5')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['products_item'].has_next(), False)
+
 
 class SignupTest(BaseTest):
     def test_signup_success(self):
@@ -107,6 +198,7 @@ class SignupTest(BaseTest):
                                                         'first_name': self.user.first_name, 'last_name': self.user.last_name,
                                                         'email': self.user.email, 'mobile_number': self.user.mobile_number,
                                                         'birth_date': self.user.birth_date, 'profile_pic': self.user.profile_pic})
+        self.assertTrue(response, REGISTRATION_SUCCESS_MSG)
         # Check that we got a response "success"
         self.assertEqual(response.status_code, 200)
 
@@ -203,24 +295,6 @@ class ForgotPasswordTest(BaseTest):
         self.assertContains(response, INVALID_EMAIL_SUBJECT)
 
 
-class ProductTest(BaseTest):
-    def test_product_page_load(self):
-        """
-        test that product page load successfully.
-        """
-        response = self.client.post(reverse('view_product'))
-        self.assertEqual(response.status_code, 200)
-
-
-class CartTest(BaseTest):
-    def test_cart_page_load(self):
-        """
-        test that cart page load successfully
-        """
-        response = self.client.post(reverse('cart'))
-        self.assertEqual(response.status_code, 200)
-
-
 class UserProfileTest(BaseTest):
     def test_user_profile_page_load(self):
         """
@@ -236,14 +310,17 @@ class UserProfileTest(BaseTest):
         """
         self.client.force_login(self.user)
         response = self.client.post(USER_PROFILE_UPDATE_URL, {'first_name': 'Jinu', 'last_name': 'patel', 'username': 'jinu', 'birth_date': '10/01/2021', 'profile_pic': 'girl1.jpg'}, follow=True)
+        self.assertTrue(response, USER_PROFILE_UPDATE_MSG)
         self.assertRedirects(response, self.index_url)
 
 
 class UserAddressTest(BaseTest):
-    def test_user_add_address_load(self):
+    def test_user_view_url_exists_addresses(self):
         """
-        test that user add address page load properly.
+        test that add address url.
         """
+        self.client.force_login(self.user)
+        self.client.enforce_csrf_checks = True
         response = self.client.get(USER_ADD_ADDRESS_URL)
         self.assertEqual(response.status_code, 200)
 
@@ -251,53 +328,37 @@ class UserAddressTest(BaseTest):
         """
         test that exist address view page load properly.
         """
-        url = reverse('user_address', args=(self.user.id,))
-        response = self.client.post(url, {'city': 'anand',
-                                          'zipcode': '387110',
-                                          'landmark': 'KL Tower',
-                                          'state': 'Gujarat',
-                                          'user': self.user.id})
+        self.client.force_login(self.user)
+        self.client.enforce_csrf_checks = True
+        response = self.client.post(USER_ADD_ADDRESS_URL, {'city': 'anand',
+                                                           'zipcode': '387110',
+                                                           'landmark': 'KL Tower',
+                                                           'state': 'Gujarat',
+                                                           'address_type': 'home'})
         self.assertEqual(response.status_code, 200)
 
     def test_user_remove_address(self):
         """
         test that address remove successfully.
         """
-        url = reverse('remove_address', args=(self.user1.id,))
-        response = self.client.get(url)
-        self.assertTrue(response, self.index_url)
+        self.client.force_login(self.user)
+        self.client.enforce_csrf_checks = True
+        url = reverse('remove_address')
+        response = self.client.post(url, {'id': self.address.id})
+        self.assertTrue(response.status_code, 200)
 
     def test_user_update_address(self):
         """
         test that user update address successfully
         """
-        url = reverse('user_address_update', args=(self.user1.id,))
-        # address = Address.objects.get(id=self.user1.id)
-        response = self.client.post(url, {'city': 'xyz',
+        self.client.force_login(self.user)
+        self.client.enforce_csrf_checks = True
+        response = self.client.post(reverse('user_address_update'), {
+                                          'id': self.address.id,
+                                          'city': 'xyz',
                                           'zipcode': '147852',
                                           'landmark': 'skjdk',
                                           'state': 'gujarat',
-                                          }, follow=True)
-        self.assertTrue(response, self.index_url)
-
-    def test_user_update_address_load(self):
-        """
-        test that user update address load properly  successfully
-        """
-        url = reverse('user_address_update', args=(self.user1.id,))
-        # address = Address.objects.get(id=self.user1.id)
-        response = self.client.get(url)
+                                          'address_type': 'home'
+                                          })
         self.assertTrue(response.status_code, 200)
-
-    def test_user_add_address_successfully(self):
-        """
-        test that user add address successfully.
-        """
-        response = self.client.post(USER_ADD_ADDRESS_URL, {'city': self.user1.city,
-                                                           'zipcode': self.user1.zipcode,
-                                                           'landmark': self.user1.landmark,
-                                                           'state': self.user1.state,
-                                                           })
-        self.assertTrue(response.status_code, 200)
-
-    

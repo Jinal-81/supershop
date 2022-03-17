@@ -1,9 +1,10 @@
 {% extends 'userlogin/base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block content %}
 <!--Slider start-->
-<div id="HomepageID" class="carousel slide" data-bs-ride="carousel">
     {% include 'userlogin/messages.html' %}
+<div id="HomepageID" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#HomepageID" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#HomepageID" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -43,110 +44,91 @@
 </div>
 <!--slider end-->
 <!--nav bar for category start-->
-<nav class="navbar navbar-expand-sm navbar-light bg-transparent">
-  <div class="container">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="#">Categories</a>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Women</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Men</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+<div class="container" id="navmargin">
+<ul class="nav nav-pills">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" id="categoryfont">Dropdown</a>
+    <ul class="dropdown-menu">
+      {% for category in categories %}
+        <li><a class="dropdown-item" href="{% url 'category_search' category.id %}" role="button" type="submit">{{ category.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </li>
+  <li id="limargin">
+      <form class="d-flex" method="post">
+          {% csrf_token %}
+          {% render_field filter.form.name class="form-control" %}
         <button class="btn btn-outline-secondary" type="submit">Search</button>
       </form>
-    </div>
-  </div>
-</nav>
+  </li>
+</ul>
+</div>
 <!--navbar for categories end-->
-<!--container for women clothes start-->
-<section id="ImageID" class="container">
-    <h2 class="display-4 text-center mt-5 mb-3">Women's Latest</h2>
-    <div class="row text-center">
-        <div class="col-md-4 mb-4">
-            <div class="card h-auto" id="card">
-                <img class="card-img-top" src="{% static 'userlogin/girl4.jpg' %}" id="imageheight">
-                <div class="card-footer py-4">
-                    <a href="{% url 'view_product' %}" class="btn btn-secondary">View</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-auto" id="card">
-                <img class="card-img-top" src="{% static 'userlogin/image2.jpg' %}" id="imageheight">
-                <div class="card-footer py-4">
-                    <a href="{% static '#' %}" class="btn btn-secondary">View</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-auto" id="card">
-                <img class="card-img-top" src="{% static 'userlogin/image3.jpg' %}" id="imageheight">
-                <div class="card-footer py-4">
-                    <a href="{% static '#' %}" class="btn btn-secondary">View</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--container for women clothe end-->
 <!--container for men clothes start-->
+{% if products_item.count != 0 %}
+<!--if product available-->
 <section id="ImageID1" class="container">
-    <h2 class="display-4 text-center mt-5 mb-3">Men's Latest</h2>
+    <h2 class="display-4 text-center mt-5 mb-3">Latest Products</h2>
     <div class="row text-center">
+        <!--for loop for products item start-->
+        {% for product in products_item %}
         <div class="col-md-4 mb-4">
             <div class="card h-auto" id="card">
-                <img class="card-img-top" src="{% static 'userlogin/men1.jpg' %}" id="imageheight">
+                <img class="card-img-top" src="{{ product.product_image.url }}" id="imageheight">
                 <div class="card-footer py-4">
-                    <a href="{% static '#' %}" class="btn btn-secondary">View</a>
+                    <a href="{% url 'view_product' product.id %}" class="btn btn-secondary">View</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-auto" id="card">
-                <img class="card-img-top" src="{% static 'userlogin/men6.png' %}" id="imageheight">
-                <div class="card-footer py-4">
-                    <a href="{% static '#' %}" class="btn btn-secondary">View</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-auto" id="card">
-                <img class="card-img-top" src="{% static 'userlogin/men7.jpg' %}" id="imageheight">
-                <div class="card-footer py-4">
-                    <a href="{% static '#' %}" class="btn btn-secondary">View</a>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
+        <!--for loop for products item end-->
     </div>
 </section>
-<!--container for men clothes end-->
+{% elif products_item.count == 0 %}
+<!--error message if product not available-->
+<section id="ImageID1" class="container">
+    <div class="alert alert-danger" role="alert" id="marginmessage">
+        <h2 class="display-4 text-center mt-5 mb-3">Oops..!! Latest Products Not Available..</h2>
+    </div>
+</section>
+{% endif %}
 <!--pagination start-->
+{% if products_item.has_other_pages %}
 <nav aria-label="Page navigation example">
-    <ul id="card" class="pagination justify-content-center" >
+    <ul class="pagination justify-content-center" >
+        <!--check that previous page is exists or not-->
+            {% if products_item.has_previous %}
         <li class="page-item disabled">
-          <a class="page-link" href="{% static '#' %}" tabindex="-1" aria-disabled="true">Previous</a>
+          <a class="page-link" href="?page={{ products_item.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
         </li>
-        <li class="page-item"><a class="page-link" href="ImageID">1</a></li>
-        <li class="page-item"><a class="page-link" href="ImageID2">2</a></li>
-        <li class="page-item"><a class="page-link" href="ImageID3">3</a></li>
+        <!--not exists then disabled-->
+        {% else %}
+        <li class="disabled">
+          <span class="page-link">Previous</span>
+        </li>
+        {% endif %}
+        <!--start loop for all pages-->
+        {% for i in products_item.paginator.page_range %}
+            {% if products.number == i %}
+              <li class="page-item active" aria-current="page"><span>{{ i }}</span></li>
+              {% else %}
+              <li class="page-link"><a href='?page={{ i }}'>{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        <!--check that next page is exists or not-->
+        {% if products_item.has_next %}
         <li class="page-item">
-          <a class="page-link" href="{% static '#' %}">Next</a>
+          <a class="page-link" href="?page={{ products_item.next_page_number }}">Next</a>
         </li>
+        {% endif %}
     </ul>
 </nav>
+{% endif %}
 <!--pagination end-->
 <!--section start for contact us button-->
 <section class="container-fluid text-center py-4 mt-4" id="contact">
    <h2 class="display-4 pb-4 my-4">Get in touch with us today!</h2>
-   <p class="lead pb-3">Send us a message and we will get back to you as soon as possible.</p>
+   <p class="lead pb-3">Send us a message, and we will get back to you as soon as possible.</p>
    <a href="#Contactsection" class="btn btn-primary btn-lg mb-4" role="button">Contact us</a>
 </section>
 <!--section end-->

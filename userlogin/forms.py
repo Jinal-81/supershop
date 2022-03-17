@@ -99,18 +99,9 @@ class AddAddress(forms.ModelForm):
     """
     add addresses from here
     """
-    def clean_landmark(self):
-        """
-        check that username is exists or not.
-        """
-        landmark = self.cleaned_data.get("landmark")
-        if Address.objects.filter(landmark=landmark).exists():
-            self.add_error("landmark", LANDMARK_EXISTS_MSG)
-        return landmark
-
     class Meta:
         model = Address
-        fields = ("city", "zipcode", "landmark", "state")
+        fields = ['city', 'zipcode', 'landmark', 'state', 'address_type']
 
 
 class UpdateAddress(forms.ModelForm):
@@ -119,4 +110,4 @@ class UpdateAddress(forms.ModelForm):
     """
     class Meta:
         model = Address
-        fields = ("city", "zipcode", "landmark", "state")
+        fields = ("city", "zipcode", "landmark", "state", "address_type")

@@ -16,9 +16,24 @@ class Address(models.Model):
     """
     create address for user.
     """
-    objects = None
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE,blank=True, null=True)
+    objects = None  # this is for objects variable because I am getting warning in view for objects.
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, blank=True, null=True)
     city = models.CharField(max_length=20)
     zipcode = models.CharField(max_length=6)
     landmark = models.CharField(max_length=25)
     state = models.CharField(max_length=10)
+    address_type = models.CharField(max_length=20)
+
+    class Meta:
+        """
+        both the fields unique.
+        """
+        unique_together = [
+            ["zipcode", "landmark", "user"],
+        ]
+
+    def __str__(self):
+        """
+        show the object name in string format.
+        """
+        return self.landmark

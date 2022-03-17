@@ -1,18 +1,18 @@
 {% load static %}
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <title>base page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="{% static 'userlogin/bootstrap.bundle.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'userlogin/icons-1.7.2/font/bootstrap-icons.css' %}">
-    <link type="text/css" href="/static/css/style.css" rel="stylesheet">
-</head>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>base page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'userlogin/icons-1.7.2/font/bootstrap-icons.css' %}">
+        <link type="text/css" href="/static/css/style.css" rel="stylesheet">
+    </head>
 <!--Nav bar start-->
-<nav class="navbar navbar-expand-sm navbar-light" id="borderstyle">
+<nav class="navbar navbar-expand-sm navbar-light bg-transparent" id="borderstyle">
   <div class="container-fluid">
-    <button class="navbar-toggler" id="navtoggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-        <i class="fas fa-align-justify"></i>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon"></span>
     </button>
     <a href="#" class="navbar-brand">SuperShop</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -20,13 +20,6 @@
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'cart' %}" target="_self">Cart</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Product</a>
-        </li>
-
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -35,8 +28,14 @@
             <a class="nav-link" href="{% url 'profile' %}">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'user_address' user.id %}">Addresses</a>
-        </li>
+            <a class="nav-link" href="{% url 'user_address' %}">Addresses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+          </li>
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="{% url 'view_order_list' %}">Order</a>-->
+<!--          </li>-->
           {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">login</a>
@@ -50,8 +49,20 @@
   </div>
 </nav>
 <!--Nav bar end-->
-<body>
+<body id="bodyid">
 {% block content %}{% endblock %}
+{% block javascript %}
+<!--    <script type="text/javascript" src="{% static 'js/user_address.js' %}"></script>-->
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'userlogin/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/popper.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/user_address.js' %}"></script>
+{% endblock %}
+
 <!-- Footer start -->
 <footer class="text-center text-lg-start text-black" id="footer">
     <!-- Grid container -->
@@ -70,9 +81,9 @@
           <!-- Grid column -->
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-4">
             <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-            <p><a class="text-black" id="font-colour">Men's Wear</a></p>
-            <p><a class="text-black" id="font-colour">Women's Wear</a></p>
-            <p><a class="text-black" id="font-colour">Children's Wear</a></p>
+            <p><a class="text-black" id="font-colour" href="//127.0.0.1:8000/category_search/3">Men's Wear</a></p>
+            <p><a class="text-black" id="font-colour" href="//127.0.0.1:8000/category_search/2">Women's Wear</a></p>
+            <p><a class="text-black" id="font-colour" href="//127.0.0.1:8000/category_search/2">Children's Wear</a></p>
           </div>
           <!-- Grid column -->
           <hr class="w-100 clearfix d-md-none" />
@@ -93,17 +104,17 @@
             <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
 
             <!-- Facebook -->
-            <a class="btn btn-primary btn-floating m-1" id="facebook" href="{% static '#!' %}" role="button"><i class="bi bi-facebook"></i></a>
+            <a class="btn btn-primary btn-floating m-1" id="facebook" href="//www.facebook.com/login/" role="button"><i class="bi bi-facebook"></i></a>
             <!-- Twitter -->
-            <a class="btn btn-primary btn-floating m-1" id="twitter" href="{% static '#!' %}" role="button"><i class="bi bi-twitter"></i></a>
+            <a class="btn btn-primary btn-floating m-1" id="twitter" href="//twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D" role="button"><i class="bi bi-twitter"></i></a>
             <!-- Google -->
-            <a class="btn btn-primary btn-floating m-1" id="google" href="{% static '#!' %}" role="button"><i class="bi bi-google"></i></a>
+            <a class="btn btn-primary btn-floating m-1" id="google" href="//www.google.co.in/" role="button"><i class="bi bi-google"></i></a>
             <!-- Instagram -->
-            <a class="btn btn-primary btn-floating m-1" id="insta" href="{% static '#!' %}" role="button"><i class="bi bi-instagram"></i></a>
+            <a class="btn btn-primary btn-floating m-1" id="insta" href="//www.instagram.com/" role="button"><i class="bi bi-instagram"></i></a>
             <!-- Linkedin -->
-            <a class="btn btn-primary btn-floating m-1" id="linkedin" href="{% static '#!' %}" role="button"><i class="bi bi-linkedin"></i></a>
+            <a class="btn btn-primary btn-floating m-1" id="linkedin" href="//www.linkedin.com/login" role="button"><i class="bi bi-linkedin"></i></a>
             <!-- Github -->
-            <a class="btn btn-primary btn-floating m-1" id="github" href="{% static '#!' %}" role="button"><i class="bi bi-github"></i></a>
+            <a class="btn btn-primary btn-floating m-1" id="github" href="//github.com/" role="button"><i class="bi bi-github"></i></a>
           </div>
         </div>
         <!--Grid row-->
@@ -114,7 +125,7 @@
     <!-- Copyright -->
     <div class="text-center p-3" id="copyright" id="font-colour">
       &copy; 2021 Copyright:
-      <a class="text-black" href="#" id="font-colour">SuperShop.com</a>
+      <a class="text-black" href="{% url 'index' %}" id="font-colour">SuperShop.com</a>
     </div>
     <!-- Copyright -->
   </footer>

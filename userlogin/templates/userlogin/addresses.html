@@ -1,36 +1,116 @@
 {% extends 'userlogin/base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block content %}
-<section id="loginbg">
-    {% if user.is_authenticated %}
-    <div class="container py-5 mx-auto">
-      <div class="justify-content-md-end py-3">
-<!--      <button class="btn btn-outline-success" type="button">Add</button>-->
-          <a href="{% url 'add_address' %}" class="btn btn-primary">Add New Address</a>
-    </div>
-        {% for i in address %}
-        <div class="accordion" id="accordionPanelsStayOpenExample{{i}}">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                Address
-              </button>
-            </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-              <div class="accordion-body">
-                <strong>{{ i.id }} , </strong>
-                <strong>{{ i.city }} , </strong>
-                <strong>{{ i.landmark }} , </strong>
-                <strong>{{ i.zipcode }} , </strong>
-                <strong>{{ i.state }}  </strong>
-                <a href="{% url 'remove_address' i.id %}" class="btn btn-outline-danger">Remove</a>
-                <a href="{% url 'user_address_update' i.id %}" class="btn btn-outline-danger">Update</a>
+<section class="container">
+<h1 class="text-center" id="Address-margin">Addresses</h1>
+<div class="text-right"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="plus-margin"><i class="bi bi-plus-square-fill"></i></button></div>
+<!--modal for create address-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Address</h5>
+          <!--if we remove bs from the data-bs-dismiss then modal will not close-->
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <!--form start-->
+         <form id="addAddress" method="post" action="" name="addressadd">
+            {% csrf_token %}
+             {{ form.as_p }}
+            {% for field in form %}
+              {% for error in field.errors %}
+              <div id="errormessage">
+                  *{{ error|escape }}
               </div>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-    {% endif %}
+              {% endfor %}
+            {% endfor %}
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+             <button type="submit" class="btn btn-primary">create Address</button>
+         </form>
+         <!--  form end-->
+      </div>
     </div>
+  </div>
+</div>
+<!--modal end for create address-->
+<!--collapse for user address list-->
+  {% for address in addresses %}
+   <div id="userTable">
+    <div id="address-{{address.id}}" class="card mt-3 p-sm-1">
+      <div class="card-header">
+        <a class="btn" aria-expanded="false" data-bs-toggle="collapse" href="#collapseOne">
+            <div class="addressAddress_type addressData">{{address.address_type}}</div>
+        </a>
+        <i class="bi bi-chevron-double-down" id="arrowmargin"></i>
+      </div>
+      <div id="panel-box" class="collapse show" data-bs-parent="#userTable">
+        <div class="card-body">
+            <div class="addressCity addressData" name="city">{{address.city}}</div>
+            <div class="addressLandmark addressData" name="landmark">{{address.landmark}}</div>
+            <div class="addressZipcode addressData" name="zipcode">{{address.zipcode}}</div>
+            <div class="addressState addressData" name="state">{{address.state}}</div>
+            <button class="btn btn-success btn-edit" onClick="editAddress({{address.id}})" data-bs-toggle="modal" data-bs-target="#myModal"><i class="bi bi-pencil-square"></i></button>
+            <button type="button" onClick="deleteAddress({{address.id}})" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModaldelete"><i class="bi bi-trash-fill"></i></button>
+        </div>
+      </div>
+    </div>
+   </div>
+  {% endfor %}
 </section>
+<!--collapse end for user addresses -->
+<!--modal for update address-->
+<div  id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Update Address</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="updateAddress" method="post" action="">
+            {% csrf_token %}
+            <input class="form-control" id="form-id" type="hidden" name="formId"/>
+            <label for="city">city</label>
+            <input class="form-control" id="form-city" type="text" name="formCity"/>
+            <label for="landmark">Landmark</label>
+            <input class="form-control" id="form-landmark" type="text" name="formLandmark"/>
+            <label for="zipcode">zipcode</label>
+            <input class="form-control" id="form-zipcode" type="text" name="formZipcode"/>
+            <label for="state">state</label>
+            <input class="form-control" id="form-state" type="text" name="formState"/>
+            <label for="address_type">Address_type</label>
+            <input class="form-control" id="form-address_type" type="text" name="formAddress_type"/>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" aria-label="Close">Save changes</button>
+        </form>
+<!--  form end-->
+      </div>
+    </div>
+  </div>
+</div>
+<!--end modal for update address-->
+<!--start modal for delete address-->
+<div  id="myModaldelete" class="modal fade" tabindex="-1" aria-labelledby="myModaldeleteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModaldeleteLabel">Delete Address</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="deleteAddress" method="post" action="">
+            {% csrf_token %}
+            <input class="form-control" id="form-iddelete" type="hidden" name="formdeleteId"/>
+            <p>Are you sure you want to delete this Address?</p>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">confirm</button>
+        </form>
+<!--  form end-->
+      </div>
+    </div>
+  </div>
+</div>
+<!--end modal for delete address-->
 {% endblock %}

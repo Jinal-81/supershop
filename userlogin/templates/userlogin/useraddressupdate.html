@@ -38,6 +38,10 @@
                         <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label">State</div>
                         <div class="col-lg-8 col-md-3 cold-sm-6"><input type="text" name="state" id="id_state" required value="{{ address.state }}" /></div>
                     </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label">Address Type:</div>
+                        <div class="col-lg-8 col-md-3 cold-sm-6"><input type="text" name="address_type" id="id_address_type" required value="{{ address.address_type }}" /></div>
+                    </div>
                     <div class="mt-5 text-center">
                         <button class="btn btn-primary profile-button" type="submit" value="submit">Update</button>
                     </div>
@@ -60,4 +64,63 @@
   <!--container end-->
 </section>
 <!--section end-->
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/user_address_update/{{address.id}}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+            <div class="p-3 py-5">
+            <div class="d-flex flex-column justify-content-between align-items-center">
+                <h4 class="text-right">Update Your Address</h4>
+            </div>
+            <div class="form-group row">
+                    <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label">Address Id:</div>
+                <div class="col-lg-8 col-md-3 cold-sm-6"> <input type="text" name="id" id="id_id" required value="{{ address.id }}" /></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label">City</div>
+                <div class="col-lg-8 col-md-3 cold-sm-6"><input type="text" name="city" id="id_city" required value="{{ address.city }}" /></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label">Zipcode:</div>
+                <div class="col-lg-8 col-md-3 cold-sm-6"><input type="text" name="zipcode" id="id_zipcode" required value="{{ address.zipcode }}" /></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label">LandMark</div>
+                <div class="col-lg-8 col-md-3 cold-sm-6"><input type="text" name="landmark" id="id_landmark" required value="{{ address.landmark }}" /></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label">State</div>
+                <div class="col-lg-8 col-md-3 cold-sm-6"><input type="text" name="state" id="id_state" required value="{{ address.state }}" /></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label">Address Type:</div>
+                <div class="col-lg-8 col-md-3 cold-sm-6"><input type="text" name="address_type" id="id_address_type" required value="{{ address.address_type }}" /></div>
+            </div>
+            <div class="mt-5 text-center">
+                <button class="btn btn-primary profile-button" type="submit" value="submit">Update</button>
+            </div>
+            {% for error in field.errors %}
+            <div id="errormessage">
+                *{{ error|escape }}
+            </div>
+            {% endfor %}
+            </div>
+        </form>
+        <!--form end-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

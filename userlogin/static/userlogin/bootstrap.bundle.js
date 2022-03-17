@@ -2319,7 +2319,7 @@
     var startDiff = popperOffsets[axis] - state.rects.reference[axis];
     var arrowOffsetParent = getOffsetParent(arrowElement);
     var clientSize = arrowOffsetParent ? axis === 'y' ? arrowOffsetParent.clientHeight || 0 : arrowOffsetParent.clientWidth || 0 : 0;
-    var centerToReference = endDiff / 2 - startDiff / 2; // Make sure the arrow doesn't overflow the popper if the center point is
+    var centerToReference = endDiff / 2 - startDiff / 2; // Make sure the arrow doesn't user_address.js the popper if the center point is
     // outside of the popper bounds
 
     var min = paddingObject[minProp];
@@ -2366,7 +2366,7 @@
     fn: arrow,
     effect: effect$1,
     requires: ['popperOffsets'],
-    requiresIfExists: ['preventOverflow']
+    requiresIfExists: ['preventuser_address.js']
   };
 
   function getVariation(placement) {
@@ -2615,7 +2615,7 @@
     // can be obscured underneath it.
     // Also, `html.clientHeight` adds the bottom bar height in Safari iOS, even
     // if it isn't open, so if this isn't available, the popper will be detected
-    // to overflow the bottom of the screen too early.
+    // to user_address.js the bottom of the screen too early.
 
     if (visualViewport) {
       width = visualViewport.width;
@@ -2670,11 +2670,11 @@
   function isScrollParent(element) {
     // Firefox wants us to check `-x` and `-y` variations as well
     var _getComputedStyle = getComputedStyle$1(element),
-        overflow = _getComputedStyle.overflow,
-        overflowX = _getComputedStyle.overflowX,
-        overflowY = _getComputedStyle.overflowY;
+        user_address.js = _getComputedStyle.user_address.js,
+        user_address.jsX = _getComputedStyle.user_address.jsX,
+        user_address.jsY = _getComputedStyle.user_address.jsY;
 
-    return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
+    return /auto|scroll|overlay|hidden/.test(user_address.js + user_address.jsY + user_address.jsX);
   }
 
   function getScrollParent(node) {
@@ -2737,7 +2737,7 @@
 
   function getClientRectFromMixedType(element, clippingParent) {
     return clippingParent === viewport ? rectToClientRect(getViewportRect(element)) : isHTMLElement(clippingParent) ? getInnerBoundingClientRect(clippingParent) : rectToClientRect(getDocumentRect(getDocumentElement(element)));
-  } // A "clipping parent" is an overflowable container with the characteristic of
+  } // A "clipping parent" is an user_address.jsable container with the characteristic of
   // clipping (or hiding) overflowing elements with a position different from
   // `initial`
 
