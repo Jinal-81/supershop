@@ -3,7 +3,6 @@
 {% block content %}
 <!--container start-->
 <section class="container">
-<!--    <h4 class="text-center" id="marginheader">Order Status</h4>-->
     <!--card start-->
     <div class="card p-4" id="cartcard">
         {% include 'userlogin/messages.html' %}
@@ -24,44 +23,16 @@
                             </div>
                             <b>Yay! It's a nice order!<b>
                             <b>It will arrive soon.</b>
-<!--                            <img src="https://img.icons8.com/carbon-copy/100/000000/checked-checkbox.png" width="125" height="120" id="tickid" style="display: block; border: 0px;" />-->
                             <div class="card-footer py-4">
                                 <a href="{% url 'index' %}" class="btn btn-secondary">Shop Again</a>
                             </div>
                         </div>
                     </div>
                 </div>
-<!--            <thead>-->
-<!--                <tr>-->
-<!--                    <td><b>Amount</b></td>-->
-<!--                    <td><b>Status</b></td>-->
-<!--                </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--              {% for cart_item in cart %}-->
-<!--              <tr>-->
-<!--                <td>{{ cart_item.total_amount }}</td>-->
-<!--                <td>{{ cart_item.status }}</td>-->
-<!--              </tr>-->
-<!--              {% endfor %}-->
-<!--            </tbody>-->
           </table>
         </div>
     </div>
     <!--card end-->
 </section>
 <!--container end-->
-<!--<section id="ImageID1" class="container">-->
-<!--    <h2 class="display-4 text-center">Latest Products</h2>-->
-<!--    <div class="row text-center">-->
-<!--        <div class="col-md-12">-->
-<!--            <div class="card h-auto" id="card">-->
-<!--                <img src="https://img.icons8.com/carbon-copy/100/000000/checked-checkbox.png" width="125" height="120" id="tickid" style="display: block; border: 0px;" />-->
-<!--                <div class="card-footer py-4">-->
-<!--                    <a href="#" class="btn btn-secondary">View</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
 {% endblock %}
