@@ -1,87 +1,78 @@
 {% extends 'userlogin/base.html' %}
 {% load static %}
 {% block content %}
-<!--container start-->
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-10 col-11 mx-auto">
-      <div class="row mt-5 gx-3">
-      <!--left side div-->
-      <div class="col-md-12 col-lg-8 col-11 mx-auto main_cart mb-lg-0 mb-5 shadow">
-        <div class="card p-4">
-          <h2 class="py-4 font-weight-bold">Cart item</h2>
-          <div class="row">
-            <div class="col-md-5 col-11 mx-auto bg-light d-flex justify-content-center align-items-center shadow product">
-              <img src="{% static 'userlogin/login4.jpg' %}" class="img-fluid" alt="carimage">
+<!--card start-->
+<!--check that cart is empty or not-->
+{% if cart.cartitem_set.count != 0 %}
+<div class="card p-4" id="cartcard">
+        {% include 'userlogin/messages.html' %}
+    <div class="row">
+        <div class="col-md-8 cart">
+            <div class="title">
+                <div class="row">
+                    <div class="col">
+                        <h4><b>Shopping Cart</b></h4>
+                    </div>
+                    <div class="col align-self-center text-right text-muted">{{ cart.cartitem_set.count }} ITEMS</div>
+                </div>
             </div>
-            <!--cart product details-->
-            <div class="col-md-7 col-11 mx-auto px-4 mt-2">
-              <div class="row">
-                <!--product name-->
-                <div class="col-6 card-title">
-                  <h1 class="mb-4 product_name">Blue Zara Shirt</h1>
-                  <p class="mb-2">SHIRT - BLUE</p>
-                  <p class="mb-2">COLOR: BLUE</p>
-                  <p class="mb-3">SIZE: M</p>
+            <div><b>Product&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quantity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action</b></div>
+            {% for cart_item in cart.cartitem_set.all %}
+            <div class="row border-top border-bottom">
+                <div class="row main align-items-center">
+                    <div class="col-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Click Here, for view Product"><a href="{% url 'view_product' cart_item.product.id %}"><img class="img-fluid" id="cartimage" src="{{ cart_item.product.product_image.url }}"></a></div>
+                    <div class="col">
+                        <div class="row text-muted">{{ cart_item.product.category.name }}</div>
+                        <div class="row">{{ cart_item.product.name }}</div>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                        <form action="{% url 'cartitem_update' cart_item.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" name="quantity" value="{{ cart_item.quantity }}" class="form-control form-control-sm">
+                        </form>
+                    </div>
+                    <div class="col" id="margincartprice" name="price">
+                        &euro; {{cart_item.price}}
+                        <a href="{% url 'cartitem_remove' cart_item.id %}" id ="margincartdelete"><i class="bi bi-trash-fill"></i></a>
+                    </div>
                 </div>
-                <!--quantity inc dec-->
-                <div class="col-6">
-                  <ul class="pagination justify-content-end set_quantity">
-                    <li class="page-item">
-                      <button class="page-link" onclick="increaseNumber()"><i class="bi bi-dash"></i></button>
-                    </li>
-                    <li class="page-item">
-                      <input type="text" name="" class="page-link" value="1" id="textbox">
-                    </li>
-                    <li class="page-item">
-                      <button class="page-link" onclick="decreaseNumber()"><i class="bi bi-plus"></i></button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <!--remover move and price-->
-              <div class="row">
-                <div class="col-8 d-flex justify-content-between remve_item">
-                  <p><i class="bi bi-trash">REMOVE ITEM</i></p>
-                </div>
-                <div class="col-4 d-flex justify-content-end price_money">
-                  <h3>$<span id="itemval"></span>0.00</h3>
-                </div>
-              </div>
             </div>
-          </div>
+            {% endfor %}
         </div>
-      </div>
-      <!--right side div-->
-      <div class="col-md-12 col-lg-4 col-11 mx-auto mb-lg-0 mb-3">
-        <div class="right_side p-3 shadow bg-white">
-          <h2 class="product_name mb-5">The Total Amount Of</h2>
-          <div class="price_indiv d-flex justify-content-between">
-            <p>Product Amount</p>
-            <p>$<span>0.00</span></p>
-          </div>
-          <div class="price_indiv d-flex justify-content-between">
-            <p>Shipping Charge</p>
-            <p>$50.0</p>
-          </div>
-          <hr/>
-          <div class="total-amt d-flex justify-content-between font-weight-bold">
-            <p>The total amount of (including VAT)</p>
-            <p>$<span id="total_cart_amt">0.00</span></p>
-          </div>
-          <button class="btn btn-primary text-uppercase">Checkout</button>
+        <div class="col-md-4 summary">
+            <div>
+                <h5><b>Summary</b></h5>
+            </div>
+            <form action="{% url 'order' %}" method="post">
+                {% csrf_token %}
+            <div class="row" id="cartsummaryid">
+                <div class="col-md-9"><b>TOTAL PRICE</b></div>
+                <div class="col" id="textmargin">&euro; {{cart.total_amount}}</div>
+            </div>
+                <button class="btn btn-info" type="submit" id="buttonmargin">CHECKOUT</button>
+            </form>
         </div>
-      </div>
-        <!--date of delivery-->
-      <div class="mt-3 shadow p-3 bg-white m-1">
-        <div class="pt-4">
-          <h5 class="mb-4">Expected delivery date</h5>
-          <p>January 8th 2022 - January 15th 2022</p>
-        </div>
-      </div>
-      </div>
     </div>
-  </div>
 </div>
-<!--container end-->
+{% elif cart.cartitem_set.count == 0 %}
+<!--if cart is empty-->
+<div class="card p-4" id="cartcard">
+        {% include 'userlogin/messages.html' %}
+    <div class="row" id="cart.total_amount">
+        <div class="col">
+            <div class="title">
+                <div class="row">
+                    <div class="col">
+                        <h4 align="center"><b>Shopping Cart</b></h4>
+                    </div>
+                    <div class="alert alert-danger" role="alert" id="marginmessage">
+                      <strong>Oh Oops!</strong>Cart is Empty.Add Your Favourite Items Into cart.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<!--card end-->
 {% endblock %}

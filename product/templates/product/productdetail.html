@@ -1,11 +1,14 @@
 {% extends 'userlogin/base.html' %}
 {% load static %}
 {% block content %}
+<!--section start-->
 <section id="loginbg">
+  <!--container start-->
   <div class="container py-5 mx-auto">
     <div class="row d-flex justify-content-center align-items-center mx-auto">
       <div class="col col-xl-10">
         {% if product %}
+        <!--card start-->
         <div class="card mb-3" id="logincardradius">
           <div class="row g-0">
             <div class="card">
@@ -37,9 +40,12 @@
             </div>
           </div>
         </div>
+        <!--card end-->
         {% endif %}
       </div>
     </div>
   </div>
+  <!--container end-->
 </section>
+<!--section end-->
 {% endblock %}
