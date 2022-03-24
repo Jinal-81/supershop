@@ -110,7 +110,7 @@ class ViewsTestCase(BaseTest):
         """
         Get second page and confirm it has (exactly) remaining 3 items
         """
-        no_products = 10
+        no_products = 20
         for product_id in range(no_products):
             """
             create products using product factory.
@@ -311,7 +311,7 @@ class UserProfileTest(BaseTest):
         self.client.force_login(self.user)
         response = self.client.post(USER_PROFILE_UPDATE_URL, {'first_name': 'Jinu', 'last_name': 'patel', 'username': 'jinu', 'birth_date': '10/01/2021', 'profile_pic': 'girl1.jpg'}, follow=True)
         self.assertTrue(response, USER_PROFILE_UPDATE_MSG)
-        self.assertRedirects(response, self.index_url)
+        self.assertRedirects(response, USER_PROFILE_UPDATE_URL)
 
 
 class UserAddressTest(BaseTest):
@@ -328,13 +328,15 @@ class UserAddressTest(BaseTest):
         """
         test that exist address view page load properly.
         """
-        self.client.force_login(self.user)
+        # import pdb;pdb.set_trace();
         self.client.enforce_csrf_checks = True
+        self.client.force_login(self.user)
         response = self.client.post(USER_ADD_ADDRESS_URL, {'city': 'anand',
                                                            'zipcode': '387110',
                                                            'landmark': 'KL Tower',
                                                            'state': 'Gujarat',
-                                                           'address_type': 'home'})
+                                                           'address_type': 'home',
+                                                           'user': self.user.id})
         self.assertEqual(response.status_code, 200)
 
     def test_user_remove_address(self):

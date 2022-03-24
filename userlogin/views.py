@@ -206,7 +206,7 @@ def password_reset_request(request):
     return render(request, PASSWORD_RESET_URL, {"password_reset_form": password_reset_form})
 
 
-@login_required
+@login_required(login_url='/login/')
 def user_profile(request):
     """
     user can view and update their profile.
@@ -217,12 +217,13 @@ def user_profile(request):
         if form.is_valid():
             form.save()    # save form
             messages.success(request, USER_PROFILE_UPDATE_MSG)
-            return redirect('index')
+            return redirect('profile')
     form = UpdateProfile(instance=request.user)
     return render(request, USER_PROFILE_URL, {'form': form})
 
 
 @csrf_exempt
+@login_required(login_url='/login/')
 def user_address(request):
     """
     user can view their exist addresses.
@@ -247,6 +248,7 @@ def user_address(request):
 
 
 @csrf_exempt
+@login_required(login_url='/login/')
 def user_addresses_update(request):
     """
     user can update their addresses.
@@ -272,12 +274,12 @@ def user_addresses_update(request):
 
 
 @csrf_exempt
+@login_required(login_url='/login/')
 def remove_address(request):
     """
     user cane able to remove address from the addresses.
     """
     id1 = request.POST.get('id', None)
-    # print(id1)# get id
     Address.objects.get(id=id1).delete()  # delete record by id
     data = {
         'deleted': True,  # return true

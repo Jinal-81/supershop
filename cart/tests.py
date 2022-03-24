@@ -36,6 +36,7 @@ class CartTest(BaseTest):
         """
         test that cartitem remove successfully.
         """
+        self.client.force_login(self.user)
         url = reverse('cartitem_remove', args=(self.cartitem.id,))
         response = self.client.post(url)
         self.assertTrue(response, CARTITEM_DELETE_MSG)
@@ -46,6 +47,7 @@ class CartTest(BaseTest):
         test that cart item update successfully.
         """
         # import pdb;pdb.set_trace();
+        self.client.force_login(self.user)
         url = reverse('cartitem_update', args=(self.cartitem.id,))
         response = self.client.post(url, data={'quantity': self.cartitem.quantity})
         self.assertTrue(response, CARTITEM_UPDATED_MSG)

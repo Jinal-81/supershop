@@ -9,34 +9,37 @@
       <div class="col col-xl-10">
         {% if product %}
         <!--card start-->
-        <div class="card mb-3" id="logincardradius">
+        <div class="card mb-3" id="viewproductcard">
           <div class="row g-0">
-            <div class="card">
-              <img src="{{ product.product_image.url }}" alt="login form" class="card-img-top"/>
+            <div class="col-md-4">
+              <a href="{% url 'index' %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Click Here for view products list."><img src="{{product.product_image.url}}" class="img-fluid rounded-start" id="viewproductimage"></a>
             </div>
-            <div class="col-md-6 col-lg-7 mx-auto d-flex align-items-center">
-              <div class="card-body p-sm-1 text-black">
-                <!--form start-->
+            <div class="col-md-8">
+              <div class="card-body">
                 <form action="{% url 'add_to_cart' product.id %}" method="POST">
                   {% csrf_token %}
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" id="logincardbg"></i>
-                    <span class="h1 fw-bold mb-0">SuperShop</span>
                   </div>
                   <h5 class="card-title">Product Detail</h5>
                   <p class="card-text">
+                    <p class="fw-bold">Name:</p>
                     <p class="lead">
-                      <span class="mr-1"><del>$200</del></span>
-                      <span>{{ product.price }}</span>
+                      <span>{{ product.name }}</span>
                     </p>
-                    <p class="fw-bold">Description</p>
-                    <p>{{ product.description }}</p>
-                    <input type="text" name="quantity" value="{{ product.quantity }}">
+                    <p class="fw-bold">Price:</p>
+                    <p class="lead">
+                      <span>$ {{ product.price }}</span>
+                    </p>
+                    <p class="fw-bold">Description:</p>
+                    <p>
+                      {{ product.description }}
+                    </p>
+                    <input type="number" value="1" min="1" max="{{ product.quantity }}" name="quantity">
                   </p>
-                  <button type="submit" class="btn btn-primary">Add TO Cart</button>
+                  <button type="submit" id="buttoncolour" class="btn btn-outline-light">Add TO Cart</button>
                 </form>
-                <!--form end-->
-              </div>
+             </div>
             </div>
           </div>
         </div>

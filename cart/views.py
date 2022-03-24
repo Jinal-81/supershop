@@ -11,7 +11,7 @@ CARTITEM_UPDATED_MSG = "quantity updated!"
 CARTITEM_PLACED_MSG = "Cart placed!"
 
 
-@login_required
+@login_required(login_url='/login/')
 def cart(request):
     """
     redirect to cart page
@@ -20,6 +20,7 @@ def cart(request):
     return render(request, CART_URL, {'cart': user_cart})
 
 
+@login_required(login_url='/login/')
 def cart_item_remove(request, id):
     """
     remove item from the cart items.
@@ -33,6 +34,7 @@ def cart_item_remove(request, id):
     return redirect('cart')
 
 
+@login_required(login_url='/login/')
 def cart_item_update(request, id):
     """
     update item quantity and update total price accordingly.
@@ -46,6 +48,7 @@ def cart_item_update(request, id):
     return redirect('cart')
 
 
+@login_required(login_url='/login/')
 def order(request):
     """
     display all the cartitem with the placed status.
@@ -57,6 +60,7 @@ def order(request):
         return redirect('view_order_list')
 
 
+@login_required(login_url='/login/')
 def view_order_list(request):
     """
     redirect to cart page

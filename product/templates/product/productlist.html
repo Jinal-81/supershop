@@ -1,0 +1,80 @@
+{% extends 'userlogin/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<!--Slider start-->
+    {% include 'userlogin/messages.html' %}
+<!--nav bar for category start-->
+<h3 class="display-4 text-center mt-4 mb-3">All Products</h3>
+<div class="container" id="navmargin">
+<ul class="nav nav-pills">
+  <li class="mb-3">
+      <form class="d-flex" method="post">
+          {% csrf_token %}
+          Search:
+         {% render_field filter.form.name class="form-control" %}
+        <button class="btn btn-outline-secondary" id="buttoncolour" type="submit">Search</button>
+      </form>
+  </li>
+</ul>
+</div>
+<!--navbar for categories end-->
+<!--container for men clothes start-->
+<section id="ImageID1" class="container">
+    <div class="row text-center">
+        <!--for loop for products item start-->
+        {% for product in products_item %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-auto " data-bs-toggle="tooltip" data-bs-placement="top" title="{{ product.name }}" id="card">
+                <a href="{% url 'view_product' product.id %}"><img class="card-img-top" src="{{ product.product_image.url }}" id="imageheight"></a>
+                <div class="card-footer py-4">
+                    <a href="{% url 'view_product' product.id %}" class="btn btn-secondary" id="buttoncolour">View</a>
+                </div>
+            </div>
+        </div>
+        <!--if product not available-->
+        {% empty %}
+            <section id="ImageID1" class="container">
+                <div class="alert alert-danger" role="alert" id="marginmessage">
+                    <img src="{% static 'userlogin/noproducts.png' %}">
+                    <h2 class="display-4 text-center mt-5 mb-3">Oops..!! Products Not Available..</h2>
+                </div>
+            </section>
+        {% endfor %}
+        <!--for loop for products item end-->
+    </div>
+</section>
+<!--pagination start-->
+{% if products_item.has_other_pages %}
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center" >
+        <!--check that previous page is exists or not-->
+            {% if products_item.has_previous %}
+        <li class="page-item disabled">
+          <a class="page-link" href="?page={{ products_item.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <!--not exists then disabled-->
+        {% else %}
+        <li class="disabled">
+          <span class="page-link">Previous</span>
+        </li>
+        {% endif %}
+        <!--start loop for all pages-->
+        {% for i in products_item.paginator.page_range %}
+            {% if products.number == i %}
+              <li class="page-item active" aria-current="page"><span>{{ i }}</span></li>
+              {% else %}
+              <li class="page-link"><a href='?page={{ i }}'>{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        <!--check that next page is exists or not-->
+        {% if products_item.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ products_item.next_page_number }}">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+<!--pagination end-->
+{% endblock %}

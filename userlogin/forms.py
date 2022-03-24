@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 from .models import MyUser, Address
 
@@ -5,14 +7,16 @@ USERNAME_EXISTS_MSG = "username already exists."
 EMAIL_EXISTS_MSG = "email already exists."
 MOBILE_NUMBER_EXISTS_MSG = "mobile_number already exists."
 LANDMARK_EXISTS_MSG = "Landmark exists."
+ERROR_MSG = "Please fill in this field"
 
 
 class NewUserForm(forms.ModelForm):
     """
     take required fields from user and registered into system
     """
+    YEARS = [x for x in range(datetime.MINYEAR, datetime.MAXYEAR)]
     password = forms.CharField(widget=forms.PasswordInput)
-    birth_date = forms.DateField(widget=forms.DateInput)
+    birth_date = forms.DateField(widget=forms.SelectDateWidget(years=YEARS))
     profile_pic = forms.ImageField()
 
     def clean_username(self):
@@ -88,7 +92,47 @@ class UpdateProfile(forms.ModelForm):
     """
     update profile
     """
+    first_name = forms.CharField(error_messages={'required': ERROR_MSG, })
+    last_name = forms.CharField(error_messages={'required': ERROR_MSG, })
+    YEARS = [x for x in range(datetime.MINYEAR, datetime.MAXYEAR)]
+    birth_date = forms.DateField(widget=forms.SelectDateWidget(years=YEARS))
     profile_pic = forms.ImageField()
+
+    def clean_first_name(self):
+        """
+        check that first name is empty or not.
+        """
+        first_name = self.cleaned_data.get("first_name")
+        if first_name == "":
+            self.add_error("first_name", ERROR_MSG)
+        return first_name
+
+    def clean_last_name(self):
+        """
+        check that last name is empty or not.
+        """
+        last_name = self.cleaned_data.get("last_name")
+        if last_name == "":
+            self.add_error("last_name", ERROR_MSG)
+        return last_name
+
+    def clean_username(self):
+        """
+        check that username is empty or not.
+        """
+        username = self.cleaned_data.get("username")
+        if username == "":
+            self.add_error("username", ERROR_MSG)
+        return username
+
+    def clean_birthday(self):
+        """
+        check that birthday is empty or not.
+        """
+        birth_date = self.cleaned_data.get("birth_date")
+        if birth_date == "":
+            self.add_error("birth_date", ERROR_MSG)
+        return birth_date
 
     class Meta:
         model = MyUser
@@ -111,3 +155,4 @@ class UpdateAddress(forms.ModelForm):
     class Meta:
         model = Address
         fields = ("city", "zipcode", "landmark", "state", "address_type")
+

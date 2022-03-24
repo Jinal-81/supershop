@@ -185,7 +185,7 @@ If the icons are not purely decorative, make sure you provide an appropriate tex
 </svg>
 {{< /highlight >}}
     <div class="bd-example">
-      <button type="button" class="btn btn-primary" aria-label="Mute">
+      <button type="button" class="btn btn-outline-light" aria-label="Mute">
         <svg class="bi bi-volume-mute-fill" width="32" height="32" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M6.717 3.55A.5.5 0 017 4v8a.5.5 0 01-.812.39L3.825 10.5H1.5A.5.5 0 011 10V6a.5.5 0 01.5-.5h2.325l2.363-1.89a.5.5 0 01.529-.06zm7.137 2.096a.5.5 0 010 .708L12.207 8l1.647 1.646a.5.5 0 01-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 01-.708-.708L10.793 8 9.146 6.354a.5.5 0 11.708-.708L11.5 7.293l1.646-1.647a.5.5 0 01.708 0z"></path></svg>
       </button>
     </div>

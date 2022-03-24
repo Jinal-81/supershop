@@ -9,17 +9,15 @@
         <link type="text/css" href="/static/css/style.css" rel="stylesheet">
     </head>
 <!--Nav bar start-->
-<nav class="navbar navbar-expand-sm navbar-light bg-transparent" id="borderstyle">
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent" id="borderstyle">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a href="#" class="navbar-brand">SuperShop</a>
+    <a href="{% url 'index' %}"><img src="{% static 'userlogin/logooo.png' %}" id="logosize"></a>
+<!--    <a href="{% url 'index' %}" class="navbar-brand">SuperShop</a>-->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <ul class="navbar-nav me-auto" id="text-alignment">
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
-        </li>
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -33,13 +31,16 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'cart' %}">Cart</a>
           </li>
-<!--          <li class="nav-item">-->
-<!--            <a class="nav-link" href="{% url 'view_order_list' %}">Order</a>-->
-<!--          </li>-->
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'product_list' %}">Products</a>
+          </li>
           {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">login</a>
-            </li>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'product_list' %}">Products</a>
+          </li>
         {% endif %}
         <li class="nav-item">
             <a class="nav-link" href="#Contactsection">contact us</a>
@@ -72,49 +73,49 @@
         <!--Grid row-->
         <div class="row">
           <!-- Grid column -->
-          <div class="col-md-3 col-lg-5 col-xl-3 mx-auto mt-4">
-            <h6 class="text-uppercase mb-4 font-weight-bold">About us</h6>
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mt-4 text-center">
+            <h6 class="text-uppercase mb-4 font-weight-bold"><img src="{% static 'userlogin/logooo.png' %}" id="logosizefotter">About us</h6>
             <p>Here you can use buy all the latest Clothes for women's, Men's and children's. All the latest clothes are available here. You can find clothes by Searching the category.</p>
           </div>
           <!-- Grid column -->
           <hr class="w-100 clearfix d-md-none" />
           <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-4">
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-5">
             <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-            <p><a class="text-black" id="font-colour" href="//127.0.0.1:8000/category_search/3">Men's Wear</a></p>
-            <p><a class="text-black" id="font-colour" href="//127.0.0.1:8000/category_search/2">Women's Wear</a></p>
-            <p><a class="text-black" id="font-colour" href="//127.0.0.1:8000/category_search/2">Children's Wear</a></p>
+            <p><a class="text-black" href="//127.0.0.1:8000/category_search/3">Men's Wear</a></p>
+            <p><a class="text-black" href="//127.0.0.1:8000/category_search/2">Women's Wear</a></p>
+            <p><a class="text-black" href="//127.0.0.1:8000/category_search/2">Children's Wear</a></p>
           </div>
           <!-- Grid column -->
           <hr class="w-100 clearfix d-md-none" />
           <!-- Grid column -->
           <hr class="w-100 clearfix d-md-none" />
           <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-4">
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-5">
             <h6 class="text-uppercase mb-4 font-weight-bold" id="Contactsection">Contact</h6>
             <p><i class="bi bi-house-fill mr-3"></i> B-Square-1,Antriksh Colony,Ahmedabad,India</p>
-            <p><i class="bi bi-envelope-fill mr-3"></i> supershop@gmail.com</p>
-            <p><i class="bi bi-phone-fill mr-3"></i> +98754182654</p>
-            <p><i class="bi bi-telephone-fill mr-3"></i> +88754821534</p>
+            <p><a href="mailto:jinal.desai@trootech.com" class="text-black" target="_blank"><i class="bi bi-envelope-fill mr-3"></i> supershop@gmail.com</a></p>
+            <p><a href="tel:+98754182654" class="text-black"><i class="bi bi-phone-fill mr-3"></i> +98754182654</a></p>
+            <p><a href="tel:+88754821534" class="text-black"><i class="bi bi-telephone-fill mr-3"></i> +88754821534</a></p>
           </div>
           <!-- Grid column -->
 
           <!-- Grid column -->
-          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-4">
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-5   ">
             <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
 
             <!-- Facebook -->
-            <a class="btn btn-primary btn-floating m-1" id="facebook" href="//www.facebook.com/login/" role="button"><i class="bi bi-facebook"></i></a>
+            <a class="btn btn-outline-light btn-floating m-1" id="facebook" href="//www.facebook.com/login/" role="button" target="_blank"><i class="bi bi-facebook"></i></a>
             <!-- Twitter -->
-            <a class="btn btn-primary btn-floating m-1" id="twitter" href="//twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D" role="button"><i class="bi bi-twitter"></i></a>
+            <a class="btn btn-outline-light btn-floating m-1" id="twitter" href="//twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D" role="button" target="_blank"><i class="bi bi-twitter"></i></a>
             <!-- Google -->
-            <a class="btn btn-primary btn-floating m-1" id="google" href="//www.google.co.in/" role="button"><i class="bi bi-google"></i></a>
+            <a class="btn btn-outline-light btn-floating m-1" id="google" href="//www.google.co.in/" role="button" target="_blank"><i class="bi bi-google"></i></a>
             <!-- Instagram -->
-            <a class="btn btn-primary btn-floating m-1" id="insta" href="//www.instagram.com/" role="button"><i class="bi bi-instagram"></i></a>
+            <a class="btn btn-outline-light btn-floating m-1" id="insta" href="//www.instagram.com/" role="button" target="_blank"><i class="bi bi-instagram"></i></a>
             <!-- Linkedin -->
-            <a class="btn btn-primary btn-floating m-1" id="linkedin" href="//www.linkedin.com/login" role="button"><i class="bi bi-linkedin"></i></a>
+            <a class="btn btn-outline-light btn-floating m-1" id="linkedin" href="//www.linkedin.com/login" role="button" target="_blank"><i class="bi bi-linkedin"></i></a>
             <!-- Github -->
-            <a class="btn btn-primary btn-floating m-1" id="github" href="//github.com/" role="button"><i class="bi bi-github"></i></a>
+            <a class="btn btn-outline-light btn-floating m-1" id="github" href="//github.com/" role="button" target="_blank"><i class="bi bi-github"></i></a>
           </div>
         </div>
         <!--Grid row-->
@@ -123,9 +124,9 @@
     </div>
     <!-- Grid container -->
     <!-- Copyright -->
-    <div class="text-center p-3" id="copyright" id="font-colour">
+    <div class="text-black text-center p-3" id="copyright">
       &copy; 2021 Copyright:
-      <a class="text-black" href="{% url 'index' %}" id="font-colour">SuperShop.com</a>
+      <a class="text-black" href="{% url 'index' %}">SuperShop.com</a>
     </div>
     <!-- Copyright -->
   </footer>

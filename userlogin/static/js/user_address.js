@@ -29,6 +29,7 @@ var ZipcodeFormElement = 'input[name="formZipcode"]'
 var StateFormElement = 'input[name="formState"]'
 var AddressTypeFormElement = 'input[name="formAddress_type"]'
 var IDDeleteFormElement = 'input[name="formdeleteId"]'
+var QuantityElement = 'input[name="quantity"]'
 
 //function for elements
 function trimValue(element){
@@ -237,4 +238,43 @@ $(function() {
 // arrow up down for collapse
 $('.card-header').click(function() {
             $(this).find('i').toggleClass('bi bi-chevron-double-up');
+});
+$(function () {
+    var main_total = 0
+    const total = document.querySelector('.total')
+    const quantitychange = document.querySelector('.articel')
+    console.log(quantitychange)
+    console.log(total)
+   $( "div input[type='number']" ).on('change',function() {
+   var min = $(this).attr("action");
+   console.log(min)
+   var quantity = $(this).val();
+   console.log('quantity for click',quantity)
+   var price = $(this).attr("id");
+   console.log('price for click',price)
+   var subtotal = quantity * price;
+   console.log('Sub total:',subtotal)
+   const quantity_re = $(this).val();
+//   console.log(quantity_re)
+//   quantity_re.innerHTML = `${quantity}`
+     });
+   $("div input[type='number']").each(function()
+    {
+
+        // attribute for the field
+        var quantity = $(this).attr("value");
+        console.log('quantity for all',quantity)
+        var price = $(this).attr("id");
+        console.log('price for all',price)
+        var total = quantity * price
+        main_total = total + main_total
+        console.log(main_total)
+        console.log(total)
+        return total
+     });
+     console.log('main_total:',main_total)
+     total.innerHTML = `$${main_total}`
+});
+$('.deletequantity').click(function(){
+    return confirm('Are you sure want to delete?');
 });

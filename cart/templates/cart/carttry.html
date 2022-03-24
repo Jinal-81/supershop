@@ -3,58 +3,83 @@
 {% block content %}
 <!--card start-->
 <!--check that cart is empty or not-->
-{% if cart.cartitem_set.count != 0 %}
-<div class="card p-4" id="cartcard">
-        {% include 'userlogin/messages.html' %}
-    <div class="row">
-        <div class="col-md-8 cart">
-            <div class="title">
-                <div class="row">
-                    <div class="col">
-                        <h4><b>Shopping Cart</b></h4>
-                    </div>
-                    <div class="col align-self-center text-right text-muted">{{ cart.cartitem_set.count }} ITEMS</div>
-                </div>
-            </div>
-            <div><b>Product&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quantity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action</b></div>
-            {% for cart_item in cart.cartitem_set.all %}
-            <div class="row border-top border-bottom">
-                <div class="row main align-items-center">
-                    <div class="col-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Click Here, for view Product"><a href="{% url 'view_product' cart_item.product.id %}"><img class="img-fluid" id="cartimage" src="{{ cart_item.product.product_image.url }}"></a></div>
-                    <div class="col">
-                        <div class="row text-muted">{{ cart_item.product.category.name }}</div>
-                        <div class="row">{{ cart_item.product.name }}</div>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                        <form action="{% url 'cartitem_update' cart_item.id %}" method="POST">
-                            {% csrf_token %}
-                            <input type="text" name="quantity" value="{{ cart_item.quantity }}" class="form-control form-control-sm">
-                        </form>
-                    </div>
-                    <div class="col" id="margincartprice" name="price">
-                        &euro; {{cart_item.price}}
-                        <a href="{% url 'cartitem_remove' cart_item.id %}" id ="margincartdelete"><i class="bi bi-trash-fill"></i></a>
+{% if cart != None %}
+    {% if cart.cartitem_set.count != 0 %}
+    <div class="card p-4" id="cartcard">
+            {% include 'userlogin/messages.html' %}
+        <div class="row">
+            <div class="col-md-8 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>Shopping Cart</b></h4>
+                        </div>
+                        <div class="col align-self-center text-right text-muted">{{ cart.cartitem_set.count }} ITEMS</div>
                     </div>
                 </div>
+                <div><b>Product</b><b id="quantitymarginintocart">Quantity</b><b id="pricemargingintocart">Price</b><b id="actionmarginintocart">Action</b></div>
+                {% for cart_item in cart.cartitem_set.all %}
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <div class="col-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Click Here, for view Product"><a href="{% url 'view_product' cart_item.product.id %}"><img class="img-fluid" id="cartimage" src="{{ cart_item.product.product_image.url }}"></a></div>
+                        <div class="col">
+                            <div class="row text-muted">{{ cart_item.product.category.name }}</div>
+                            <div class="row">{{ cart_item.product.name }}</div>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex quantityChange">
+                            <form action="{% url 'cartitem_update' cart_item.id %}" method="POST" class="articel">
+                                {% csrf_token %}
+                                <input type="number" value="{{ cart_item.quantity }}" min="1" max="{{ cart_item.product.quantity }}" name="quantity" class="form-control form-control-sm quantityData" id="{{cart_item.product.price}}">
+                            </form>
+                        </div>
+                        <div class="col" id="margincartprice" name="price">
+                            $ {{cart_item.price}}
+                            <a href="{% url 'cartitem_remove' cart_item.id %}" id ="margincartdelete"><i class="bi bi-trash-fill" id="trashcolour"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-        <div class="col-md-4 summary">
-            <div>
-                <h5><b>Summary</b></h5>
+            <div class="col-md-4 summary">
+                <div>
+                    <h5><b>Summary</b></h5>
+                </div>
+                <form action="{% url 'order' %}" method="post">
+                    {% csrf_token %}
+                <div class="row" id="cartsummaryid">
+                    <div class="col-md-9"><b>TOTAL PRICE</b></div>
+                    <div class="col total" id="textmargin">$ {{cart.total_amount}}</div>
+                </div>
+                    <button class="btn btn-info" type="submit" id="buttonmargin">CHECKOUT</button>
+                </form>
             </div>
-            <form action="{% url 'order' %}" method="post">
-                {% csrf_token %}
-            <div class="row" id="cartsummaryid">
-                <div class="col-md-9"><b>TOTAL PRICE</b></div>
-                <div class="col" id="textmargin">&euro; {{cart.total_amount}}</div>
-            </div>
-                <button class="btn btn-info" type="submit" id="buttonmargin">CHECKOUT</button>
-            </form>
         </div>
     </div>
-</div>
-{% elif cart.cartitem_set.count == 0 %}
+    {% elif cart.cartitem_set.count == 0 %}
+    <!--if cart is empty-->
+    <div class="card p-4" id="cartcard">
+            {% include 'userlogin/messages.html' %}
+        <div class="row" id="cart.total_amount">
+            <div class="col">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4 align="center"><b>Shopping Cart</b></h4>
+                        </div>
+                        <img src="{% static 'userlogin/empty_cart.jpg' %}" id="emptycartimageid">
+                        <div class="alert alert-danger" role="alert" id="marginmessage">
+                          <strong>Oh Oops..!</strong> Cart is Empty.Add Your Favourite Items Into cart.
+                        </div>
+                        <div class="card-footer py-4">
+                            <a href="{% url 'index' %}" class="btn btn-secondary" id="shopagainidintocart">Shop Again</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% elif cart == None %}
 <!--if cart is empty-->
 <div class="card p-4" id="cartcard">
         {% include 'userlogin/messages.html' %}
@@ -65,8 +90,12 @@
                     <div class="col">
                         <h4 align="center"><b>Shopping Cart</b></h4>
                     </div>
+                    <img src="{% static 'userlogin/empty_cart.jpg' %}" id="emptycartimageid">
                     <div class="alert alert-danger" role="alert" id="marginmessage">
                       <strong>Oh Oops!</strong>Cart is Empty.Add Your Favourite Items Into cart.
+                    </div>
+                    <div class="card-footer py-4">
+                        <a href="{% url 'index' %}" class="btn btn-secondary" id="shopagainidintocart">Shop Again</a>
                     </div>
                 </div>
             </div>

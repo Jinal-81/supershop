@@ -55,4 +55,54 @@ class ProductTest(BaseTest):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
+    def test_pagination_is_String_or_not(self):
+        """
+        test the pagination.
+        """
+        response = self.client.get(reverse('product_list')+'?page=dsdf')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(str(response.context['products_item'].number), '1')
 
+    def test_lists_all_products(self):
+        """
+        Get second page and confirm it has (exactly) remaining 3 items
+        """
+        no_products = 10
+        for product_id in range(no_products):
+            """
+            create products using product factory.
+            """
+            ProductFactory()
+        response = self.client.get(reverse('product_list')+'?page=2')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['products_item']), 2)
+
+    def test_products_has_next_page(self):
+        """
+        Get second page and confirm it has (exactly) remaining 3 items
+        """
+        no_products = 20
+        for product_id in range(no_products):
+            """
+            create products using product factory.
+            """
+            ProductFactory()
+        response = self.client.get(reverse('product_list')+'?page=2')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['products_item']), 9)
+        self.assertEqual(response.context['products_item'].has_next(), True)
+
+    def test_empty_page(self):
+        """
+        test that next page is available or not if not then page is empty.
+        """
+        no_products = 10
+        for product_id in range(no_products):
+            """
+            create products using product factory.
+            """
+            ProductFactory()
+        # Get second page and confirm it has (exactly) remaining 3 items
+        response = self.client.get(reverse('product_list')+'?page=5')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['products_item'].has_next(), False)
