@@ -29,7 +29,7 @@ def view_product(request, id):
     """
     if request.method == "POST":
         product = get_object_or_404(Product, id=id)  # if modal and object is not exists then rains 404 error.
-        cart, created = custom_get_or_create(request.user, Cart.StatusInCart.PLACED)  # return tuple (cart,created)
+        cart, created = custom_get_or_create(request.user, Cart.StatusInCart.OPEN)  # return tuple (cart,created)
         cart.save()  # save data into cart
         cartquantity = request.POST.get('quantity')
         if int(cartquantity) > product.quantity:  # if user enter quantity more than available product quantity.
