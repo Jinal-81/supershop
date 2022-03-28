@@ -16,7 +16,7 @@ def cart(request):
     """
     redirect to cart page
     """
-    user_cart = Cart.objects.filter(user=request.user, status="open").first()  # filter current user's cart
+    user_cart = Cart.objects.filter(user=request.user, status=Cart.StatusInCart.OPEN).first()  # filter current user's cart
     return render(request, CART_URL, {'cart': user_cart})
 
 
@@ -55,7 +55,7 @@ def order(request):
     """
     # import pdb;pdb.set_trace();
     if request.method == "POST":
-        Cart.objects.filter(user=request.user).update(status="placed")  # update cart with the placed status
+        Cart.objects.filter(user=request.user).update(status=Cart.StatusInCart.PLACED)  # update cart with the placed status
         messages.success(request, CARTITEM_PLACED_MSG)
         return redirect('view_order_list')
 
@@ -65,5 +65,5 @@ def view_order_list(request):
     """
     redirect to cart page
     """
-    cart = Cart.objects.filter(user=request.user, status='placed')  # view all the record where status is placed
+    cart = Cart.objects.filter(user=request.user, status=Cart.StatusInCart.PLACED)  # view all the record where status is placed
     return render(request, ORDER_URL, {'cart': cart})

@@ -10,7 +10,7 @@ class CartFactory(factory.django.DjangoModelFactory):
         model = Cart
 
     total_amount = 1500
-    status = "open"
+    status = Cart.StatusInCart.OPEN
 
 
 class CartItemFactory(factory.django.DjangoModelFactory):
