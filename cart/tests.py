@@ -51,7 +51,7 @@ class CartTest(BaseTest):
         url = reverse('cartitem_update', args=(self.cartitem.id,))
         response = self.client.post(url, data={'quantity': self.cartitem.quantity})
         self.assertTrue(response, CARTITEM_UPDATED_MSG)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
     def test_order_page_load_successfully(self):
         """

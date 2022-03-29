@@ -239,42 +239,36 @@ $(function() {
 $('.card-header').click(function() {
             $(this).find('i').toggleClass('bi bi-chevron-double-up');
 });
-$(function () {
-    var main_total = 0
-    const total = document.querySelector('.total')
-    const quantitychange = document.querySelector('.articel')
-    console.log(quantitychange)
-    console.log(total)
-   $( "div input[type='number']" ).on('change',function() {
-   var min = $(this).attr("action");
-   console.log(min)
+// quantity change for products
+$( "div input[type='number']" ).on('change',function() {
+   const total = document.querySelector('.total')
+   console.log(total);
+   var quantityId = $(this).closest('.product_data').find('.prod_id').val();
+   console.log(quantityId)
+   var quantityVal = $(this).closest('.product_data').find('.quantityData').val();
+   var total_amount = $('.total').text();
+   console.log(total_amount)
    var quantity = $(this).val();
    console.log('quantity for click',quantity)
-   var price = $(this).attr("id");
-   console.log('price for click',price)
-   var subtotal = quantity * price;
-   console.log('Sub total:',subtotal)
-   const quantity_re = $(this).val();
-//   console.log(quantity_re)
-//   quantity_re.innerHTML = `${quantity}`
+   var data = { //data for the fields ( data that we want to send)
+                'id': quantityId,
+                'quantity': quantityVal,
+                'total_amount': total_amount
+            }
+        // call custom ajax function
+        var url = "/cart/cartitem_update/" + quantityId;
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: {id: quantityId, quantity: quantity, total_amount: total_amount},
+            cache: false,
+            dataType: 'html',
+            success: function(quantity_response) {
+                console.log('success');
+                data = JSON.parse(quantity_response); // response we are getting string , so convert it into json format
+                console.log(data);
+                console.log(data["total_amount"]);
+                total.innerHTML = `&#8377;${data["total_amount"]} `;
+            },
+        });
      });
-   $("div input[type='number']").each(function()
-    {
-
-        // attribute for the field
-        var quantity = $(this).attr("value");
-        console.log('quantity for all',quantity)
-        var price = $(this).attr("id");
-        console.log('price for all',price)
-        var total = quantity * price
-        main_total = total + main_total
-        console.log(main_total)
-        console.log(total)
-        return total
-     });
-     console.log('main_total:',main_total)
-     total.innerHTML = `$${main_total}`
-});
-$('.deletequantity').click(function(){
-    return confirm('Are you sure want to delete?');
-});

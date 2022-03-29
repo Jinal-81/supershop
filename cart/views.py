@@ -1,6 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+
 from cart.models import Cart, CartItem
 # Create your views here.
 
@@ -34,18 +37,21 @@ def cart_item_remove(request, id):
     return redirect('cart')
 
 
+@csrf_exempt
 @login_required(login_url='/login/')
 def cart_item_update(request, id):
     """
     update item quantity and update total price accordingly.
     """
     cartitem = CartItem.objects.get(id=id)  # get cartitem
-    cartitem.quantity = request.POST.get('quantity')  # get quantity from the user
-    cartitem.cart.total_amount = cartitem.cart.total_amount + (int(cartitem.price) * int(cartitem.quantity))  # update
+    cartitem.quantity_user = request.POST.get('quantity')  # get quantity from the user
+    cartitem.quantity = int(cartitem.quantity_user)
+    cartitem.cart.total_amount = cartitem.cart.total_amount + (int(cartitem.price) * int(cartitem.quantity_user))  # update
     # total price of the cart according cartitem price and cartitem quantity
     cartitem.save()
-    messages.success(request, CARTITEM_UPDATED_MSG)
-    return redirect('cart')
+    # messages.success(request, CARTITEM_UPDATED_MSG)
+    # return redirect('cart')
+    return JsonResponse({'status': 'success', 'id': id, 'quantity': cartitem.quantity, 'total_amount': cartitem.cart.total_amount})
 
 
 @login_required(login_url='/login/')
