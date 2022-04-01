@@ -1653,3 +1653,11 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end,body.swal2-no-backdrop .swa
 {
     color:red;
 }
+#message1
+{
+    display:None;
+}
+#footer-bg
+{
+    background-color: #AEB6BF;
+}

@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-
 from product.filters import ProductFilter
 from product.models import Product
 from cart.models import Cart, CartItem
@@ -57,7 +56,7 @@ def product_list(request):
     products = user_filter.qs  # filtered result
     page = request.GET.get('page', 1)  # get the page
 
-    paginator = Paginator(products, 9)  # tell the paginator to paginate products queryset in 3 products per page
+    paginator = Paginator(products, 9)  # tell the paginator to paginate products queryset in 9 products per page
     try:
         products_item = paginator.page(page)
     except PageNotAnInteger:

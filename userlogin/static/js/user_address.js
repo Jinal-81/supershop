@@ -4,6 +4,7 @@ $(document).ready(function(){
         $(".collapse.show").collapse("toggle")
         $(this).parent().parent().parent().children(".collapse").collapse("toggle")
     })
+
 })
 
 // ajax function
@@ -60,7 +61,7 @@ $("form#addAddress").submit(function() {
                 $("#exampleModal").toggle();
                 $('.modal-backdrop').hide();// hide modal
                 $(this).hide();
-                $("body").removeAttr("style");
+                $("#bodyid").css({"overflow":"overlay"});//set new style
             }
         })
         $("form")[0].reset(); // reset all the fields as blank
@@ -74,7 +75,7 @@ function appendToUsrTable(address) {
     <div id="address-${address.id}" class="card mt-3 p-sm-1">
       <div class="card-header">
         <a class="btn" aria-expanded="false" data-bs-toggle="collapse" data-bs-target="#panel-box"">
-            <div class="addressAddress_type" name="address_type">${address.address_type}</div>
+            <div class="addressAddress_type" name="address_type">${address.address_type}<i class="bi bi-chevron-double-down" id="arrowmargin"></i></div>
         </a>
       </div>
       <div id="panel-box" class="collapse show">
@@ -104,7 +105,6 @@ $("form#updateAddress").submit(function(e) {
     var address_typeInput = trimValue(AddressTypeFormElement)
     if (cityInput && landmarkInput && zipcodeInput && stateInput && address_typeInput) {
         // Create Ajax Call
-        console.log('#################')
         var data = { //data for the fields ( data that we want to send)
                 'id': idInput,
                 'city': cityInput,
@@ -118,9 +118,10 @@ $("form#updateAddress").submit(function(e) {
         if(data.address){
             updateToUserTabel(data.address); // call html page after update
             $("#myModal").toggle();
-            $('.modal-backdrop').hide();// hide modal
-            $(this).hide();
-            $("body").removeAttr("style"); // remove style overflow from the body tag
+//            $(this).hide();
+            $('.modal-backdrop').remove();// hide modal
+//            $("#divid").load(" #divid");
+            $("#bodyid").css({"overflow":"overlay"});//set new style
             }
         });
     }
@@ -188,22 +189,13 @@ $("form#deleteAddress").submit(function(e) {
             'id': idInput
         }
     ajaxcall('/remove_address/',data).then(function(data){
-//    debugger;
     if(data.deleted) // data delete true of false
     {
-//        debugger;
         $("#userTable #address-" + data.id).remove(); // remove record by id
         $("#myModaldelete").toggle();
         $('.modal-backdrop').hide();
-        $(this).hide();
-        $("body").removeAttr("style"); // remove style overflow from the body tag
-//        (data.address);
-//            $("#myModal").modal("hide");
-        $('.modal-backdrop').remove();
-        $("#myModaldelete").modal("hide");
-        $(this).hide();
-        $("body").removeAttr("style"); // remove style overflow from the body tag
-        window.location.reload();
+//        $(this).hide();
+        $("#bodyid").css({"overflow":"overlay"});//set new style
         }
     });
     return false;
@@ -236,11 +228,13 @@ $(function() {
   });
 });
 // arrow up down for collapse
-$('.card-header').click(function() {
+$('.addressData').click(function() {
             $(this).find('i').toggleClass('bi bi-chevron-double-up');
 });
 // quantity change for products
 $( "div input[type='number']" ).on('change',function() {
+   const message = document.querySelector('#message1')
+   console.log(message);
    const total = document.querySelector('.total')
    console.log(total);
    var quantityId = $(this).closest('.product_data').find('.prod_id').val();
@@ -268,7 +262,23 @@ $( "div input[type='number']" ).on('change',function() {
                 data = JSON.parse(quantity_response); // response we are getting string , so convert it into json format
                 console.log(data);
                 console.log(data["total_amount"]);
-                total.innerHTML = `&#8377;${data["total_amount"]} `;
+                if(data["status"] == 'success')
+                {
+                   $("#message1").css({"display":"contents"});
+                   message.innerHTML = `<div class="alert alert-dismissible alert-success fade show shadow">
+                                          <strong>${data["message"]}</strong>
+                                          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                        </div>`;
+                   total.innerHTML = `&#8377;${data["total_amount"]} `;
+                }
+                else if(data["status"] == 'error')
+                {
+                    $("#message1").css({"display":"contents"});
+                    message.innerHTML = `<div class="alert alert-dismissible alert-danger fade show shadow">
+                                              <strong>${data["message"]}</strong>
+                                              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                            </div>`
+                }
             },
         });
      });

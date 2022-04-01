@@ -7,6 +7,10 @@
     {% if cart.cartitem_set.count != 0 %}
     <div class="card p-4" id="cartcard">
             {% include 'userlogin/messages.html' %}
+        <div id="message1" class="alert alert-error" >
+                <p><strong>Warning!</strong> An error has occurred.</p>
+                url: "http://nosub.pureexample.com/nonexistentfile.htm"
+        </div>
         <div class="row">
             <div class="col-md-8 cart">
                 <div class="title">
@@ -30,7 +34,7 @@
                             <form action="" method="POST" class="articel">
                                 <input type="hidden" name="id" class="prod_id" value="{{ cart_item.id }}">
                                 {% csrf_token %}
-                                <input type="number" value="{{ cart_item.quantity }}" min="1" max="{{ cart_item.product.quantity }}" name="quantity" class="form-control form-control-sm quantityData" id="{{cart_item.product.price}}">
+                                <input type="number" value="{{ cart_item.quantity }}" min="1" max="50" name="quantity"  class="form-control form-control-sm quantityData" id="{{cart_item.product.price}}">
                             </form>
                         </div>
                         <div class="col" id="margincartprice" name="price">
@@ -101,7 +105,6 @@
             </div>
         </div>
     </div>
-
     {% endif %}
 {% elif cart == None %}
 <!--if cart is empty-->

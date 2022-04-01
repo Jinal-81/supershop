@@ -3,7 +3,6 @@
 {% load widget_tweaks %}
 {% block content %}
 <!--Slider start-->
-    {% include 'userlogin/messages.html' %}
 <!--nav bar for category start-->
 <h3 class="display-4 text-center mt-4 mb-3">All Products</h3>
 <div class="container" id="navmargin">
@@ -11,8 +10,7 @@
   <li class="mb-3">
       <form class="d-flex" method="post">
           {% csrf_token %}
-          Search:
-         {% render_field filter.form.name class="form-control" %}
+         {% render_field filter.form.name class="form-control" placeholder="Search" %}
         <button class="btn btn-outline-secondary" id="buttoncolour" type="submit">Search</button>
       </form>
   </li>

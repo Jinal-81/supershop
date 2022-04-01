@@ -65,7 +65,7 @@ class ProductTest(BaseTest):
 
     def test_lists_all_products(self):
         """
-        Get second page and confirm it has (exactly) remaining 3 items
+        Get second page and confirm it has (exactly) remaining 9 items
         """
         no_products = 10
         for product_id in range(no_products):
@@ -75,11 +75,11 @@ class ProductTest(BaseTest):
             ProductFactory()
         response = self.client.get(reverse('product_list')+'?page=2')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context['products_item']), 2)
+        self.assertEqual(len(response.context['products_item']), 3)
 
     def test_products_has_next_page(self):
         """
-        Get second page and confirm it has (exactly) remaining 3 items
+        Get second page and confirm it has (exactly) remaining 9 items
         """
         no_products = 20
         for product_id in range(no_products):
@@ -102,7 +102,7 @@ class ProductTest(BaseTest):
             create products using product factory.
             """
             ProductFactory()
-        # Get second page and confirm it has (exactly) remaining 3 items
+        # Get second page and confirm it has (exactly) remaining 9 items
         response = self.client.get(reverse('product_list')+'?page=5')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['products_item'].has_next(), False)

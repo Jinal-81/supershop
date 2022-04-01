@@ -39,18 +39,28 @@ class CartTest(BaseTest):
         self.client.force_login(self.user)
         url = reverse('cartitem_remove', args=(self.cartitem.id,))
         response = self.client.post(url)
+        self.assertEqual(response.status_code, 302)
         self.assertTrue(response, CARTITEM_DELETE_MSG)
-        self.assertTrue(response.status_code, 200)
 
     def test_cart_item_update(self):
         """
         test that cart item update successfully.
         """
-        # import pdb;pdb.set_trace();
+
         self.client.force_login(self.user)
         url = reverse('cartitem_update', args=(self.cartitem.id,))
         response = self.client.post(url, data={'quantity': self.cartitem.quantity})
         self.assertTrue(response, CARTITEM_UPDATED_MSG)
+        self.assertEqual(response.status_code, 200)
+
+    def test_cart_item_update_error(self):
+        """
+        test that if user entered cartitem more than available then give error.
+        """
+
+        self.client.force_login(self.user)
+        url = reverse('cartitem_update', args=(self.cartitem.id,))
+        response = self.client.post(url, data={'quantity': 50})
         self.assertEqual(response.status_code, 200)
 
     def test_order_page_load_successfully(self):

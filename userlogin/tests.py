@@ -34,13 +34,13 @@ class BaseTest(TestCase):
 
         self.address = AddressFactory()
         self.address.user = self.user
-        self.address.save()
+        # self.address.save()
 
         self.products = ProductFactory()
-        self.products.save()
+        # self.products.save()
 
         self.categories = CategoryFactory()
-        self.categories.save()
+        # self.categories.save()
 
 
 # Create your tests here.

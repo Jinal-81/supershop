@@ -46,12 +46,14 @@ def cart_item_update(request, id):
     cartitem = CartItem.objects.get(id=id)  # get cartitem
     cartitem.quantity_user = request.POST.get('quantity')  # get quantity from the user
     cartitem.quantity = int(cartitem.quantity_user)
-    cartitem.cart.total_amount = cartitem.cart.total_amount + (int(cartitem.price) * int(cartitem.quantity_user))  # update
-    # total price of the cart according cartitem price and cartitem quantity
-    cartitem.save()
-    # messages.success(request, CARTITEM_UPDATED_MSG)
-    # return redirect('cart')
-    return JsonResponse({'status': 'success', 'id': id, 'quantity': cartitem.quantity, 'total_amount': cartitem.cart.total_amount})
+    print(cartitem.product.quantity)
+    if cartitem.quantity > cartitem.product.quantity:  # if user entered quantity more than available, then give error.
+        return JsonResponse({'status': 'error', 'message': f"Quantity Must be less than or equal to {cartitem.product.quantity}"})
+    else:
+        cartitem.cart.total_amount = cartitem.cart.total_amount + (int(cartitem.price) * int(cartitem.quantity))  # upda
+        # te total price of the cart according cartitem price and cartitem quantity
+        cartitem.save()
+        return JsonResponse({'status': 'success', 'message': CARTITEM_UPDATED_MSG, 'id': id, 'quantity': cartitem.quantity, 'total_amount': cartitem.cart.total_amount})
 
 
 @login_required(login_url='/login/')
@@ -59,9 +61,9 @@ def order(request):
     """
     display all the cartitem with the placed status.
     """
-    # import pdb;pdb.set_trace();
     if request.method == "POST":
-        Cart.objects.filter(user=request.user).update(status=Cart.StatusInCart.PLACED)  # update cart with the placed status
+        Cart.objects.filter(user=request.user).update(status=Cart.StatusInCart.PLACED)  # update cart with the placed
+        # status
         messages.success(request, CARTITEM_PLACED_MSG)
         return redirect('view_order_list')
 
@@ -71,5 +73,6 @@ def view_order_list(request):
     """
     redirect to cart page
     """
-    cart = Cart.objects.filter(user=request.user, status=Cart.StatusInCart.PLACED)  # view all the record where status is placed
+    cart = Cart.objects.filter(user=request.user, status=Cart.StatusInCart.PLACED)  # view all the record where status
+    # is placed
     return render(request, ORDER_URL, {'cart': cart})
