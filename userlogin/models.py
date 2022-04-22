@@ -11,6 +11,9 @@ class MyUser(AbstractUser):
     birth_date = models.DateField(null=True, blank=True)
     profile_pic = models.ImageField(upload_to='images/')
 
+    class Meta:
+        ordering = ['id']
+
 
 class Address(models.Model):
     """
@@ -31,6 +34,7 @@ class Address(models.Model):
         unique_together = [
             ["zipcode", "landmark", "user"],
         ]
+        ordering = ['id']
 
     def __str__(self):
         """

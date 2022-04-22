@@ -9,6 +9,8 @@ from .factories import UserFactory, AddressFactory
 from .forms import EMAIL_EXISTS_MSG, USERNAME_EXISTS_MSG, MOBILE_NUMBER_EXISTS_MSG
 from .views import LOGIN_ERROR_MSG, EMAIL_INVALID_MSG, INVALID_EMAIL_SUBJECT, USER_PROFILE_UPDATE_MSG,  \
     REGISTRATION_SUCCESS_MSG
+from rest_framework.test import APITestCase, APIClient
+from rest_framework import status
 
 PASSWORD_RESET_URL = reverse('password_reset')
 PASSWORD_RESET_DONE = reverse('password_reset_done')
@@ -41,6 +43,14 @@ class BaseTest(TestCase):
 
         self.categories = CategoryFactory()
         # self.categories.save()
+
+        self.apiclient = APIClient()
+
+        # self.user_api_url_list = reverse('api_user_list')
+        # self.user_api_url_create = reverse('api_user_create')
+        # self.user_api_url_retrieve = reverse('api_user_retrieve')
+        # self.user_api_url_update = reverse('api_user_update')
+        # self.user_api_url_delete = reverse('api_user_delete')
 
 
 # Create your tests here.
@@ -328,7 +338,6 @@ class UserAddressTest(BaseTest):
         """
         test that exist address view page load properly.
         """
-        # import pdb;pdb.set_trace();
         self.client.enforce_csrf_checks = True
         self.client.force_login(self.user)
         response = self.client.post(USER_ADD_ADDRESS_URL, {'city': 'anand',
@@ -364,3 +373,151 @@ class UserAddressTest(BaseTest):
                                           'address_type': 'home'
                                           })
         self.assertTrue(response.status_code, 200)
+
+
+class UserAPITests(APITestCase, BaseTest):
+    def test_user_list_api(self):
+        """test that user api load successfully."""
+        response = self.apiclient.get(reverse('api_user_list', args=('v1', )))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_list_api_versioning(self):
+        """test that user api load successfully using versioning"""
+        response = self.apiclient.get(reverse('api_user_list', args=('v2', )))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_create_api_versioning(self):
+        """test that user creates without mobile number which is required field api work successfully."""
+        response = self.apiclient.post(reverse('api_user_create', args=('v2', )), data={
+            'username': 'apiiiversion',
+            'password': self.user.password,
+            'mobile_number': '',
+            'profile_pic': self.user.profile_pic
+        }, format="multipart")
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_user_create_api(self):
+        """test that user creates api work successfully."""
+        response = self.apiclient.post(reverse('api_user_create', args=('v1', )), data={
+            'username': 'apiii',
+            'password': self.user.password,
+            'mobile_number': '7487120034',
+            'profile_pic': self.user.profile_pic
+        }, format="multipart")
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['username'], 'apiii')
+
+    def test_user_retrieve_api(self):
+        """test particular user retrieve api."""
+        response = self.apiclient.get(reverse('api_user_retrieve', args=('v1', self.user.id, )))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['username'], self.user.username)
+
+    def test_user_retrieve_api_versioning(self):
+        """test particular user retrieve api using versioning."""
+        # import pdb;pdb.set_trace();
+        response = self.apiclient.get(reverse('api_user_retrieve', args=('v2', self.user.id, )))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_retrieve_api_user_not_exists(self):
+        """test particular user retrieve api and user is not exists then rais 404 error."""
+        response = self.apiclient.get(reverse('api_user_retrieve', args=('v1', 56, )))
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_user_update_api(self):
+        """test user update api."""
+        response = self.apiclient.put(reverse('api_user_update', args=('v1', self.user.id, )), data={
+            'username': 'abcapii',
+            'password': self.user.password,
+            'mobile_number': self.user.mobile_number,
+            'profile_pic': self.user.profile_pic
+        }, format="multipart")
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+        # Check to see if Wishbone was created
+        self.assertNotEqual(response.data['username'], self.user.username)
+
+    def test_user_update_api_versioning(self):
+        """test user update api using versioning."""
+        response = self.apiclient.put(reverse('api_user_update', args=('v2', self.user.id, )), data={
+            'username': 'abcapiiversioning',
+            'password': self.user.password,
+            'mobile_number': self.user.mobile_number,
+            'profile_pic': self.user.profile_pic
+        }, format="multipart")
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+        # Check to see if Wishbone was created
+        self.assertNotEqual(response.data['username'], self.user.username)
+
+    def test_user_update_api_versioning_rais_error(self):
+        """test user update api without entering mobile number to forcefully rais error using versioning."""
+        # import pdb;pdb.set_trace();
+        response = self.apiclient.put(reverse('api_user_update', args=('v2', self.user.id, )), data={
+            'username': '',
+            'password': '',
+            'mobile_number': '',
+            'profile_pic': ''
+        }, format="multipart")
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_user_remove_api(self):
+        """test user remove api"""
+        # import pdb;pdb.set_trace();
+        response = self.apiclient.delete(reverse('api_user_delete', args=('v1', self.user.id, )))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+
+class AddressAPITests(APITestCase, BaseTest):
+    def test_address_list_api(self):
+        """test that address api load successfully."""
+        response = self.apiclient.get(reverse('api_address_list', args=('v1', )))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_address_list_api_versioning(self):
+        """test that address api load successfully using versioning"""
+        response = self.apiclient.get(reverse('api_address_list', args=('v2', )))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_create_api(self):
+        """test that address creates api work successfully."""
+        response = self.apiclient.post(reverse('api_address_create', args=('v1', )), data={
+            'city': 'apiii',
+            'zipcode': self.address.zipcode,
+            'landmark': self.address.landmark,
+            'state': self.address.state,
+            'user': self.user.id,
+            'address_type': self.address.address_type
+        })
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['city'], 'apiii')
+
+    def test_address_retrieve_api(self):
+        """test particular address retrieve api."""
+        response = self.apiclient.get(reverse('api_address_retrieve', args=('v1', self.address.id, )))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['city'], self.address.city)
+
+    def test_address_update_api(self):
+        """test address update api."""
+        response = self.apiclient.put(reverse('api_address_update', args=('v1', self.address.id, )), data={
+            'city': 'apiii',
+            'zipcode': self.address.zipcode,
+            'landmark': self.address.landmark,
+            'state': self.address.state,
+            'user': self.user.id,
+            'address_type': self.address.address_type
+        })
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+        # Check to see if Wishbone was created
+        self.assertNotEqual(response.data['city'], self.address.city)
+
+    def test_address_remove_api(self):
+        """test address remove api"""
+        response = self.apiclient.get(reverse('api_address_delete', args=('v1', self.address.id, )))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

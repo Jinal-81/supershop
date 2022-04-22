@@ -16,17 +16,23 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.contrib.auth import views as auth_views
+from rest_framework.authtoken import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('userlogin.urls')),
+    # re_path(r'^api/', include('userlogin.urls')),
     path('product', include('product.urls')),
+    re_path(r'^api/v5', include(('product.urls', 'product'), namespace='v5')),
+    re_path(r'^api/(v1|v2|v5)', include(('product.urls', 'product'), namespace='v2')),
     path('cart', include('cart.urls')),
+    re_path(r'^api/', include(('cart.urls', 'cart'), namespace='cart')),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='userlogin/password/password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="userlogin/password/password_reset_confirm.html"), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='userlogin/password/password_reset_complete.html'), name='password_reset_complete'),
-
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api-token-auth', views.obtain_auth_token)
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

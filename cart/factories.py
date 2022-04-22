@@ -1,6 +1,7 @@
 import factory
 from cart.models import Cart, CartItem
 from product.factories import ProductFactory
+from userlogin.factories import UserFactory
 
 
 class CartFactory(factory.django.DjangoModelFactory):
@@ -12,6 +13,7 @@ class CartFactory(factory.django.DjangoModelFactory):
 
     total_amount = 1500
     status = Cart.StatusInCart.OPEN
+    user = factory.SubFactory(UserFactory)
 
 
 class CartItemFactory(factory.django.DjangoModelFactory):

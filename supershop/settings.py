@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'rest_framework',
     'userlogin',
     'cart',
     'product',
@@ -133,6 +134,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # print(STATIC_ROOT)
 # BASE URL TO SERVER MEDIA FILES
 MEDIA_URL = '/media/'
+LOGIN_URL = '/login/'
 
 # path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -147,7 +149,23 @@ AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+# GDAL_LIBRARY_PATH = '/opt/homebrew/opt/gdal/lib/libgdal.dylib'
+# GEOS_LIBRARY_PATH = '/opt/homebrew/opt/geos/lib/libgeos_c.dylib'
 AUTH_USER_MODEL = 'userlogin.MyUser'
 DATE_INPUT_FORMATS = ('%d-%m-%Y', '%Y-%m-%d')
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',
+                                'rest_framework.filters.SearchFilter'],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'DEFAULT_VERSION': 'v1',
+    'ALLOWED_VERSIONS': ('v1', 'v2', 'v5', ),
+    'VERSION_PARAM': 'version',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,  # Put the number of items you desire
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+}

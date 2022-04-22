@@ -14,9 +14,12 @@ class Cart(models.Model):
         PLACED = 'PLACED', _('Placed')
 
     objects = None
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, blank=True, null=False)
     total_amount = models.FloatField(default=0, null=True)
     status = models.CharField(max_length=10, choices=StatusInCart.choices, default=StatusInCart.OPEN)  # open or placed
+
+    class Meta:
+        ordering = ['id']
 
     def __str__(self):
         """
@@ -29,11 +32,13 @@ class CartItem(models.Model):
     """
     create cart item table for cart
     """
-    objects = None
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, blank=True, null=True)
-    quantity = models.IntegerField(default=0, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=False)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, blank=True, null=False, related_name='usercart')
+    quantity = models.IntegerField(default=1, null=False)
     price = models.FloatField(default=0, null=True)
+
+    class Meta:
+        ordering = ['id']
 
     def __str__(self):
         """

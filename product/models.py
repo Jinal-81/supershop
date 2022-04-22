@@ -10,6 +10,9 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
     category = models.ManyToManyField("self", blank=True)
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         """
         show the object name in string format.
@@ -26,8 +29,11 @@ class Product(models.Model):
     price = models.FloatField()
     description = models.CharField(max_length=1000)
     product_image = models.ImageField(upload_to='images/')
-    quantity = models.IntegerField(default=0, null=True)
+    quantity = models.IntegerField(default=0, null=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        ordering = ['id']
 
     def __str__(self):
         """

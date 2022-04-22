@@ -11,7 +11,7 @@ def save_total_price(sender, instance, created, **kwargs):
     create signal for the post_save method for cartitem table.
     """
     # count total amount according cartitem price and cartitem quantity and sum that all values.
-    instance.cart.total_amount = instance.cart.cartitem_set.all().aggregate(total=Sum(F('price')*F('quantity'))).get('total', 0)
+    instance.cart.total_amount = instance.cart.usercart.all().aggregate(total=Sum(F('price')*F('quantity'))).get('total', 0)
     instance.cart.save()
 
 
@@ -22,5 +22,5 @@ def delete_cartitem(sender, instance, **kwargs):
     """
     # update total amount when cartitem delete from the cart.
     instance.cart.total_amount = instance.cart.total_amount - (instance.price * instance.quantity)
-    instance = instance.cart.cartitem_set.filter(id=instance.id)  # filter cartitem id
+    instance = instance.cart.usercart.filter(id=instance.id)  # filter cartitem id
     instance.delete()  # delete filtered item from the cartitem

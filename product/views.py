@@ -21,7 +21,7 @@ def custom_get_or_create(user, status):
     return get_object, create_object
 
 
-@login_required(login_url='/login/')
+@login_required
 def view_product(request, id):
     """
     view available product details.
