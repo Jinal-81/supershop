@@ -1,6 +1,8 @@
+import datetime
+
 import factory
 from django.contrib.auth import get_user_model
-import datetime
+
 from userlogin.models import Address
 
 
@@ -19,6 +21,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     mobile_number = '7984842865'
     birth_date = datetime.date.today()
     profile_pic = 'images/girl1.jpg'
+    code = 67706
 
 
 class AddressFactory(factory.django.DjangoModelFactory):

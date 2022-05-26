@@ -5,11 +5,11 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 
+from cart.factories import CartItemFactory, CartFactory
 from cart.models import Cart, CartItem
-from cart.views import CARTITEM_DELETE_MSG, CARTITEM_UPDATED_MSG, CARTITEM_PLACED_MSG
+from cart.views import CARTITEM_DELETE_MSG, CARTITEM_UPDATED_MSG
 from product.factories import ProductFactory
 from userlogin.factories import UserFactory
-from cart.factories import CartItemFactory, CartFactory
 
 
 class BaseTest(TestCase):
@@ -17,23 +17,24 @@ class BaseTest(TestCase):
         """
         setup called before any testcases.
         """
-        self.index_url = reverse('index')
-        self.order_url = reverse('order')
-        self.user = UserFactory()
+        self.index_url = reverse('index')  # index page url
+        self.order_url = reverse('order')  # order url
+        self.user = UserFactory()  # user factory.
         self.user.set_password(self.user.password)
         self.user.save()
 
-        self.cart = CartFactory(user=self.user)
+        self.cart = CartFactory(user=self.user)  # cart factory.
         self.cart.save()
 
-        self.product = ProductFactory()
+        self.product = ProductFactory()  # product factory.
         self.product.save()
 
-        self.cartitem = CartItemFactory(cart=self.cart)
+        self.cartitem = CartItemFactory(cart=self.cart)  # cart item factory here passed cart instance beacuse i'm getting
+        # npne value for the quantity.
         self.cartitem.save()
 
-        self.client = APIClient()
-
+        self.client = APIClient()  # apiclient instance for the api test cases.
+        # usl's for the cart and cartitem api.
         self.cart_api_url_list_create = reverse('cart-list-list')
         self.cart_api_url_fetch_update_delete = reverse('cart-list-detail', args=(self.cart.id, ))
         self.cartitem_api_url_list_create = reverse('cartitem-list-list')
@@ -100,16 +101,19 @@ class CartTest(BaseTest):
 class CartAPITestcase(APITestCase, BaseTest):
     def test_cart_list_api(self):
         """test that all the cart list api call successfully."""
+        self.client.force_login(self.user)
         response = self.client.get(self.cart_api_url_list_create)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_cart_list_api_versioning(self):
         """test that all the cart list api call successfully using versioning"""
+        self.client.force_login(self.user)
         response = self.client.get(reverse('cart-list-list')+'?version=v2')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_cart_create_api(self):
         """test that cart creates api work successfully."""
+        self.client.force_login(self.user)
         response = self.client.post(self.cart_api_url_list_create, data={
             'total_amount': self.cart.total_amount,
             'status': self.cart.status,
@@ -122,11 +126,13 @@ class CartAPITestcase(APITestCase, BaseTest):
 
     def test_cart_retrieve_api(self):
         """test particular cart retrieve api."""
+        self.client.force_login(self.user)
         response = self.client.get(self.cart_api_url_fetch_update_delete, kwargs=(self.cart.id, ))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_cart_update_api(self):
         """test cart update api."""
+        self.client.force_login(self.user)
         response = self.client.put(self.cart_api_url_fetch_update_delete, data={
             'total_amount': self.cart.total_amount,
             'status': self.cart.status,
@@ -138,6 +144,7 @@ class CartAPITestcase(APITestCase, BaseTest):
 
     def test_cart_remove_api(self):
         """test cart remove api"""
+        self.client.force_login(self.user)
         response = self.client.delete(self.cart_api_url_fetch_update_delete)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Cart.objects.filter(pk=self.cart.id).exists())
@@ -146,16 +153,19 @@ class CartAPITestcase(APITestCase, BaseTest):
 class CartItemAPITestcase(APITestCase, BaseTest):
     def test_cartitem_list_api(self):
         """test that all the cart list api call successfully."""
+        self.client.force_login(self.user)
         response = self.client.get(self.cartitem_api_url_list_create)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_cartitem_list_api_versioning(self):
         """test that all the cart list api call successfully using versioning"""
+        self.client.force_login(self.user)
         response = self.client.get(reverse('cartitem-list-list')+'?version=v2')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_cartitem_create_api(self):
         """test that product creates api work successfully."""
+        self.client.force_login(self.user)
         response = self.client.post(self.cartitem_api_url_list_create, data={
             'price': self.cartitem.price,
             'quantity': self.cartitem.quantity,
@@ -169,11 +179,13 @@ class CartItemAPITestcase(APITestCase, BaseTest):
 
     def test_cartitem_retrieve_api(self):
         """test particular cart item retrieve api."""
+        self.client.force_login(self.user)
         response = self.client.get(self.cartitem_api_url_fetch_update_delete, kwargs=(self.cartitem.id, ))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_cartitem_update_api(self):
         """test cart update api."""
+        self.client.force_login(self.user)
         response = self.client.put(self.cartitem_api_url_fetch_update_delete, data={
             'price': self.cartitem.price,
             'quantity': self.cartitem.quantity,
@@ -186,6 +198,7 @@ class CartItemAPITestcase(APITestCase, BaseTest):
 
     def test_cartitem_remove_api(self):
         """test cart item remove api"""
+        self.client.force_login(self.user)
         response = self.client.delete(self.cartitem_api_url_fetch_update_delete)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(CartItem.objects.filter(pk=self.cartitem.id).exists())

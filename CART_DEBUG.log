@@ -1,0 +1,153 @@
+INFO 2022-05-24 04:38:18,096 views 8189 log into cart app.
+INFO 2022-05-24 04:38:28,668 views 8189 cart load successfully
+INFO 2022-05-24 04:38:31,855 views 8189 cart load successfully
+INFO 2022-05-24 04:40:44,895 views 8395 log into cart app.
+INFO 2022-05-24 04:41:00,811 views 8395 cart load successfully
+INFO 2022-05-24 04:41:03,141 views 8395 Cartitem deleted!
+INFO 2022-05-24 04:41:03,170 views 8395 cart load successfully
+INFO 2022-05-24 04:45:43,961 views 8842 log into cart app.
+INFO 2022-05-24 04:45:51,114 views 8887 log into cart app.
+INFO 2022-05-24 04:46:44,085 views 8970 log into cart app.
+INFO 2022-05-24 04:46:55,384 views 8970 cart load successfully
+INFO 2022-05-24 04:47:23,731 views 8970 Cartitem deleted!
+INFO 2022-05-24 04:47:23,765 views 8970 cart load successfully
+INFO 2022-05-24 04:47:56,740 views 9082 log into cart app.
+INFO 2022-05-24 04:48:01,550 views 9082 cart load successfully
+INFO 2022-05-24 04:48:03,921 views 9082 cart load successfully
+DEBUG 2022-05-24 04:50:30,974 views 9395 Cartitem deleted!
+INFO 2022-05-24 05:44:07,932 views 12815 log into cart app.
+INFO 2022-05-24 05:45:30,371 views 12898 log into cart app.
+INFO 2022-05-24 05:49:00,543 views 13152 log into cart app.
+INFO 2022-05-24 06:02:18,046 views 13616 log into cart app.
+INFO 2022-05-24 06:02:22,021 views 13637 log into cart app.
+INFO 2022-05-24 06:03:37,489 views 13740 log into cart app.
+INFO 2022-05-24 06:04:00,751 views 13781 log into cart app.
+INFO 2022-05-24 06:05:33,323 views 13887 log into cart app.
+INFO 2022-05-24 06:13:38,955 views 14432 log into cart app.
+INFO 2022-05-24 06:16:00,747 views 14734 log into cart app.
+INFO 2022-05-24 06:17:25,338 views 14917 log into cart app.
+INFO 2022-05-24 06:21:32,022 views 15186 log into cart app.
+INFO 2022-05-24 06:25:22,650 views 15482 log into cart app.
+DEBUG 2022-05-24 06:25:38,732 views 15482 Cartitem deleted!
+INFO 2022-05-24 06:28:58,911 views 15787 log into cart app.
+INFO 2022-05-24 06:31:05,257 views 15915 log into cart app.
+INFO 2022-05-24 06:31:35,664 views 15975 log into cart app.
+INFO 2022-05-24 06:33:10,349 views 16064 log into cart app.
+INFO 2022-05-24 06:33:16,459 views 16086 log into cart app.
+INFO 2022-05-24 06:34:14,488 views 16146 log into cart app.
+INFO 2022-05-24 06:35:25,731 views 16286 log into cart app.
+INFO 2022-05-24 06:38:30,612 views 16524 log into cart app.
+INFO 2022-05-24 06:38:43,719 views 16590 log into cart app.
+INFO 2022-05-24 06:40:04,230 views 16750 log into cart app.
+INFO 2022-05-24 06:41:21,601 views 16884 log into cart app.
+INFO 2022-05-24 06:43:19,852 views 17103 log into cart app.
+INFO 2022-05-24 06:45:51,897 views 17335 log into cart app.
+INFO 2022-05-24 06:47:03,305 views 17453 log into cart app.
+INFO 2022-05-24 06:50:25,310 views 17689 log into cart app.
+INFO 2022-05-24 06:52:06,960 views 17837 log into cart app.
+INFO 2022-05-24 06:53:19,925 views 17941 log into cart app.
+INFO 2022-05-24 06:54:59,879 views 18060 log into cart app.
+INFO 2022-05-24 06:55:43,785 views 18156 log into cart app.
+INFO 2022-05-24 06:58:23,888 views 18298 log into cart app.
+INFO 2022-05-24 07:00:34,541 views 18394 log into cart app.
+INFO 2022-05-24 07:10:49,468 views 18868 log into cart app.
+INFO 2022-05-24 07:12:39,532 views 18981 log into cart app.
+INFO 2022-05-24 07:15:32,052 views 19162 log into cart app.
+INFO 2022-05-24 07:28:15,976 views 19615 log into cart app.
+INFO 2022-05-24 07:28:23,932 views 19639 log into cart app.
+INFO 2022-05-24 07:33:36,940 views 19870 log into cart app.
+INFO 2022-05-24 07:34:22,701 views 19916 log into cart app.
+INFO 2022-05-24 07:34:37,972 views 19941 log into cart app.
+INFO 2022-05-24 07:35:46,135 views 20046 log into cart app.
+INFO 2022-05-24 07:35:51,209 views 20070 log into cart app.
+INFO 2022-05-24 07:36:19,611 views 20121 log into cart app.
+INFO 2022-05-24 07:37:44,051 views 20196 log into cart app.
+INFO 2022-05-24 07:39:28,109 views 20287 log into cart app.
+INFO 2022-05-24 07:42:10,316 views 20437 log into cart app.
+INFO 2022-05-24 07:42:22,696 views 20464 log into cart app.
+INFO 2022-05-24 07:42:42,125 views 20507 log into cart app.
+INFO 2022-05-24 07:44:00,567 views 20604 log into cart app.
+INFO 2022-05-24 07:45:35,421 views 20680 log into cart app.
+INFO 2022-05-24 07:48:39,652 views 21015 log into cart app.
+INFO 2022-05-24 08:14:23,631 views 21645 log into cart app.
+INFO 2022-05-24 08:17:48,698 views 21876 log into cart app.
+INFO 2022-05-24 08:21:49,676 views 22270 log into cart app.
+INFO 2022-05-24 08:23:02,247 views 22393 log into cart app.
+INFO 2022-05-24 08:29:45,346 views 22695 log into cart app.
+INFO 2022-05-24 08:36:11,929 views 22937 log into cart app.
+INFO 2022-05-24 08:40:41,337 views 23147 log into cart app.
+INFO 2022-05-24 08:42:21,061 views 23239 log into cart app.
+INFO 2022-05-24 08:47:23,841 views 23453 log into cart app.
+INFO 2022-05-24 08:49:59,714 views 23559 log into cart app.
+INFO 2022-05-24 08:51:03,709 views 23636 log into cart app.
+INFO 2022-05-24 08:53:27,338 views 23736 log into cart app.
+INFO 2022-05-24 08:54:45,810 views 23819 log into cart app.
+INFO 2022-05-24 08:56:19,889 views 23913 log into cart app.
+INFO 2022-05-24 09:02:28,169 views 24179 log into cart app.
+INFO 2022-05-24 09:02:59,697 views 24216 log into cart app.
+INFO 2022-05-24 09:04:35,623 views 24304 log into cart app.
+INFO 2022-05-24 09:05:25,568 views 24411 log into cart app.
+INFO 2022-05-24 09:07:02,282 views 24504 log into cart app.
+INFO 2022-05-24 09:37:54,771 views 26091 log into cart app.
+INFO 2022-05-24 10:34:09,667 views 27560 log into cart app.
+INFO 2022-05-24 11:45:20,725 views 29634 log into cart app.
+INFO 2022-05-24 12:38:11,328 views 31534 log into cart app.
+INFO 2022-05-24 12:55:04,138 views 32066 log into cart app.
+INFO 2022-05-24 12:55:33,706 views 32284 log into cart app.
+INFO 2022-05-25 04:44:54,235 views 6008 log into cart app.
+INFO 2022-05-25 04:46:02,020 views 6056 log into cart app.
+INFO 2022-05-25 06:30:14,377 views 9977 log into cart app.
+INFO 2022-05-25 06:30:53,179 views 10023 log into cart app.
+INFO 2022-05-25 06:55:49,159 views 12268 log into cart app.
+INFO 2022-05-25 08:45:18,889 views 15580 log into cart app.
+INFO 2022-05-25 08:51:58,460 views 16096 log into cart app.
+INFO 2022-05-25 09:01:26,636 views 16688 log into cart app.
+INFO 2022-05-25 09:02:03,479 views 16796 log into cart app.
+INFO 2022-05-25 09:02:17,623 views 16919 log into cart app.
+INFO 2022-05-25 09:04:49,726 views 17256 log into cart app.
+INFO 2022-05-25 09:05:16,080 views 17302 log into cart app.
+INFO 2022-05-25 09:05:22,063 views 17354 log into cart app.
+INFO 2022-05-25 09:05:42,326 views 17390 log into cart app.
+INFO 2022-05-25 09:06:54,974 views 17583 log into cart app.
+INFO 2022-05-25 09:18:33,732 views 18712 log into cart app.
+INFO 2022-05-25 09:26:01,082 views 19415 log into cart app.
+INFO 2022-05-25 09:29:42,704 views 19867 log into cart app.
+INFO 2022-05-25 09:36:39,699 views 20764 log into cart app.
+INFO 2022-05-25 09:39:49,393 views 21056 log into cart app.
+INFO 2022-05-25 09:39:53,409 views 21139 log into cart app.
+INFO 2022-05-25 09:46:53,129 views 21392 log into cart app.
+INFO 2022-05-25 10:11:17,049 views 22395 log into cart app.
+INFO 2022-05-25 11:22:02,292 views 24837 log into cart app.
+INFO 2022-05-25 11:22:08,530 views 24921 log into cart app.
+INFO 2022-05-25 11:42:48,839 views 27069 log into cart app.
+DEBUG 2022-05-25 11:43:11,708 views 27069 Cartitem deleted!
+DEBUG 2022-05-25 11:43:49,602 views 27069 Cartitem deleted!
+DEBUG 2022-05-25 11:44:11,681 views 27069 Cartitem deleted!
+DEBUG 2022-05-25 11:44:36,524 views 27069 Cartitem deleted!
+DEBUG 2022-05-25 11:51:16,632 views 27069 Cartitem deleted!
+DEBUG 2022-05-25 11:51:24,550 views 27069 Cartitem deleted!
+DEBUG 2022-05-25 11:51:32,270 views 27069 Cartitem deleted!
+DEBUG 2022-05-25 11:53:00,651 views 27069 Cartitem deleted!
+DEBUG 2022-05-25 11:53:03,823 views 27069 Cartitem deleted!
+DEBUG 2022-05-25 11:53:06,706 views 27069 Cartitem deleted!
+INFO 2022-05-25 11:54:48,673 views 28005 log into cart app.
+INFO 2022-05-25 11:58:34,427 views 28246 log into cart app.
+INFO 2022-05-25 11:58:46,588 views 28356 log into cart app.
+INFO 2022-05-25 11:59:20,050 views 28469 log into cart app.
+INFO 2022-05-25 12:00:04,441 views 28736 log into cart app.
+DEBUG 2022-05-25 12:00:33,612 views 28736 Cartitem deleted!
+DEBUG 2022-05-25 12:00:37,021 views 28736 Cartitem deleted!
+DEBUG 2022-05-25 12:00:54,608 views 28736 Cartitem deleted!
+DEBUG 2022-05-25 12:01:20,462 views 28736 Cartitem deleted!
+DEBUG 2022-05-25 12:01:22,679 views 28736 Cartitem deleted!
+DEBUG 2022-05-25 12:02:30,191 views 28736 Cartitem deleted!
+DEBUG 2022-05-25 12:02:34,973 views 28736 Cartitem deleted!
+DEBUG 2022-05-25 12:02:37,513 views 28736 Cartitem deleted!
+DEBUG 2022-05-25 12:14:20,854 views 28736 Cartitem deleted!
+DEBUG 2022-05-25 12:14:31,353 views 28736 Cartitem deleted!
+DEBUG 2022-05-25 12:14:34,311 views 28736 Cartitem deleted!
+INFO 2022-05-26 03:39:33,952 views 4020 log into cart app.
+INFO 2022-05-26 04:45:49,423 views 6713 log into cart app.
+DEBUG 2022-05-26 06:28:59,421 views 4020 Cartitem deleted!
+DEBUG 2022-05-26 06:33:47,054 views 4020 Cartitem deleted!
+DEBUG 2022-05-26 06:33:50,284 views 4020 Cartitem deleted!

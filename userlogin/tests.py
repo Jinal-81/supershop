@@ -1,16 +1,21 @@
 from unittest import mock
+from urllib.parse import urlencode
+
 from django.contrib.auth.tokens import default_token_generator
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APITestCase, APIClient
+
 from product.factories import ProductFactory, CategoryFactory
 from .factories import UserFactory, AddressFactory
-from .forms import EMAIL_EXISTS_MSG, USERNAME_EXISTS_MSG, MOBILE_NUMBER_EXISTS_MSG
-from .views import LOGIN_ERROR_MSG, EMAIL_INVALID_MSG, INVALID_EMAIL_SUBJECT, USER_PROFILE_UPDATE_MSG,  \
+from .forms import EMAIL_EXISTS_MSG, USERNAME_EXISTS_MSG, MOBILE_NUMBER_EXISTS_MSG, ERROR_MSG
+from .models import MyUser
+from .views import LOGIN_ERROR_MSG, EMAIL_INVALID_MSG, INVALID_EMAIL_SUBJECT, USER_PROFILE_UPDATE_MSG, \
     REGISTRATION_SUCCESS_MSG
-from rest_framework.test import APITestCase, APIClient
-from rest_framework import status
 
 PASSWORD_RESET_URL = reverse('password_reset')
 PASSWORD_RESET_DONE = reverse('password_reset_done')
@@ -33,6 +38,7 @@ class BaseTest(TestCase):
         self.user = UserFactory()
         self.user.set_password(self.user.password)
         self.user.save()
+        # self.token = Token.objects.create(user=self.user)
 
         self.address = AddressFactory()
         self.address.user = self.user
@@ -46,6 +52,7 @@ class BaseTest(TestCase):
 
         self.apiclient = APIClient()
 
+        # self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         # self.user_api_url_list = reverse('api_user_list')
         # self.user_api_url_create = reverse('api_user_create')
         # self.user_api_url_retrieve = reverse('api_user_retrieve')
@@ -259,6 +266,13 @@ class SignupTest(BaseTest):
         response = self.client.post(self.register_url, {'username': 'abc'})
         self.assertContains(response, USERNAME_EXISTS_MSG)
 
+    # def test_first_name_not_blank(self):
+    #     """
+    #     check that first name is not blank.
+    #     """
+    #     response = self.client.post(self.register_url, {'first_name': ''})
+    #     self.assertContains(response, ERROR_MSG)
+
     def test_email_exists(self):
         """
         check that email address is exists and display message to user.
@@ -390,7 +404,7 @@ class UserAPITests(APITestCase, BaseTest):
         """test that user creates without mobile number which is required field api work successfully."""
         response = self.apiclient.post(reverse('api_user_create', args=('v2', )), data={
             'username': 'apiiiversion',
-            'password': self.user.password,
+            'password': '',
             'mobile_number': '',
             'profile_pic': self.user.profile_pic
         }, format="multipart")
@@ -400,14 +414,42 @@ class UserAPITests(APITestCase, BaseTest):
     def test_user_create_api(self):
         """test that user creates api work successfully."""
         response = self.apiclient.post(reverse('api_user_create', args=('v1', )), data={
-            'username': 'apiii',
+            'username': 'apiiii',
             'password': self.user.password,
-            'mobile_number': '7487120034',
-            'profile_pic': self.user.profile_pic
+            'mobile_number': '7487120035',
+            'profile_pic': self.user.profile_pic,
+            'confirm_password': self.user.password,
+            'first_name': self.user.first_name,
+            'last_name': self.user.last_name
         }, format="multipart")
         # Check if you get a 200 back:
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data['username'], 'apiii')
+        self.assertEqual(response.data['username'], 'apiiii')
+
+    def test_user_create_api_raise_error(self):
+        """test that user creates api rais error if password and confirm password is not same."""
+        response = self.apiclient.post(reverse('api_user_create', args=('v1', )), data={
+            'username': 'apiii',
+            'password': 'abcapi',
+            'mobile_number': '7487120034',
+            'profile_pic': self.user.profile_pic,
+            'confirm_password':self.user.password
+        }, format="multipart")
+        # Check if you get a 400 back:
+        self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_user_create_api_first_name_validation(self):
+        """test that user creates api rais error if user enter digit for first_name."""
+        response = self.apiclient.post(reverse('api_user_create', args=('v1', )), data={
+            'username': 'apiii',
+            'password': 'abcapi',
+            'mobile_number': '7487120034',
+            'profile_pic': self.user.profile_pic,
+            'confirm_password': self.user.password,
+            'first_name': 'jashd12'
+        }, format="multipart")
+        # Check if you get a 400 back:
+        self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_user_retrieve_api(self):
         """test particular user retrieve api."""
@@ -417,7 +459,6 @@ class UserAPITests(APITestCase, BaseTest):
 
     def test_user_retrieve_api_versioning(self):
         """test particular user retrieve api using versioning."""
-        # import pdb;pdb.set_trace();
         response = self.apiclient.get(reverse('api_user_retrieve', args=('v2', self.user.id, )))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -432,7 +473,10 @@ class UserAPITests(APITestCase, BaseTest):
             'username': 'abcapii',
             'password': self.user.password,
             'mobile_number': self.user.mobile_number,
-            'profile_pic': self.user.profile_pic
+            'profile_pic': self.user.profile_pic,
+            'confirm_password': self.user.password,
+            'first_name': self.user.first_name,
+            'last_name': self.user.last_name
         }, format="multipart")
         # Check if you get a 200 back:
         self.assertEquals(response.status_code, status.HTTP_200_OK)
@@ -454,7 +498,6 @@ class UserAPITests(APITestCase, BaseTest):
 
     def test_user_update_api_versioning_rais_error(self):
         """test user update api without entering mobile number to forcefully rais error using versioning."""
-        # import pdb;pdb.set_trace();
         response = self.apiclient.put(reverse('api_user_update', args=('v2', self.user.id, )), data={
             'username': '',
             'password': '',
@@ -466,24 +509,46 @@ class UserAPITests(APITestCase, BaseTest):
 
     def test_user_remove_api(self):
         """test user remove api"""
-        # import pdb;pdb.set_trace();
         response = self.apiclient.delete(reverse('api_user_delete', args=('v1', self.user.id, )))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 
+class UserLoginAPITests(APITestCase, BaseTest):
+    """test case for login api work successfully using token."""
+    def setUp(self):
+        """setup method for super user create and token generate"""
+        self.user = MyUser.objects.create_user(username='admin', password='admin')
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+    def test_get_customers_authenticated(self):
+        """test case for login detail api work successfully."""
+        response = self.client.get(reverse('user-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
 class AddressAPITests(APITestCase, BaseTest):
+    # def setUp(self):
+    #     """setup method for super user create and token generate"""
+    #     self.apiclient = APIClient()
+    #     self.user = MyUser.objects.create_user(username='admin', password='admin')
+
     def test_address_list_api(self):
         """test that address api load successfully."""
+        # import pdb; pdb.set_trace()
+        self.apiclient.force_login(self.user)
         response = self.apiclient.get(reverse('api_address_list', args=('v1', )))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_address_list_api_versioning(self):
         """test that address api load successfully using versioning"""
+        self.apiclient.force_login(self.user)
         response = self.apiclient.get(reverse('api_address_list', args=('v2', )))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_user_create_api(self):
+    def test_address_create_api(self):
         """test that address creates api work successfully."""
+        self.apiclient.force_login(self.user)
         response = self.apiclient.post(reverse('api_address_create', args=('v1', )), data={
             'city': 'apiii',
             'zipcode': self.address.zipcode,
@@ -498,12 +563,14 @@ class AddressAPITests(APITestCase, BaseTest):
 
     def test_address_retrieve_api(self):
         """test particular address retrieve api."""
+        self.apiclient.force_login(self.user)
         response = self.apiclient.get(reverse('api_address_retrieve', args=('v1', self.address.id, )))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['city'], self.address.city)
 
     def test_address_update_api(self):
         """test address update api."""
+        self.apiclient.force_login(self.user)
         response = self.apiclient.put(reverse('api_address_update', args=('v1', self.address.id, )), data={
             'city': 'apiii',
             'zipcode': self.address.zipcode,
@@ -519,5 +586,76 @@ class AddressAPITests(APITestCase, BaseTest):
 
     def test_address_remove_api(self):
         """test address remove api"""
+        self.apiclient.force_login(self.user)
         response = self.apiclient.get(reverse('api_address_delete', args=('v1', self.address.id, )))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class ForgotPasswordAPITests(APITestCase, BaseTest):
+    def test_token_generate_api(self):
+        """test that token generates and email verification api work successfully."""
+        data = urlencode({
+            'email': self.user.email
+        })
+        response = self.apiclient.post(reverse('api_email_verify', args=('v1', )), data=data, content_type='application/x-www-form-urlencoded')
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_201_CREATED)
+        # self.assertEqual(response.data['email'], self.user.email)
+
+    def test_email_address_required(self):
+        """test that email filed is required here."""
+        response = self.apiclient.post(reverse('api_email_verify', args=('v1', )), data={
+        })
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+    def test_email_validation(self):
+        """test that email is validate or not"""
+        data = urlencode({
+            'email': 'UTHgmail.com'
+        })
+        response = self.apiclient.post(reverse('api_email_verify', args=('v1', )), data=data, content_type='application/x-www-form-urlencoded')
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+    def test_token_generate_api_user_not_exists(self):
+        """test that user is not exists."""
+        data = urlencode({
+            'email': 'UTH@gmail.com'
+        })
+        response = self.apiclient.post(reverse('api_email_verify', args=('v1', )), data=data, content_type='application/x-www-form-urlencoded')
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+    def test_email_and_code_verify_api(self):
+        """test that code and email verify and code update api work successfully."""
+        response = self.apiclient.post(reverse('api_code_generate', args=('v1', )), data={
+            'email': self.user.email,
+            'code': self.user.code,
+            'password': self.user.password,
+            'newPassword': self.user.password
+        })
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+    def test_email_and_code_verify_api_error(self):
+        """test that code and email verify and code update api work successfully."""
+        response = self.apiclient.post(reverse('api_code_generate', args=('v1', )), data={
+            'email': 'xyz@gmail.com',
+            'code': self.user.code,
+            'password': self.user.password,
+            'newPassword': self.user.password
+        })
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+    def test_email_and_code_verify_api_error_serializer_not_valid(self):
+        """test that code and email verify and code update api work successfully."""
+        response = self.apiclient.post(reverse('api_code_generate', args=('v1', )), data={
+            'email': 'xyz@gmail.com',
+            'code': self.user.code,
+            'password': self.user.password,
+            'newPassword': ''
+        })
+        # Check if you get a 200 back:
+        self.assertEquals(response.status_code, status.HTTP_200_OK)

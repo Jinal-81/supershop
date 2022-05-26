@@ -1,0 +1,92 @@
+INFO 2022-05-25 09:39:49,391 views 21056 log into product app.
+INFO 2022-05-25 09:39:49,391 api 21056 search product by their name
+INFO 2022-05-25 09:39:49,392 api 21056 category selected successfully
+INFO 2022-05-25 09:39:53,404 views 21139 log into product app.
+INFO 2022-05-25 09:39:53,405 api 21139 search product by their name
+INFO 2022-05-25 09:39:53,406 api 21139 category selected successfully
+INFO 2022-05-25 09:39:57,375 api 21139 get all the pages successfully
+INFO 2022-05-25 09:39:57,375 api 21139 product serializer v1 called with all the fields.
+INFO 2022-05-25 09:40:44,541 api 21139 get all the pages successfully
+INFO 2022-05-25 09:40:44,541 api 21139 product serializer v1 called with all the fields.
+INFO 2022-05-25 09:46:53,124 views 21392 log into product app.
+INFO 2022-05-25 09:46:53,125 api 21392 search product by their name
+INFO 2022-05-25 09:46:53,126 api 21392 category selected successfully
+INFO 2022-05-25 10:11:17,045 views 22395 log into product app.
+INFO 2022-05-25 10:11:17,046 api 22395 search product by their name
+INFO 2022-05-25 10:11:17,046 api 22395 category selected successfully
+INFO 2022-05-25 11:22:02,288 views 24837 log into product app.
+INFO 2022-05-25 11:22:02,289 api 24837 search product by their name
+INFO 2022-05-25 11:22:02,289 api 24837 category selected successfully
+INFO 2022-05-25 11:22:08,527 views 24921 log into product app.
+INFO 2022-05-25 11:22:08,528 api 24921 search product by their name
+INFO 2022-05-25 11:22:08,528 api 24921 category selected successfully
+INFO 2022-05-25 11:42:48,835 views 27069 log into product app.
+INFO 2022-05-25 11:42:48,836 api 27069 search product by their name
+INFO 2022-05-25 11:42:48,836 api 27069 category selected successfully
+INFO 2022-05-25 11:43:36,184 views 27069 cart create successfully.
+INFO 2022-05-25 11:43:36,221 views 27069 Cart updated!
+INFO 2022-05-25 11:43:41,106 views 27069 cart create successfully.
+INFO 2022-05-25 11:43:41,140 views 27069 Cart updated!
+INFO 2022-05-25 11:43:45,538 views 27069 cart create successfully.
+INFO 2022-05-25 11:43:45,575 views 27069 Cart updated!
+INFO 2022-05-25 11:51:01,962 views 27069 cart create successfully.
+INFO 2022-05-25 11:51:01,992 views 27069 Cart updated!
+INFO 2022-05-25 11:51:06,070 views 27069 cart create successfully.
+INFO 2022-05-25 11:51:06,100 views 27069 Cart updated!
+INFO 2022-05-25 11:51:09,719 views 27069 cart create successfully.
+INFO 2022-05-25 11:51:09,751 views 27069 Cart updated!
+INFO 2022-05-25 11:52:46,257 views 27069 cart create successfully.
+INFO 2022-05-25 11:52:46,294 views 27069 Cart updated!
+INFO 2022-05-25 11:52:50,295 views 27069 cart create successfully.
+INFO 2022-05-25 11:52:50,326 views 27069 Cart updated!
+INFO 2022-05-25 11:52:55,012 views 27069 cart create successfully.
+INFO 2022-05-25 11:52:55,043 views 27069 Cart updated!
+INFO 2022-05-25 11:54:48,667 views 28005 log into product app.
+INFO 2022-05-25 11:54:48,669 api 28005 search product by their name
+INFO 2022-05-25 11:54:48,670 api 28005 category selected successfully
+INFO 2022-05-25 11:58:34,424 views 28246 log into product app.
+INFO 2022-05-25 11:58:34,425 api 28246 search product by their name
+INFO 2022-05-25 11:58:34,425 api 28246 category selected successfully
+INFO 2022-05-25 11:58:46,586 views 28356 log into product app.
+INFO 2022-05-25 11:58:46,586 api 28356 search product by their name
+INFO 2022-05-25 11:58:46,587 api 28356 category selected successfully
+INFO 2022-05-25 11:59:20,048 views 28469 log into product app.
+INFO 2022-05-25 11:59:20,049 api 28469 search product by their name
+INFO 2022-05-25 11:59:20,049 api 28469 category selected successfully
+INFO 2022-05-25 12:00:04,437 views 28736 log into product app.
+INFO 2022-05-25 12:00:04,438 api 28736 search product by their name
+INFO 2022-05-25 12:00:04,438 api 28736 category selected successfully
+INFO 2022-05-25 12:00:14,299 views 28736 cart create successfully.
+INFO 2022-05-25 12:00:14,329 views 28736 Cart updated!
+INFO 2022-05-25 12:00:20,251 views 28736 cart create successfully.
+INFO 2022-05-25 12:00:20,283 views 28736 Cart updated!
+INFO 2022-05-25 12:00:26,558 views 28736 cart create successfully.
+INFO 2022-05-25 12:00:26,590 views 28736 Cart updated!
+INFO 2022-05-25 12:01:13,209 views 28736 cart create successfully.
+INFO 2022-05-25 12:01:13,240 views 28736 Cart updated!
+INFO 2022-05-25 12:01:17,493 views 28736 cart create successfully.
+INFO 2022-05-25 12:01:17,524 views 28736 Cart updated!
+INFO 2022-05-25 12:02:12,036 views 28736 cart create successfully.
+INFO 2022-05-25 12:02:12,066 views 28736 Cart updated!
+INFO 2022-05-25 12:02:19,329 views 28736 cart create successfully.
+INFO 2022-05-25 12:02:19,359 views 28736 Cart updated!
+INFO 2022-05-25 12:02:25,127 views 28736 cart create successfully.
+INFO 2022-05-25 12:02:25,157 views 28736 Cart updated!
+INFO 2022-05-25 12:14:08,865 views 28736 cart create successfully.
+INFO 2022-05-25 12:14:08,898 views 28736 Cart updated!
+INFO 2022-05-25 12:14:13,690 views 28736 cart create successfully.
+INFO 2022-05-25 12:14:13,721 views 28736 Cart updated!
+INFO 2022-05-25 12:14:17,777 views 28736 cart create successfully.
+INFO 2022-05-25 12:14:17,808 views 28736 Cart updated!
+INFO 2022-05-26 03:39:33,949 views 4020 log into product app.
+INFO 2022-05-26 03:39:33,950 api 4020 search product by their name
+INFO 2022-05-26 03:39:33,950 api 4020 category selected successfully
+INFO 2022-05-26 04:45:49,420 views 6713 log into product app.
+INFO 2022-05-26 04:45:49,421 api 6713 search product by their name
+INFO 2022-05-26 04:45:49,421 api 6713 category selected successfully
+INFO 2022-05-26 06:28:56,413 views 4020 cart create successfully.
+INFO 2022-05-26 06:28:56,461 views 4020 Cart updated!
+INFO 2022-05-26 06:33:40,015 views 4020 cart create successfully.
+INFO 2022-05-26 06:33:40,052 views 4020 Cart updated!
+INFO 2022-05-26 06:33:44,689 views 4020 cart create successfully.
+INFO 2022-05-26 06:33:44,720 views 4020 Cart updated!

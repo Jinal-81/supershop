@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from userlogin.models import MyUser
+
 from product.models import Product
+from userlogin.models import MyUser
 
 
 # Create your models here.

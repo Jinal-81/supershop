@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from cart.models import Cart, CartItem
 
 
@@ -24,7 +25,7 @@ class CartSerializer(serializers.ModelSerializer):
     """
     serializer for the cart.
     """
-    usercart = CartItemSerializer(many=True, read_only=True)
+    usercart = CartItemSerializer(many=True, read_only=True)  # using related name fetch cart item.
 
     class Meta:
         model = Cart

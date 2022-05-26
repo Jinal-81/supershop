@@ -5,7 +5,7 @@ from rest_framework.routers import DefaultRouter
 from . import views
 from .api import CartViewSet, CartItemViewSet
 
-router = DefaultRouter()
+router = DefaultRouter()  # router for the cart and cart item.
 router.register(r'cart-api', CartViewSet, basename='cart-list')
 router.register(r'cartitems', CartItemViewSet, basename='cartitem-list')
 

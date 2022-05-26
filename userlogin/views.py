@@ -1,5 +1,9 @@
+import logging
+
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail, BadHeaderError
@@ -9,13 +13,12 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from product.filters import ProductFilter
-from .models import MyUser, Address
-from product.models import Product, Category
-from django.contrib.auth import authenticate, login
-from .forms import NewUserForm, UserLoginForm, UpdateProfile, AddAddress
-from django.contrib.auth.forms import PasswordResetForm
 from django.views.decorators.csrf import csrf_exempt
+
+from product.filters import ProductFilter
+from product.models import Product, Category
+from .forms import NewUserForm, UserLoginForm, UpdateProfile, AddAddress
+from .models import MyUser, Address
 
 LOGIN_ERROR_MSG = "Please enter valid username and password"
 ACCOUNT_NOT_EXIST_MSG = 'account is not exit plz signup yourself into system'
@@ -45,6 +48,26 @@ USER_PROFILE_UPDATE_MSG = "Your profile updated successfully.."
 USER_ADDRESS_UPDATE_MSG = "Your Address update successfully.."
 ADDRESS_DELETED_MSG = "Address deleted successfully.."
 USER_ADDRESS_UPDATE_URL = "userlogin/useraddressupdate.html"
+PRODUCT_LIST_LOG_MSG = 'product list load successfully'
+PAGE_NOT_INTEGER_LOG_MSG = 'page is not an integer'
+PAGE_EMPTY_LOG_MSG = 'page is empty'
+INDEX_PAGE_LOAD_LOG_MSG = 'INDEX page load successfully'
+LOGIN_PAGE_LOAD_LOG_MSG = 'Login page load successfully.'
+SIGNUP_PAGE_LOAD_LOG_MSG = 'Signup page load successfully.'
+PASSWORD_RESET_PAGE_LOAD_LOG_MSG = 'Password Reset page load successfully.'
+PROFILE_PAGE_LOAD_LOG_MSG = 'Profile page load successfully.'
+USER_ADDRESS_PAGE_LOAD_LOG_MSG = 'User address page load successfully.'
+ADDRESS_UPDATE_LOG_MSG = 'address updated successfully.'
+PRODUCT_FILTER_CATEGORY_WISE = 'Filter Products Category wise.'
+
+userlogin_info_logger = logging.getLogger('userlogin_info')
+userlogin_info_logger.info('log into userlogin app.')
+
+userlogin_debug_logger = logging.getLogger('userlogin_debug')
+userlogin_debug_logger.debug('log into userlogin app.')
+
+userlogin_warning_logger = logging.getLogger('userlogin_warning')
+userlogin_warning_logger.warning('log into userlogin app.')
 
 
 def index(request):
@@ -60,11 +83,14 @@ def index(request):
     paginator = Paginator(products, 3)  # tell the paginator to paginate products queryset in 3 products per page
     try:
         products_item = paginator.page(page)
+        userlogin_info_logger.info(PRODUCT_LIST_LOG_MSG)
     except PageNotAnInteger:
         products_item = paginator.page(1)  # if page is not integer
+        userlogin_warning_logger.warning(PAGE_NOT_INTEGER_LOG_MSG)
     except EmptyPage:
         products_item = paginator.page(paginator.num_pages)  # if page is empty.
-
+        userlogin_warning_logger.warning(PAGE_EMPTY_LOG_MSG)
+    userlogin_info_logger.info(INDEX_PAGE_LOAD_LOG_MSG)
     return render(request, INDEX_URL, {'filter': user_filter, 'categories': categories, 'products_item': products_item})
 
 
@@ -75,6 +101,7 @@ def category_search(request, id):
     categories = Category.objects.all()  # fetch all the categories.
     categories_filter = Category.objects.get(id=id)  # fetch all the categories.
     products = Product.objects.filter(category=categories_filter).order_by('id')  # fetch all the products
+    userlogin_info_logger.info(PRODUCT_FILTER_CATEGORY_WISE)
     user_filter = ProductFilter(request.POST, queryset=products)  # filter product by their name
     products = user_filter.qs  # filtered result
     page = request.GET.get('page', 1)  # get the page
@@ -82,11 +109,14 @@ def category_search(request, id):
     paginator = Paginator(products, 3)  # tell the paginator to paginate products queryset in 3 products per page
     try:
         products_item = paginator.page(page)
+        userlogin_info_logger.info(PRODUCT_LIST_LOG_MSG)
     except PageNotAnInteger:
         products_item = paginator.page(1)  # if page is not integer
+        userlogin_warning_logger.warning(PAGE_NOT_INTEGER_LOG_MSG)
     except EmptyPage:
         products_item = paginator.page(paginator.num_pages)  # if page is empty.
-
+        userlogin_warning_logger.warning(PAGE_EMPTY_LOG_MSG)
+    userlogin_info_logger.info(INDEX_PAGE_LOAD_LOG_MSG)
     return render(request, INDEX_URL, {'filter': user_filter, 'products_item': products_item, 'categories': categories})
 
 
@@ -119,11 +149,11 @@ def user_address_create(data: dict, user_pk):
     for key in list_of_keys:
         # update value accordingly
         dict1.update({key: data.get(key)})
-        print(dict1)
+        # print(dict1)
         # if key value is password that format is change for insert data
         if key == "user":
             dict1.update({key: user_pk})
-            print(user_pk)
+            # print(user_pk)
     # create user
     return Address.objects.create(**dict1)
 
@@ -145,12 +175,15 @@ def view_login(request):
         if user:
             # call login method
             login(request, user)
+            userlogin_info_logger.info(LOGIN_SUCCESS_MSG)
             messages.success(request, LOGIN_SUCCESS_MSG)
             return redirect('index')
         else:
             # print msg that user or account is not exist
+            userlogin_warning_logger.warning(LOGIN_ERROR_MSG)
             messages.error(request, LOGIN_ERROR_MSG)
     form = UserLoginForm()
+    userlogin_debug_logger.debug(LOGIN_PAGE_LOAD_LOG_MSG)
     return render(request, LOGIN_URL, {'form': form})
 
 
@@ -168,12 +201,15 @@ def signup(request):
             # send mail to user for registration confirmation
             send_mail('Subject', 'Message', 'abc@lskdj.com', [email], fail_silently=False)
             # display message after successfully registration
+            userlogin_info_logger.info(REGISTRATION_SUCCESS_MSG)
             messages.success(request, REGISTRATION_SUCCESS_MSG)
             # redirect to login page
             return redirect('login')
         # messages.error(request, FORM_NOT_VALID)
+        userlogin_debug_logger.debug(SIGNUP_PAGE_LOAD_LOG_MSG)
         return render(request, SIGNUP_URL, {'register_form': form})
     form = NewUserForm()
+    userlogin_debug_logger.debug(SIGNUP_PAGE_LOAD_LOG_MSG)
     return render(request, SIGNUP_URL, {'register_form': form})
 
 
@@ -199,10 +235,14 @@ def password_reset_request(request):
                     try:  # send mail to user console
                         send_mail(subject, email, 'admin@example.com', [user.email], fail_silently=False)
                     except BadHeaderError:  # rais exception if subject is not proper
+                        userlogin_warning_logger.warning(INVALID_EMAIL_SUBJECT)
                         return HttpResponse(INVALID_EMAIL_SUBJECT)
+                    userlogin_debug_logger.debug(PASSWORD_RESET_PAGE_LOAD_LOG_MSG)
                     return redirect(PASSWORD_RESET_DONE_URL)
+            userlogin_warning_logger.warning(EMAIL_INVALID_MSG)
             messages.error(request, EMAIL_INVALID_MSG)
     password_reset_form = PasswordResetForm()   # if form method is not post then redirect to same page
+    userlogin_debug_logger.debug(PASSWORD_RESET_PAGE_LOAD_LOG_MSG)
     return render(request, PASSWORD_RESET_URL, {"password_reset_form": password_reset_form})
 
 
@@ -216,9 +256,11 @@ def user_profile(request):
         form = UpdateProfile(request.POST or None, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()    # save form
+            userlogin_info_logger.info(USER_PROFILE_UPDATE_MSG)
             messages.success(request, USER_PROFILE_UPDATE_MSG)
             return redirect('profile')
     form = UpdateProfile(instance=request.user)
+    userlogin_debug_logger.debug(PROFILE_PAGE_LOAD_LOG_MSG)
     return render(request, USER_PROFILE_URL, {'form': form})
 
 
@@ -235,15 +277,17 @@ def user_address(request):
             # called address create function for new user
             user_pk = request.user
             obj = user_address_create(form.cleaned_data, user_pk)
-            print(obj, user_pk)
+            # print(obj, user_pk)
             address = {'id': obj.id, 'city': obj.city, 'landmark': obj.landmark, 'zipcode': obj.zipcode, 'state': obj.state, 'address_type': obj.address_type}
             # instance = form.save()
             data = {
                 'address': address
             }
-            print(address)
+            # print(address)
+            userlogin_debug_logger.debug('user view their address')
             return JsonResponse(data)  # send data
     form = AddAddress()
+    userlogin_debug_logger.debug(USER_ADDRESS_PAGE_LOAD_LOG_MSG)
     return render(request, USER_ADDRESS_URL, {'form': form, 'addresses': addresses})
 
 
@@ -270,6 +314,7 @@ def user_addresses_update(request):
     # pass data as jsonResponse
     address = {'id': obj.id, 'city': obj.city, 'landmark': obj.landmark, 'zipcode': obj.zipcode, 'state': obj.state, 'address_type': obj.address_type}
     data = {'address': address}
+    userlogin_info_logger.info(ADDRESS_UPDATE_LOG_MSG)
     return JsonResponse(data)
 
 
@@ -285,5 +330,5 @@ def remove_address(request):
         'deleted': True,  # return true
         "id": id1
     }
-
+    userlogin_info_logger.info(ADDRESS_DELETED_MSG)
     return JsonResponse(data)

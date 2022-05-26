@@ -1,0 +1,202 @@
+DEBUG 2022-05-26 06:33:41,484 utils 4020 (0.001) SELECT COUNT(*) AS "__count" FROM "product_product"; args=(); alias=default
+DEBUG 2022-05-26 06:33:41,491 utils 4020 (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2022-05-26T06:33:41.489102+00:00'::timestamptz AND "django_session"."session_key" = '3mhy6y5oflj557cfrenkd3rw5npi0fi3') LIMIT 21; args=(datetime.datetime(2022, 5, 26, 6, 33, 41, 489102, tzinfo=datetime.timezone.utc), '3mhy6y5oflj557cfrenkd3rw5npi0fi3'); alias=default
+DEBUG 2022-05-26 06:33:41,492 utils 4020 (0.001) SELECT "userlogin_myuser"."id", "userlogin_myuser"."password", "userlogin_myuser"."last_login", "userlogin_myuser"."is_superuser", "userlogin_myuser"."username", "userlogin_myuser"."first_name", "userlogin_myuser"."last_name", "userlogin_myuser"."email", "userlogin_myuser"."is_staff", "userlogin_myuser"."is_active", "userlogin_myuser"."date_joined", "userlogin_myuser"."mobile_number", "userlogin_myuser"."birth_date", "userlogin_myuser"."profile_pic", "userlogin_myuser"."code" FROM "userlogin_myuser" WHERE "userlogin_myuser"."id" = 1 LIMIT 21; args=(1,); alias=default
+DEBUG 2022-05-26 06:33:41,495 utils 4020 (0.001) SELECT "product_category"."id", "product_category"."name" FROM "product_category" ORDER BY "product_category"."id" ASC; args=(); alias=default
+DEBUG 2022-05-26 06:33:41,499 utils 4020 (0.000) SELECT "product_product"."id", "product_product"."name", "product_product"."price", "product_product"."description", "product_product"."product_image", "product_product"."quantity", "product_product"."category_id" FROM "product_product" ORDER BY "product_product"."id" ASC LIMIT 3; args=(); alias=default
+DEBUG 2022-05-26 06:33:41,500 base 4020 Exception while resolving variable 'products' in template 'userlogin/Homepage.html'.
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 862, in _resolve_lookup
+    current = current[bit]
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 868, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(type(current), bit):
+AttributeError: type object 'RequestContext' has no attribute 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 876, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 881, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [products] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'L3eBKVLzx0S3PsmZBRlcIyNiwXd9bWznjNmFJsemqlGUYqE1uRvb2XRsyPNFckml'>, 'request': <WSGIRequest: GET '/'>, 'user': <SimpleLazyObject: <MyUser: Ashu>>, 'perms': PermWrapper(<SimpleLazyObject: <MyUser: Ashu>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'filter': <product.filters.ProductFilter object at 0x7efc8c52a220>, 'categories': <QuerySet [<Category: Man>, <Category: Woman>, <Category: T-shirt>, <Category: Shirt>, <Category: children>, <Category: children>]>, 'products_item': <Page 1 of 7>}, {'block': <Block Node: content. Contents: [<TextNode: '\n<!--Slider start-->\n    '>, <IncludeNode: template=<FilterExpression "'userlogin/messages.html'">>, <TextNode: '\n<div id="HomepageID" cla'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/homepageimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/image1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/sliderimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, <ForNode: for category in categories, tail_len: 5>, <TextNode: '\n    </ul>\n  </li>\n  <li '>, <django.template.defaulttags.CsrfTokenNode object at 0x7efc8c65b0a0>, <TextNode: '\n          '>, <widget_tweaks.templatetags.widget_tweaks.FieldAttributeNode object at 0x7efc8c52f850>, <TextNode: '\n        <button class="b'>, <ForNode: for product in products_item, tail_len: 9>, <TextNode: '\n        <!--for loop for'>, <IfNode>, <TextNode: '\n<!--pagination end-->\n<!'>]>}, {'forloop': {'parentloop': {}, 'counter0': 0, 'counter': 1, 'revcounter': 7, 'revcounter0': 6, 'first': True, 'last': False}, 'i': 1}]
+DEBUG 2022-05-26 06:33:41,501 base 4020 Exception while resolving variable 'products' in template 'userlogin/Homepage.html'.
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 862, in _resolve_lookup
+    current = current[bit]
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 868, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(type(current), bit):
+AttributeError: type object 'RequestContext' has no attribute 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 876, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 881, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [products] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'L3eBKVLzx0S3PsmZBRlcIyNiwXd9bWznjNmFJsemqlGUYqE1uRvb2XRsyPNFckml'>, 'request': <WSGIRequest: GET '/'>, 'user': <SimpleLazyObject: <MyUser: Ashu>>, 'perms': PermWrapper(<SimpleLazyObject: <MyUser: Ashu>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'filter': <product.filters.ProductFilter object at 0x7efc8c52a220>, 'categories': <QuerySet [<Category: Man>, <Category: Woman>, <Category: T-shirt>, <Category: Shirt>, <Category: children>, <Category: children>]>, 'products_item': <Page 1 of 7>}, {'block': <Block Node: content. Contents: [<TextNode: '\n<!--Slider start-->\n    '>, <IncludeNode: template=<FilterExpression "'userlogin/messages.html'">>, <TextNode: '\n<div id="HomepageID" cla'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/homepageimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/image1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/sliderimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, <ForNode: for category in categories, tail_len: 5>, <TextNode: '\n    </ul>\n  </li>\n  <li '>, <django.template.defaulttags.CsrfTokenNode object at 0x7efc8c65b0a0>, <TextNode: '\n          '>, <widget_tweaks.templatetags.widget_tweaks.FieldAttributeNode object at 0x7efc8c52f850>, <TextNode: '\n        <button class="b'>, <ForNode: for product in products_item, tail_len: 9>, <TextNode: '\n        <!--for loop for'>, <IfNode>, <TextNode: '\n<!--pagination end-->\n<!'>]>}, {'forloop': {'parentloop': {}, 'counter0': 1, 'counter': 2, 'revcounter': 6, 'revcounter0': 5, 'first': False, 'last': False}, 'i': 2}]
+DEBUG 2022-05-26 06:33:41,501 base 4020 Exception while resolving variable 'products' in template 'userlogin/Homepage.html'.
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 862, in _resolve_lookup
+    current = current[bit]
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 868, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(type(current), bit):
+AttributeError: type object 'RequestContext' has no attribute 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 876, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 881, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [products] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'L3eBKVLzx0S3PsmZBRlcIyNiwXd9bWznjNmFJsemqlGUYqE1uRvb2XRsyPNFckml'>, 'request': <WSGIRequest: GET '/'>, 'user': <SimpleLazyObject: <MyUser: Ashu>>, 'perms': PermWrapper(<SimpleLazyObject: <MyUser: Ashu>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'filter': <product.filters.ProductFilter object at 0x7efc8c52a220>, 'categories': <QuerySet [<Category: Man>, <Category: Woman>, <Category: T-shirt>, <Category: Shirt>, <Category: children>, <Category: children>]>, 'products_item': <Page 1 of 7>}, {'block': <Block Node: content. Contents: [<TextNode: '\n<!--Slider start-->\n    '>, <IncludeNode: template=<FilterExpression "'userlogin/messages.html'">>, <TextNode: '\n<div id="HomepageID" cla'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/homepageimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/image1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/sliderimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, <ForNode: for category in categories, tail_len: 5>, <TextNode: '\n    </ul>\n  </li>\n  <li '>, <django.template.defaulttags.CsrfTokenNode object at 0x7efc8c65b0a0>, <TextNode: '\n          '>, <widget_tweaks.templatetags.widget_tweaks.FieldAttributeNode object at 0x7efc8c52f850>, <TextNode: '\n        <button class="b'>, <ForNode: for product in products_item, tail_len: 9>, <TextNode: '\n        <!--for loop for'>, <IfNode>, <TextNode: '\n<!--pagination end-->\n<!'>]>}, {'forloop': {'parentloop': {}, 'counter0': 2, 'counter': 3, 'revcounter': 5, 'revcounter0': 4, 'first': False, 'last': False}, 'i': 3}]
+DEBUG 2022-05-26 06:33:41,502 base 4020 Exception while resolving variable 'products' in template 'userlogin/Homepage.html'.
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 862, in _resolve_lookup
+    current = current[bit]
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 868, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(type(current), bit):
+AttributeError: type object 'RequestContext' has no attribute 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 876, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 881, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [products] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'L3eBKVLzx0S3PsmZBRlcIyNiwXd9bWznjNmFJsemqlGUYqE1uRvb2XRsyPNFckml'>, 'request': <WSGIRequest: GET '/'>, 'user': <SimpleLazyObject: <MyUser: Ashu>>, 'perms': PermWrapper(<SimpleLazyObject: <MyUser: Ashu>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'filter': <product.filters.ProductFilter object at 0x7efc8c52a220>, 'categories': <QuerySet [<Category: Man>, <Category: Woman>, <Category: T-shirt>, <Category: Shirt>, <Category: children>, <Category: children>]>, 'products_item': <Page 1 of 7>}, {'block': <Block Node: content. Contents: [<TextNode: '\n<!--Slider start-->\n    '>, <IncludeNode: template=<FilterExpression "'userlogin/messages.html'">>, <TextNode: '\n<div id="HomepageID" cla'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/homepageimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/image1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/sliderimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, <ForNode: for category in categories, tail_len: 5>, <TextNode: '\n    </ul>\n  </li>\n  <li '>, <django.template.defaulttags.CsrfTokenNode object at 0x7efc8c65b0a0>, <TextNode: '\n          '>, <widget_tweaks.templatetags.widget_tweaks.FieldAttributeNode object at 0x7efc8c52f850>, <TextNode: '\n        <button class="b'>, <ForNode: for product in products_item, tail_len: 9>, <TextNode: '\n        <!--for loop for'>, <IfNode>, <TextNode: '\n<!--pagination end-->\n<!'>]>}, {'forloop': {'parentloop': {}, 'counter0': 3, 'counter': 4, 'revcounter': 4, 'revcounter0': 3, 'first': False, 'last': False}, 'i': 4}]
+DEBUG 2022-05-26 06:33:41,502 base 4020 Exception while resolving variable 'products' in template 'userlogin/Homepage.html'.
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 862, in _resolve_lookup
+    current = current[bit]
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 868, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(type(current), bit):
+AttributeError: type object 'RequestContext' has no attribute 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 876, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 881, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [products] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'L3eBKVLzx0S3PsmZBRlcIyNiwXd9bWznjNmFJsemqlGUYqE1uRvb2XRsyPNFckml'>, 'request': <WSGIRequest: GET '/'>, 'user': <SimpleLazyObject: <MyUser: Ashu>>, 'perms': PermWrapper(<SimpleLazyObject: <MyUser: Ashu>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'filter': <product.filters.ProductFilter object at 0x7efc8c52a220>, 'categories': <QuerySet [<Category: Man>, <Category: Woman>, <Category: T-shirt>, <Category: Shirt>, <Category: children>, <Category: children>]>, 'products_item': <Page 1 of 7>}, {'block': <Block Node: content. Contents: [<TextNode: '\n<!--Slider start-->\n    '>, <IncludeNode: template=<FilterExpression "'userlogin/messages.html'">>, <TextNode: '\n<div id="HomepageID" cla'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/homepageimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/image1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/sliderimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, <ForNode: for category in categories, tail_len: 5>, <TextNode: '\n    </ul>\n  </li>\n  <li '>, <django.template.defaulttags.CsrfTokenNode object at 0x7efc8c65b0a0>, <TextNode: '\n          '>, <widget_tweaks.templatetags.widget_tweaks.FieldAttributeNode object at 0x7efc8c52f850>, <TextNode: '\n        <button class="b'>, <ForNode: for product in products_item, tail_len: 9>, <TextNode: '\n        <!--for loop for'>, <IfNode>, <TextNode: '\n<!--pagination end-->\n<!'>]>}, {'forloop': {'parentloop': {}, 'counter0': 4, 'counter': 5, 'revcounter': 3, 'revcounter0': 2, 'first': False, 'last': False}, 'i': 5}]
+DEBUG 2022-05-26 06:33:41,503 base 4020 Exception while resolving variable 'products' in template 'userlogin/Homepage.html'.
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 862, in _resolve_lookup
+    current = current[bit]
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 868, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(type(current), bit):
+AttributeError: type object 'RequestContext' has no attribute 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 876, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 881, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [products] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'L3eBKVLzx0S3PsmZBRlcIyNiwXd9bWznjNmFJsemqlGUYqE1uRvb2XRsyPNFckml'>, 'request': <WSGIRequest: GET '/'>, 'user': <SimpleLazyObject: <MyUser: Ashu>>, 'perms': PermWrapper(<SimpleLazyObject: <MyUser: Ashu>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'filter': <product.filters.ProductFilter object at 0x7efc8c52a220>, 'categories': <QuerySet [<Category: Man>, <Category: Woman>, <Category: T-shirt>, <Category: Shirt>, <Category: children>, <Category: children>]>, 'products_item': <Page 1 of 7>}, {'block': <Block Node: content. Contents: [<TextNode: '\n<!--Slider start-->\n    '>, <IncludeNode: template=<FilterExpression "'userlogin/messages.html'">>, <TextNode: '\n<div id="HomepageID" cla'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/homepageimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/image1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/sliderimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, <ForNode: for category in categories, tail_len: 5>, <TextNode: '\n    </ul>\n  </li>\n  <li '>, <django.template.defaulttags.CsrfTokenNode object at 0x7efc8c65b0a0>, <TextNode: '\n          '>, <widget_tweaks.templatetags.widget_tweaks.FieldAttributeNode object at 0x7efc8c52f850>, <TextNode: '\n        <button class="b'>, <ForNode: for product in products_item, tail_len: 9>, <TextNode: '\n        <!--for loop for'>, <IfNode>, <TextNode: '\n<!--pagination end-->\n<!'>]>}, {'forloop': {'parentloop': {}, 'counter0': 5, 'counter': 6, 'revcounter': 2, 'revcounter0': 1, 'first': False, 'last': False}, 'i': 6}]
+DEBUG 2022-05-26 06:33:41,504 base 4020 Exception while resolving variable 'products' in template 'userlogin/Homepage.html'.
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 862, in _resolve_lookup
+    current = current[bit]
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 868, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(type(current), bit):
+AttributeError: type object 'RequestContext' has no attribute 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 876, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'products'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/template/base.py", line 881, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [products] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'L3eBKVLzx0S3PsmZBRlcIyNiwXd9bWznjNmFJsemqlGUYqE1uRvb2XRsyPNFckml'>, 'request': <WSGIRequest: GET '/'>, 'user': <SimpleLazyObject: <MyUser: Ashu>>, 'perms': PermWrapper(<SimpleLazyObject: <MyUser: Ashu>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'filter': <product.filters.ProductFilter object at 0x7efc8c52a220>, 'categories': <QuerySet [<Category: Man>, <Category: Woman>, <Category: T-shirt>, <Category: Shirt>, <Category: children>, <Category: children>]>, 'products_item': <Page 1 of 7>}, {'block': <Block Node: content. Contents: [<TextNode: '\n<!--Slider start-->\n    '>, <IncludeNode: template=<FilterExpression "'userlogin/messages.html'">>, <TextNode: '\n<div id="HomepageID" cla'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/homepageimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/image1.jpg'">), <TextNode: '" class="d-block w-100" a'>, StaticNode(varname=None, path=<FilterExpression "'userlogin/sliderimage1.jpg'">), <TextNode: '" class="d-block w-100" a'>, <ForNode: for category in categories, tail_len: 5>, <TextNode: '\n    </ul>\n  </li>\n  <li '>, <django.template.defaulttags.CsrfTokenNode object at 0x7efc8c65b0a0>, <TextNode: '\n          '>, <widget_tweaks.templatetags.widget_tweaks.FieldAttributeNode object at 0x7efc8c52f850>, <TextNode: '\n        <button class="b'>, <ForNode: for product in products_item, tail_len: 9>, <TextNode: '\n        <!--for loop for'>, <IfNode>, <TextNode: '\n<!--pagination end-->\n<!'>]>}, {'forloop': {'parentloop': {}, 'counter0': 6, 'counter': 7, 'revcounter': 1, 'revcounter0': 0, 'first': False, 'last': True}, 'i': 7}]
+INFO 2022-05-26 06:33:41,506 basehttp 4020 "GET / HTTP/1.1" 200 13611

@@ -1,12 +1,11 @@
 # cart/urls.py
-from django.template.defaulttags import url
-from django.urls import path, include, re_path
+from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from . import views
 from .api import ProductApi, CategoryViewSet
 
-router = DefaultRouter()
+router = DefaultRouter()  # router url for the product and categories.
 router.register(r'/categories', CategoryViewSet, basename='category-list')
 router.register(r'/products', ProductApi, basename='product-list')
 

@@ -1,4 +1,5 @@
 import factory
+
 from cart.models import Cart, CartItem
 from product.factories import ProductFactory
 from userlogin.factories import UserFactory

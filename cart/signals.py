@@ -1,7 +1,8 @@
-from django.db.models.aggregates import Sum
 from django.db.models import F
+from django.db.models.aggregates import Sum
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+
 from .models import CartItem
 
 

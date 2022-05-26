@@ -9,11 +9,12 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import logging
 import os
+import datetime
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-from django.contrib import messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,11 +42,22 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'rest_framework',
+    'rest_framework.authtoken',
+    # 'userlogin',
+    # 'cart',
+    # 'product',
+    'django_filters',
+    'django_rest_passwordreset',
+    'django_extensions',
+]
+
+MY_APPS = [
     'userlogin',
     'cart',
-    'product',
-    'django_filters',
+    'product'
 ]
+
+INSTALLED_APPS += MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -155,10 +167,10 @@ AUTH_USER_MODEL = 'userlogin.MyUser'
 DATE_INPUT_FORMATS = ('%d-%m-%Y', '%Y-%m-%d')
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-    ],
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',
                                 'rest_framework.filters.SearchFilter'],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
@@ -168,4 +180,136 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,  # Put the number of items you desire
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {  # custom formate for the logger message
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': 'debug.log',
+            'when': 'S',
+            'interval': 1,
+            'backupCount': 5,  # last 5 files show
+            'formatter': 'verbose',
+        },
+        'cart': {  # handler for the cart app info level
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': 'CART_INFO.log',
+            'when': 'm',
+            'interval': 1,
+            'backupCount': 5,
+            'formatter': 'verbose',
+
+        },
+        'cart_debug': {  # handler for the cart app debug level
+            'level': 'DEBUG',
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': 'CART_DEBUG.log',
+            'mode': 'a',
+            'encoding': None,
+            'delay': False,
+            'formatter': 'verbose',
+        },
+        'cart_warning': {  # handler for the cart app warning level
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': 'CART_WARNING.log',
+            'formatter': 'verbose',
+        },
+        'product_info': {  # handler for the product app info level
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'PRODUCT_INFO.log',
+            'maxBytes': 42000,
+            'backupCount': 5,  # this is required if we want to know the changes.
+            'formatter': 'verbose',
+        },
+        'product_debug': {  # handler for the product app debug level
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'PRODUCT_DEBUG.log',
+            'formatter': 'verbose',
+        },
+        'product_warning': {  # handler for the product app warning level
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': 'PRODUCT_WARNING.log',
+            'formatter': 'verbose',
+        },
+        'userlogin_info': {  # handler for the userlogin app info level
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'USERLOGIN_INFO.log',
+            'formatter': 'verbose',
+        },
+        'userlogin_debug': {  # handler for the userlogin app debug level
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'USERLOGIN_DEBUG.log',
+            'formatter': 'verbose',
+        },
+        'userlogin_warning': {  # handler for the userlogin app warning level
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': 'USERLOGIN_WARNING.log',
+            'formatter': 'verbose',
+        },
+        'console': {  # handler for the console.
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'cart': {  # logger for the cart app info level
+            'handlers': ['console', 'cart'],
+            'level': 'INFO',
+        },
+        'cart_debug': {  # logger for the cart app debug level
+            'handlers': ['console', 'cart_debug'],
+            'level': 'DEBUG',
+        },
+        'cart_warning': {  # logger for the cart app warning level
+            'handlers': ['console', 'cart_warning'],
+            'level': 'WARNING',
+        },
+        'product_info': {  # logger for the product app info level
+            'handlers': ['console', 'product_info'],
+            'level': 'INFO',
+        },
+        'product_debug': {  # logger for the product app debug level
+            'handlers': ['console', 'product_debug'],
+            'level': 'DEBUG',
+        },
+        'product_warning': {  # logger for the product app warning level
+            'handlers': ['console', 'product_warning'],
+            'level': 'WARNING',
+        },
+        'userlogin_info': {  # logger for the userlogin app info level
+            'handlers': ['console', 'userlogin_info'],
+            'level': 'INFO',
+        },
+        'userlogin_debug': {  # logger for the userlogin app debug level
+            'handlers': ['console', 'userlogin_debug'],
+            'level': 'DEBUG',
+        },
+        'userlogin_warning': {  # logger for the userlogin app warning level
+            'handlers': ['console', 'userlogin_warning'],
+            'level': 'WARNING',
+        }
+    },
 }
