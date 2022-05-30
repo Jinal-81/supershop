@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.versioning import URLPathVersioning
 from rest_framework.views import APIView
+from rest_framework_simplejwt.views import TokenViewBase
 
 from userlogin import methods
 from userlogin.models import MyUser, Address
@@ -147,6 +148,15 @@ class AddressCreate(generics.ListCreateAPIView):
     serializer_class = AddressSerializer  # set serializer class
     permission_classes = [IsAuthenticated]  # user need to log in into system to access this api.
 
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_create(serializer)
+    #     headers = self.get_success_headers(serializer.data)
+    #     return Response({"status": True,
+    #                      "message": "Organization Added !",
+    #                      "data": serializer.data},
+    #                     status=status.HTTP_201_CREATED, headers=headers)
 
 class AddressRetrieve(generics.RetrieveAPIView):
     """API for the retrieve address using RetrieveAPIView"""
@@ -227,3 +237,9 @@ class CodeView(APIView):
         else:
             userlogin_debug_logger.debug(SERIALIZER_NOT_VALID_MSG)
             return Response({'message': SERIALIZER_NOT_VALID_MSG})  # return message is serializer is not valid.
+
+
+# class TokenObtainPairView(TokenViewBase):
+#     print("token obtains from here.")
+#     print("token obtains from here.")
+#     pass

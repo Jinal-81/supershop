@@ -63,5 +63,3 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer  # set serializer class.
     permission_classes = [IsAuthenticated]  # user need to log in into system to access this api.
 
-
-

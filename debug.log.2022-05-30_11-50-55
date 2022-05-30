@@ -1,0 +1,6 @@
+DEBUG 2022-05-30 11:50:55,675 autoreload 9849 File /home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/contrib/messages/utils.py first seen with mtime 1641553841.5414193
+DEBUG 2022-05-30 11:50:55,678 autoreload 9849 File /home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/contrib/messages/storage/base.py first seen with mtime 1641553841.5414193
+DEBUG 2022-05-30 11:50:55,678 autoreload 9849 File /home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/contrib/messages/storage/cookie.py first seen with mtime 1641553841.5414193
+DEBUG 2022-05-30 11:50:55,679 autoreload 9849 File /home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/contrib/messages/storage/session.py first seen with mtime 1641553841.5414193
+DEBUG 2022-05-30 11:50:55,681 autoreload 9849 File /home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/contrib/messages/storage/fallback.py first seen with mtime 1641553841.5414193
+DEBUG 2022-05-30 11:50:55,681 autoreload 9849 File /home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/django/contrib/sessions/serializers.py first seen with mtime 1641553841.5934184

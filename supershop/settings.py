@@ -13,6 +13,7 @@ import logging
 import os
 import datetime
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -67,6 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'userlogin.AuthMiddleware.JWTAuthenticationMiddleware'
+    # 'userlogin.authentication.SafeJWTAuthentication'
 ]
 
 ROOT_URLCONF = 'supershop.urls'
@@ -156,7 +159,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend', )
 AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 
-
+TOKEN_EXPIRED_AFTER_SECONDS = 5
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -167,9 +170,12 @@ AUTH_USER_MODEL = 'userlogin.MyUser'
 DATE_INPUT_FORMATS = ('%d-%m-%Y', '%Y-%m-%d')
 
 REST_FRAMEWORK = {
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework.authentication.SessionAuthentication',
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'userlogin.authentication.SafeJWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',
                                 'rest_framework.filters.SearchFilter'],
@@ -182,6 +188,9 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=20)  # set the access token expired time.
+}
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

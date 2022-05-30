@@ -332,3 +332,4 @@ def remove_address(request):
     }
     userlogin_info_logger.info(ADDRESS_DELETED_MSG)
     return JsonResponse(data)
+
