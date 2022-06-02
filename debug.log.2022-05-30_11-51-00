@@ -1,3 +1,0 @@
-INFO 2022-05-30 11:51:00,041 basehttp 9849 "POST /api/token/ HTTP/1.1" 200 483
-DEBUG 2022-05-30 11:51:00,837 autoreload 9849 File /home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/rest_framework_simplejwt/backends.py first seen with mtime 1650629328.7776718
-DEBUG 2022-05-30 11:51:00,839 autoreload 9849 File /home/jinal/PycharmProjects/CRUD/venv/lib/python3.8/site-packages/rest_framework_simplejwt/state.py first seen with mtime 1650629328.7816718

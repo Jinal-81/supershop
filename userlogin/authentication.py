@@ -29,7 +29,7 @@ class SafeJWTAuthentication(BaseAuthentication):
             raise exceptions.AuthenticationFailed('Token prefix missing')
 
         user = User.objects.filter(id=payload['user_id']).first()
-        print('"""""""',payload["user_id"], user)
+        print('"""""""', payload["user_id"], user)
         if user is None:
             raise exceptions.AuthenticationFailed('User not found')
 

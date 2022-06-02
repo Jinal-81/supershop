@@ -68,8 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'userlogin.AuthMiddleware.JWTAuthenticationMiddleware'
-    # 'userlogin.authentication.SafeJWTAuthentication'
+    'userlogin.custom_middleware.DemoMiddleware',
+    # 'userlogin.AuthMiddleware.authenticate',
 ]
 
 ROOT_URLCONF = 'supershop.urls'
@@ -170,13 +170,13 @@ AUTH_USER_MODEL = 'userlogin.MyUser'
 DATE_INPUT_FORMATS = ('%d-%m-%Y', '%Y-%m-%d')
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework.authentication.SessionAuthentication',
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'userlogin.authentication.SafeJWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'userlogin.authentication.SafeJWTAuthentication',
+    # ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',
                                 'rest_framework.filters.SearchFilter'],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
