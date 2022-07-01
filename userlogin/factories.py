@@ -21,7 +21,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     mobile_number = '7984842865'
     birth_date = datetime.date.today()
     profile_pic = 'images/girl1.jpg'
-    code = 67706
+    code1 = 67706
 
 
 class AddressFactory(factory.django.DjangoModelFactory):

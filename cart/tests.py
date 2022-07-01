@@ -87,6 +87,17 @@ class CartTest(BaseTest):
         self.assertTrue(response, CARTITEM_UPDATED_MSG)
         self.assertEqual(response.status_code, 200)
 
+    def test_cart_item_update_total(self):
+        """
+        test that cart item total update successfully.
+        """
+        self.client.force_login(self.user)
+        data = urlencode({'quantity': 1})
+        url = reverse('cartitem_update', args=(self.cartitem.id,))
+        response = self.client.post(url, data, content_type="application/x-www-form-urlencoded")
+        self.assertTrue(response, CARTITEM_UPDATED_MSG)
+        self.assertEqual(response.status_code, 200)
+
     def test_cart_item_update_error(self):
         """
         test that if user entered cartitem more than available then give error.

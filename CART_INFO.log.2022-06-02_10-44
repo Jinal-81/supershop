@@ -1,7 +1,0 @@
-INFO 2022-06-02 10:44:49,873 views 29841 log into cart app.
-INFO 2022-06-02 10:44:55,838 views 29886 log into cart app.
-INFO 2022-06-02 10:45:16,397 api 29886 cart item serializer v2 called with status field only.
-INFO 2022-06-02 10:45:17,977 api 29886 cart item serializer v2 called with status field only.
-INFO 2022-06-02 10:45:18,979 api 29886 cart item serializer v2 called with status field only.
-INFO 2022-06-02 10:45:19,984 api 29886 cart item serializer v2 called with status field only.
-INFO 2022-06-02 10:45:21,490 api 29886 cart item serializer v2 called with status field only.

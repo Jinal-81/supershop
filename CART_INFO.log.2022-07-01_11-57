@@ -1,0 +1,15 @@
+INFO 2022-07-01 12:04:29,002 views 47148 log into cart app.
+INFO 2022-07-01 12:04:34,250 api 47148 cart serializer v1 called with all the fields
+INFO 2022-07-01 12:04:34,517 api 47148 cart serializer v1 called with all the fields
+INFO 2022-07-01 12:04:34,808 api 47148 cart serializer v2 called with cart and product fields.
+INFO 2022-07-01 12:04:35,307 api 47148 cart serializer v1 called with all the fields
+INFO 2022-07-01 12:04:35,534 api 47148 cart serializer v1 called with all the fields
+INFO 2022-07-01 12:04:35,801 api 47148 cart item serializer v1 called with all the fields.
+INFO 2022-07-01 12:04:36,121 api 47148 cart item serializer v1 called with all the fields.
+INFO 2022-07-01 12:04:36,360 api 47148 cart item serializer v2 called with status field only.
+INFO 2022-07-01 12:04:36,830 api 47148 cart item serializer v1 called with all the fields.
+INFO 2022-07-01 12:04:37,099 api 47148 cart item serializer v1 called with all the fields.
+INFO 2022-07-01 12:04:38,056 views 47148 quantity updated!
+INFO 2022-07-01 12:04:38,288 views 47148 cart load successfully
+INFO 2022-07-01 12:04:38,547 views 47148 Cart placed!
+INFO 2022-07-01 12:04:38,773 views 47148 order page load successfully.

@@ -63,7 +63,7 @@ def cart_item_update(request, id):
     cartitem = CartItem.objects.get(id=id)  # get cart item
     cartitem.quantity = request.POST.get('quantity')  # get quantity from the user
     cartitem.quantity = int(cartitem.quantity)
-    if cartitem.quantity > cartitem.product.quantity:  # if user entered quantity more than available, then give error.
+    if cartitem.quantity >= cartitem.product.quantity:  # if user entered quantity more than available, then give error.
         cart_warning_logger.warning(CART_QUANTITY_LOG_MSG)
         return JsonResponse({'status': 'error', 'message': f"Quantity Must be less than or equal to {cartitem.product.quantity}"})
     else:

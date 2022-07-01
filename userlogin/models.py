@@ -10,7 +10,7 @@ class MyUser(AbstractUser):
     mobile_number = models.CharField(max_length=10, unique=True)
     birth_date = models.DateField(null=True, blank=True)
     profile_pic = models.ImageField(upload_to='images/')
-    code = models.IntegerField(default=1)
+    code1 = models.IntegerField(default=1)
 
     class Meta:
         ordering = ['id']

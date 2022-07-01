@@ -28,6 +28,9 @@
             <a class="nav-link" href="{% url 'cart' %}">Cart</a>
           </li>
           <li class="nav-item">
+              <a class="nav-link" href="{% url 'transaction_list' %}">History</a>
+          </li>
+          <li class="nav-item">
               <a class="nav-link" href="{% url 'product_list' %}">Products</a>
           </li>
           <li class="nav-item">
@@ -60,6 +63,7 @@
 <script type="text/javascript" src="{% static 'js/jquery.validate.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/popper.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/user_address.js' %}"></script>
 {% endblock %}
 

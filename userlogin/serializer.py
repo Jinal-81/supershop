@@ -76,13 +76,13 @@ class AddressSerializerV1(serializers.ModelSerializer):
 
 class EmailVerificationSerializer(serializers.ModelSerializer):
     """serializer for email and code verification."""
-    code = serializers.IntegerField()
+    code1 = serializers.IntegerField()
     email = serializers.EmailField()
     newPassword = serializers.CharField()
 
     class Meta:
         model = MyUser
-        fields = ['email', 'code', 'newPassword', ]
+        fields = ['email', 'code1', 'newPassword', ]
 
 
 class CodeSerializer(serializers.Serializer):

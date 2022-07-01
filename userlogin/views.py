@@ -1,22 +1,29 @@
 import logging
 
+from attr import fields
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.tokens import default_token_generator
+from django.core.exceptions import ValidationError
 from django.core.mail import send_mail, BadHeaderError
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from django.views.generic import View, UpdateView
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import ListView, CreateView
+from django.views.generic.base import TemplateResponseMixin
 
 from product.filters import ProductFilter
 from product.models import Product, Category
+from . import forms
 from .forms import NewUserForm, UserLoginForm, UpdateProfile, AddAddress
 from .models import MyUser, Address
 
@@ -70,6 +77,25 @@ userlogin_warning_logger = logging.getLogger('userlogin_warning')
 userlogin_warning_logger.warning('log into userlogin app.')
 
 
+# class IndexListView(ListView):
+#
+#     # model = Product
+#     paginate_by = 3  # if pagination is desired
+#     template_name = INDEX_URL
+#     # queryset = Product.objects.all().order_by('id')
+#     context_object_name = 'product_item'
+#
+#
+#     def get_queryset(self):
+#         """Return the last five published questions."""
+#         return Product.objects.all().order_by('id')
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['product_item'] = Product.objects.all().order_by('id')
+#         context['categories'] = Category.objects.all()
+#         return context
+
 def index(request):
     """
     redirect to main page(index page) and filter product by their name.
@@ -102,7 +128,7 @@ def category_search(request, id):
     categories_filter = Category.objects.get(id=id)  # fetch all the categories.
     products = Product.objects.filter(category=categories_filter).order_by('id')  # fetch all the products
     userlogin_info_logger.info(PRODUCT_FILTER_CATEGORY_WISE)
-    user_filter = ProductFilter(request.POST, queryset=products)  # filter product by their name
+    user_filter = ProductFilter(request.POST, queryset=products, )  # filter product by their name
     products = user_filter.qs  # filtered result
     page = request.GET.get('page', 1)  # get the page
 
@@ -120,22 +146,22 @@ def category_search(request, id):
     return render(request, INDEX_URL, {'filter': user_filter, 'products_item': products_item, 'categories': categories})
 
 
-def user_create(data: dict) -> None:
-    """
-    create new user
-    """
-    list_of_keys = ['username', 'password', 'email', 'first_name', 'last_name', 'mobile_number', 'birth_date',
-                    'profile_pic']
-    dict1 = {}
-    # fetch one by one key from the list
-    for key in list_of_keys:
-        # update value accordingly
-        dict1.update({key: data.get(key)})
-        # if key value is password that format is change for insert data
-        if key == "password":
-            dict1.update({key: make_password(data.get(key))})
-    # create user
-    MyUser.objects.create(**dict1)
+# def user_create(data: dict) -> None:
+#     """
+#     create new user
+#     """
+#     list_of_keys = ['username', 'password', 'email', 'first_name', 'last_name', 'mobile_number', 'birth_date',
+#                     'profile_pic']
+#     dict1 = {}
+#     # fetch one by one key from the list
+#     for key in list_of_keys:
+#         # update value accordingly
+#         dict1.update({key: data.get(key)})
+#         # if key value is password that format is change for insert data
+#         if key == "password":
+#             dict1.update({key: make_password(data.get(key))})
+#     # create user
+#     MyUser.objects.create(**dict1)
 
 
 @csrf_exempt
@@ -158,14 +184,15 @@ def user_address_create(data: dict, user_pk):
     return Address.objects.create(**dict1)
 
 
-def view_login(request):
-    """
-    login function for the user login
-    """
-    # variable for request.post
-    some_var = request.POST
-    # check that form method is post or not
-    if request.method == 'POST':
+class LoginView(View):
+    """login view for the user login."""
+    def get(self, request):
+        return render(request, LOGIN_URL, {'form': UserLoginForm})
+
+    def post(self, request):
+        form = UserLoginForm()
+        some_var = request.POST
+            # check that form method is post or not
         # get and stored username and password
         username = some_var.get('username')
         password = some_var.get('password')
@@ -182,35 +209,69 @@ def view_login(request):
             # print msg that user or account is not exist
             userlogin_warning_logger.warning(LOGIN_ERROR_MSG)
             messages.error(request, LOGIN_ERROR_MSG)
-    form = UserLoginForm()
-    userlogin_debug_logger.debug(LOGIN_PAGE_LOAD_LOG_MSG)
-    return render(request, LOGIN_URL, {'form': form})
+
+        return render(request, 'userlogin/login.html', {'form': form})
+
+# def view_login(request):
+#     """
+#     login function for the user login
+#     """
+#     # variable for request.post
+#     some_var = request.POST
+#     # check that form method is post or not
+#     if request.method == 'POST':
+#         # get and stored username and password
+#         username = some_var.get('username')
+#         password = some_var.get('password')
+#         # call authenticate function and authenticate username and password
+#         user = authenticate(request, username=username, password=password)
+#         # check that user is not none
+#         if user:
+#             # call login method
+#             login(request, user)
+#             userlogin_info_logger.info(LOGIN_SUCCESS_MSG)
+#             messages.success(request, LOGIN_SUCCESS_MSG)
+#             return redirect('index')
+#         else:
+#             # print msg that user or account is not exist
+#             userlogin_warning_logger.warning(LOGIN_ERROR_MSG)
+#             messages.error(request, LOGIN_ERROR_MSG)
+#     form = UserLoginForm()
+#     userlogin_debug_logger.debug(LOGIN_PAGE_LOAD_LOG_MSG)
+#     return render(request, LOGIN_URL, {'form': form})
 
 
-def signup(request):
-    """
-    registration for user.
-    """
-    if request.method == 'POST' or None:
-        form = NewUserForm(request.POST or None, request.FILES)
-        if form.is_valid():
-            # called user create function for new user
-            user_create(form.cleaned_data)
-            # fetch users email id
-            email = form.cleaned_data.get('email')
-            # send mail to user for registration confirmation
-            send_mail('Subject', 'Message', 'abc@lskdj.com', [email], fail_silently=False)
-            # display message after successfully registration
-            userlogin_info_logger.info(REGISTRATION_SUCCESS_MSG)
-            messages.success(request, REGISTRATION_SUCCESS_MSG)
-            # redirect to login page
-            return redirect('login')
-        # messages.error(request, FORM_NOT_VALID)
-        userlogin_debug_logger.debug(SIGNUP_PAGE_LOAD_LOG_MSG)
-        return render(request, SIGNUP_URL, {'register_form': form})
-    form = NewUserForm()
-    userlogin_debug_logger.debug(SIGNUP_PAGE_LOAD_LOG_MSG)
-    return render(request, SIGNUP_URL, {'register_form': form})
+class SignupView(CreateView):
+    """register for user."""
+    model = MyUser  # modal for the create view
+    form_class = NewUserForm  # form for the user
+    # fields = ['username', 'first_name', 'last_name', 'password', 'mobile_number', 'birth_date', 'profile_pic']
+    template_name = 'userlogin/signin.html'  # template for the signin
+    success_url = reverse_lazy('login')  # success url
+# def signup(request):
+#     """
+#     registration for user.
+#     """
+#     if request.method == 'POST' or None:
+#         form = NewUserForm(request.POST or None, request.FILES)
+#         if form.is_valid():
+#             # called user create function for new user
+#             user_create(form.cleaned_data)
+#             # fetch users email id
+#             email = form.cleaned_data.get('email')
+#             # send mail to user for registration confirmation
+#             send_mail('Subject', 'Message', 'abc@lskdj.com', [email], fail_silently=False)
+#             # display message after successfully registration
+#             userlogin_info_logger.info(REGISTRATION_SUCCESS_MSG)
+#             messages.success(request, REGISTRATION_SUCCESS_MSG)
+#             # redirect to login page
+#             return redirect('login')
+#         # messages.error(request, FORM_NOT_VALID)
+#         userlogin_debug_logger.debug(SIGNUP_PAGE_LOAD_LOG_MSG)
+#         return render(request, SIGNUP_URL, {'register_form': form})
+#     form = NewUserForm()
+#     userlogin_debug_logger.debug(SIGNUP_PAGE_LOAD_LOG_MSG)
+#     return render(request, SIGNUP_URL, {'register_form': form})
 
 
 def password_reset_request(request):
@@ -262,6 +323,14 @@ def user_profile(request):
     form = UpdateProfile(instance=request.user)
     userlogin_debug_logger.debug(PROFILE_PAGE_LOAD_LOG_MSG)
     return render(request, USER_PROFILE_URL, {'form': form})
+# class UserProfileView(UpdateView):
+#     """user update profile view using update view."""
+#     template_name = 'userlogin/userprofile.html'
+#     model = MyUser
+#     form_class = UpdateProfile
+#
+#     def get_success_url(self):
+#         return
 
 
 @csrf_exempt
@@ -333,3 +402,41 @@ def remove_address(request):
     userlogin_info_logger.info(ADDRESS_DELETED_MSG)
     return JsonResponse(data)
 
+# @csrf_exempt
+# def stripe_config(request):
+#     if request.method == 'GET':
+#         stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
+#         return JsonResponse(stripe_config, safe=False)
+#
+# @csrf_exempt
+# def create_checkout_session(request):
+#     if request.method == 'GET':
+#         domain_url = 'http://localhost:8000/'
+#         stripe.api_key = settings.STRIPE_SECRET_KEY
+#         try:
+#             # Create new Checkout Session for the order
+#             # Other optional params include:
+#             # [billing_address_collection] - to display billing address details on the page
+#             # [customer] - if you have an existing Stripe Customer ID
+#             # [payment_intent_data] - capture the payment later
+#             # [customer_email] - prefill the email input in the form
+#             # For full details see https://stripe.com/docs/api/checkout/sessions/create
+#
+#             # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+#             checkout_session = stripe.checkout.Session.create(
+#                 success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+#                 cancel_url=domain_url + 'cancelled/',
+#                 payment_method_types=['card'],
+#                 mode='payment',
+#                 line_items=[
+#                     {
+#                         'name': 'T-shirt',
+#                         'quantity': 1,
+#                         'currency': 'usd',
+#                         'amount': '2000',
+#                     }
+#                 ]
+#             )
+#             return JsonResponse({'sessionId': checkout_session['id']})
+#         except Exception as e:
+#             return JsonResponse({'error': str(e)})

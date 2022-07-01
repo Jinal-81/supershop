@@ -34,7 +34,7 @@
                             <form action="" method="POST" class="articel">
                                 <input type="hidden" name="id" class="prod_id" value="{{ cart_item.id }}">
                                 {% csrf_token %}
-                                <input type="number" value="{{ cart_item.quantity }}" min="1" max="50" name="quantity"  class="form-control form-control-sm quantityData" id="{{cart_item.product.price}}">
+                                <input type="number" value="{{ cart_item.quantity }}" min="1" max="{{ cart_item.product.quantity }}" name="quantity"  class="form-control form-control-sm quantityData" id="{{cart_item.product.price}}">
                             </form>
                         </div>
                         <div class="col" id="margincartprice" name="price">
@@ -71,7 +71,7 @@
                 <div>
                     <h5><b>Summary</b></h5>
                 </div>
-                <form action="{% url 'order' %}" method="post">
+                <form action="{% url 'create-checkout-session' cart.pk %}" method="post">
                     {% csrf_token %}
                 <div class="row" id="cartsummaryid">
                     <div class="col-md-9"><b>TOTAL PRICE</b></div>
@@ -129,6 +129,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal -->
 {% endif %}
 <!--card end-->

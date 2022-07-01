@@ -517,9 +517,10 @@ class UserLoginAPITests(APITestCase, BaseTest):
     """test case for login api work successfully using token."""
     def setUp(self):
         """setup method for super user create and token generate"""
+            # import pdb; pdb.set_trace()
         self.user = MyUser.objects.create_user(username='admin', password='admin')
         self.token = Token.objects.create(user=self.user)
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.client.credentials(Authorization='Token ' + self.token.key)
 
     def test_get_customers_authenticated(self):
         """test case for login detail api work successfully."""
@@ -529,7 +530,7 @@ class UserLoginAPITests(APITestCase, BaseTest):
 
 class AddressAPITests(APITestCase, BaseTest):
     # def setUp(self):
-    #     """setup method for super user create and token generate"""
+    #     """setup method for superuser create and token generate"""
     #     self.apiclient = APIClient()
     #     self.user = MyUser.objects.create_user(username='admin', password='admin')
 
@@ -631,7 +632,7 @@ class ForgotPasswordAPITests(APITestCase, BaseTest):
         """test that code and email verify and code update api work successfully."""
         response = self.apiclient.post(reverse('api_code_generate', args=('v1', )), data={
             'email': self.user.email,
-            'code': self.user.code,
+            'code1': self.user.code1,
             'password': self.user.password,
             'newPassword': self.user.password
         })
@@ -642,7 +643,7 @@ class ForgotPasswordAPITests(APITestCase, BaseTest):
         """test that code and email verify and code update api work successfully."""
         response = self.apiclient.post(reverse('api_code_generate', args=('v1', )), data={
             'email': 'xyz@gmail.com',
-            'code': self.user.code,
+            'code1': self.user.code1,
             'password': self.user.password,
             'newPassword': self.user.password
         })
@@ -653,7 +654,7 @@ class ForgotPasswordAPITests(APITestCase, BaseTest):
         """test that code and email verify and code update api work successfully."""
         response = self.apiclient.post(reverse('api_code_generate', args=('v1', )), data={
             'email': 'xyz@gmail.com',
-            'code': self.user.code,
+            'code1': self.user.code1,
             'password': self.user.password,
             'newPassword': ''
         })

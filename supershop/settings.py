@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import logging
 import os
 import datetime
+import sys
 from pathlib import Path
 from datetime import timedelta
 
@@ -29,7 +30,7 @@ SECRET_KEY = 'django-insecure-mc@%#g7&(5g3xw0(kk!6h2^h2m)(w4z#&*f@27!o!pp@2aucv9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".ngrok.io", "checkout.stripe.com"]
 
 
 # Application definition
@@ -55,7 +56,8 @@ INSTALLED_APPS = [
 MY_APPS = [
     'userlogin',
     'cart',
-    'product'
+    'product',
+    'payments'
 ]
 
 INSTALLED_APPS += MY_APPS
@@ -68,7 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'userlogin.custom_middleware.DemoMiddleware',
+    # 'userlogin.custom_middleware.DemoMiddleware',
     # 'userlogin.AuthMiddleware.authenticate',
 ]
 
@@ -172,6 +174,7 @@ DATE_INPUT_FORMATS = ('%d-%m-%Y', '%Y-%m-%d')
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
+        'userlogin.authentication.SafeJWTAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     # 'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -322,3 +325,15 @@ LOGGING = {
         }
     },
 }
+
+STRIPE_SECRET_KEY = "sk_test_51L8LKtSIaGevHT0T6z6IaF5yHrBJaPyhM8ydtLaph37mMGZwfJfYTtoYPxScyFJq3SLO9fbcxgMgLqGa7ZmQSUu000T0Zou5kc"
+STRIPE_PUBLISHABLE_KEY = "pk_test_51L8LKtSIaGevHT0TE3isEw0Y3WcyqcUGsK7m0DsaxaGd6ACPymWVVtwekKP7DIkKttjyGF0XlFjGK7V2Si9wrTqy00gVZlp4GL"
+STRIPE_ENDPOINT_SECRET = 'whsec_FyE1Q43bv9ndHduXnZw15MT8cAnmMOEl'
+
+
+BASE_URL = "http://localhost:8000"
+
+DEV_SERVER = len(sys.argv) > 1 and sys.argv[1] == "runserver"
+
+USE_NGROK = os.environ.get("USE_NGROK", "False") == "True" and os.environ.get("RUN_MAIN", None) != "true"
+

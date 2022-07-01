@@ -1,0 +1,38 @@
+{% extends 'userlogin/base.html' %}
+{% load static %}
+{% block content %}
+<!--container start-->
+<section class="container">
+    <!--card start-->
+    <div class="card p-4" id="cartcard">
+        {% include 'userlogin/messages.html' %}
+        <div class="table-responsive">
+          <table class="table table-secondary align-middle">
+              <h4 class="display-4 text-center">Order Confirmed</h4>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <div class="card h-auto" id="card">
+                            <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
+                                 <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                                       <span class="swal2-success-line-tip"></span>
+                                       <span class="swal2-success-line-long"></span>
+                                       <div class="swal2-success-ring"></div>
+                                       <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                                       <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                                  </div>
+                            </div>
+                            <b>Yay! It's a nice order!<b>
+                            <b>It will arrive soon.</b>
+                            <div class="card-footer py-4">
+                                <a href="{% url 'index' %}" class="btn btn-secondary">Shop Again</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </table>
+        </div>
+    </div>
+    <!--card end-->
+</section>
+<!--container end-->
+{% endblock %}

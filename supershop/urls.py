@@ -30,6 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('userlogin.urls')),
     path('product', include('product.urls')),
+    path('payment', include('payments.urls')),
     re_path(r'^api/v5', include(('product.urls', 'product'), namespace='v5')),
     re_path(r'^api/(v1|v2|v5)', include(('product.urls', 'product'), namespace='v2')),
     path('cart', include('cart.urls')),

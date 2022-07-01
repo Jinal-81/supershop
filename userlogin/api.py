@@ -221,12 +221,12 @@ class CodeView(APIView):
         serializer = EmailVerificationSerializer(data=request.data)  # call serializer
 
         if serializer.is_valid():  # check that serializer is valid or not
-            USER = MyUser.objects.filter(code=serializer.validated_data['code'],
+            USER = MyUser.objects.filter(code1=serializer.validated_data['code1'],
                                          email=serializer.validated_data['email'])
             if USER.exists():  # check that user is exists
                 # with this code and email address.
                 user = USER.first()  # filter data according code.
-                user.code = 1  # update code as 1.
+                user.code1 = 1  # update code as 1.
                 user.set_password(serializer.validated_data['newPassword'])  # change password.
                 user.save()
                 userlogin_info_logger.info(PASSWORD_CHANGE_SUCCESS_MSG)
