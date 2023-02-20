@@ -11,6 +11,7 @@
             <!--form start-->
             <form method="POST" action="{% url 'profile' %}"  enctype="multipart/form-data">
             {% csrf_token %}
+                {% if user.profile_pic %}
                 <!--display user profile-->
                 <div class="d-flex flex-column align-items-center text-center">
                     <label for="file-input">
@@ -27,6 +28,7 @@
                     <span class="text-black-50">{{ user.email }}</span><br><br>
                     <span> </span>
                 </div>
+                {% endif %}
                 <!--user profile end-->
             </div>
             <div class="col-md-6 border-right">

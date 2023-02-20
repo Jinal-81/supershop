@@ -5,14 +5,16 @@ from django.urls import path, re_path
 from . import views, api
 
 # app_name = 'Users'
-from .views import SignupView, LoginView
+from .views import SignupView, IndexView, DeleteUserView
 
 urlpatterns = [
-    path('', views.index, name="index"),
-    # path('', IndexListView.as_view(), name="index"),
-    path('category_search/<int:id>', views.category_search, name='category_search'),
-    # path('login/', views.view_login, n    ame="login"),
-    path('login/', LoginView.as_view(), name="login"),
+    # path('', views.index, name="index"),
+    path('', IndexView.as_view(), name="index"),
+    # path('category_search/<int:id>', views.category_search, name='category_search'),
+    path('login/', views.view_login, name="login"),
+    # path('login/', LoginView.as_view(), name="login"),
+    # path('contact/', ContactFormView.as_view(), name="contact"),
+    path('<pk>/deleteuser/', DeleteUserView.as_view(), name='deleteuser'),
     # path('signup/', views.signup, name="signup"),
     path('signup', SignupView.as_view(), name='signup'),
     path('logout/', LogoutView.as_view(template_name='userlogin/Homepage.html'), name="logout"),

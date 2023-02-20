@@ -1,250 +1,106 @@
-INFO 2022-07-01 07:02:17,684 api 19010 search product by their name
-INFO 2022-07-01 07:02:17,689 api 19010 category selected successfully
-INFO 2022-07-01 07:02:34,718 views 19143 log into product app.
-INFO 2022-07-01 07:02:34,722 api 19143 search product by their name
-INFO 2022-07-01 07:02:34,722 api 19143 category selected successfully
-INFO 2022-07-01 07:04:58,482 views 19340 log into product app.
-INFO 2022-07-01 07:04:58,485 api 19340 search product by their name
-INFO 2022-07-01 07:04:58,485 api 19340 category selected successfully
-INFO 2022-07-01 07:05:18,526 views 19390 log into product app.
-INFO 2022-07-01 07:05:18,529 api 19390 search product by their name
-INFO 2022-07-01 07:05:18,530 api 19390 category selected successfully
-INFO 2022-07-01 08:29:01,656 views 21854 log into product app.
-INFO 2022-07-01 08:29:01,659 api 21854 search product by their name
-INFO 2022-07-01 08:29:01,660 api 21854 category selected successfully
-INFO 2022-07-01 08:29:56,437 views 21962 log into product app.
-INFO 2022-07-01 08:29:56,440 api 21962 search product by their name
-INFO 2022-07-01 08:29:56,440 api 21962 category selected successfully
-INFO 2022-07-01 08:33:10,216 views 22272 log into product app.
-INFO 2022-07-01 08:33:10,220 api 22272 search product by their name
-INFO 2022-07-01 08:33:10,220 api 22272 category selected successfully
-INFO 2022-07-01 08:37:00,905 views 22715 log into product app.
-INFO 2022-07-01 08:37:00,908 api 22715 search product by their name
-INFO 2022-07-01 08:37:00,908 api 22715 category selected successfully
-INFO 2022-07-01 08:38:47,800 views 22948 log into product app.
-INFO 2022-07-01 08:38:47,803 api 22948 search product by their name
-INFO 2022-07-01 08:38:47,803 api 22948 category selected successfully
-INFO 2022-07-01 08:51:46,335 views 23478 log into product app.
-INFO 2022-07-01 08:51:46,336 api 23478 search product by their name
-INFO 2022-07-01 08:51:46,337 api 23478 category selected successfully
-INFO 2022-07-01 08:52:29,799 views 23607 log into product app.
-INFO 2022-07-01 08:52:29,800 api 23607 search product by their name
-INFO 2022-07-01 08:52:29,800 api 23607 category selected successfully
-INFO 2022-07-01 08:55:17,454 views 24140 log into product app.
-INFO 2022-07-01 08:55:17,455 api 24140 search product by their name
-INFO 2022-07-01 08:55:17,455 api 24140 category selected successfully
-INFO 2022-07-01 09:19:10,446 views 24140 Product list page load successfully
-INFO 2022-07-01 09:19:12,714 views 24140 Product list page load successfully
-INFO 2022-07-01 09:32:56,299 views 27024 log into product app.
-INFO 2022-07-01 09:32:56,302 api 27024 search product by their name
-INFO 2022-07-01 09:32:56,302 api 27024 category selected successfully
-INFO 2022-07-01 09:33:04,217 views 27153 log into product app.
-INFO 2022-07-01 09:33:04,218 api 27153 search product by their name
-INFO 2022-07-01 09:33:04,219 api 27153 category selected successfully
-INFO 2022-07-01 09:33:14,904 views 27203 log into product app.
-INFO 2022-07-01 09:33:14,905 api 27203 search product by their name
-INFO 2022-07-01 09:33:14,905 api 27203 category selected successfully
-INFO 2022-07-01 09:33:32,797 views 27409 log into product app.
-INFO 2022-07-01 09:33:32,798 api 27409 search product by their name
-INFO 2022-07-01 09:33:32,799 api 27409 category selected successfully
-INFO 2022-07-01 09:33:37,503 views 27481 log into product app.
-INFO 2022-07-01 09:33:37,504 api 27481 search product by their name
-INFO 2022-07-01 09:33:37,505 api 27481 category selected successfully
-INFO 2022-07-01 09:34:15,013 views 27804 log into product app.
-INFO 2022-07-01 09:34:15,015 api 27804 search product by their name
-INFO 2022-07-01 09:34:15,015 api 27804 category selected successfully
-INFO 2022-07-01 09:34:26,636 views 27938 log into product app.
-INFO 2022-07-01 09:34:26,637 api 27938 search product by their name
-INFO 2022-07-01 09:34:26,638 api 27938 category selected successfully
-INFO 2022-07-01 09:35:47,867 views 28176 log into product app.
-INFO 2022-07-01 09:35:47,869 api 28176 search product by their name
-INFO 2022-07-01 09:35:47,869 api 28176 category selected successfully
-INFO 2022-07-01 09:35:59,572 views 28265 log into product app.
-INFO 2022-07-01 09:35:59,573 api 28265 search product by their name
-INFO 2022-07-01 09:35:59,573 api 28265 category selected successfully
-INFO 2022-07-01 09:37:30,106 views 28443 log into product app.
-INFO 2022-07-01 09:37:30,107 api 28443 search product by their name
-INFO 2022-07-01 09:37:30,107 api 28443 category selected successfully
-INFO 2022-07-01 09:39:29,861 views 28733 log into product app.
-INFO 2022-07-01 09:39:29,862 api 28733 search product by their name
-INFO 2022-07-01 09:39:29,862 api 28733 category selected successfully
-INFO 2022-07-01 09:41:49,567 views 29218 log into product app.
-INFO 2022-07-01 09:41:49,568 api 29218 search product by their name
-INFO 2022-07-01 09:41:49,569 api 29218 category selected successfully
-INFO 2022-07-01 09:42:08,533 views 29340 log into product app.
-INFO 2022-07-01 09:42:08,534 api 29340 search product by their name
-INFO 2022-07-01 09:42:08,534 api 29340 category selected successfully
-INFO 2022-07-01 09:45:04,887 views 29683 log into product app.
-INFO 2022-07-01 09:45:04,888 api 29683 search product by their name
-INFO 2022-07-01 09:45:04,888 api 29683 category selected successfully
-INFO 2022-07-01 09:45:22,128 views 29683 Product list page load successfully
-INFO 2022-07-01 09:45:36,938 views 29887 log into product app.
-INFO 2022-07-01 09:45:36,939 api 29887 search product by their name
-INFO 2022-07-01 09:45:36,939 api 29887 category selected successfully
-INFO 2022-07-01 09:46:21,203 views 30001 log into product app.
-INFO 2022-07-01 09:46:21,204 api 30001 search product by their name
-INFO 2022-07-01 09:46:21,204 api 30001 category selected successfully
-INFO 2022-07-01 09:49:38,195 views 30368 log into product app.
-INFO 2022-07-01 09:49:38,196 api 30368 search product by their name
-INFO 2022-07-01 09:49:38,197 api 30368 category selected successfully
-INFO 2022-07-01 09:49:58,884 views 30528 log into product app.
-INFO 2022-07-01 09:49:58,885 api 30528 search product by their name
-INFO 2022-07-01 09:49:58,885 api 30528 category selected successfully
-INFO 2022-07-01 09:53:31,766 views 30838 log into product app.
-INFO 2022-07-01 09:53:31,767 api 30838 search product by their name
-INFO 2022-07-01 09:53:31,767 api 30838 category selected successfully
-INFO 2022-07-01 09:54:08,826 views 31003 log into product app.
-INFO 2022-07-01 09:54:08,827 api 31003 search product by their name
-INFO 2022-07-01 09:54:08,827 api 31003 category selected successfully
-INFO 2022-07-01 09:54:33,539 views 31112 log into product app.
-INFO 2022-07-01 09:54:33,539 api 31112 search product by their name
-INFO 2022-07-01 09:54:33,539 api 31112 category selected successfully
-INFO 2022-07-01 09:55:42,607 views 31315 log into product app.
-INFO 2022-07-01 09:55:42,608 api 31315 search product by their name
-INFO 2022-07-01 09:55:42,608 api 31315 category selected successfully
-INFO 2022-07-01 09:56:03,716 views 31466 log into product app.
-INFO 2022-07-01 09:56:03,716 api 31466 search product by their name
-INFO 2022-07-01 09:56:03,717 api 31466 category selected successfully
-INFO 2022-07-01 09:57:23,698 views 31629 log into product app.
-INFO 2022-07-01 09:57:23,698 api 31629 search product by their name
-INFO 2022-07-01 09:57:23,699 api 31629 category selected successfully
-INFO 2022-07-01 09:57:34,192 views 31654 log into product app.
-INFO 2022-07-01 09:57:34,193 api 31654 search product by their name
-INFO 2022-07-01 09:57:34,193 api 31654 category selected successfully
-INFO 2022-07-01 10:01:05,161 views 31965 log into product app.
-INFO 2022-07-01 10:01:05,163 api 31965 search product by their name
-INFO 2022-07-01 10:01:05,163 api 31965 category selected successfully
-INFO 2022-07-01 10:08:06,657 views 32421 log into product app.
-INFO 2022-07-01 10:08:06,657 api 32421 search product by their name
-INFO 2022-07-01 10:08:06,657 api 32421 category selected successfully
-INFO 2022-07-01 10:08:30,357 views 32460 log into product app.
-INFO 2022-07-01 10:08:30,358 api 32460 search product by their name
-INFO 2022-07-01 10:08:30,359 api 32460 category selected successfully
-INFO 2022-07-01 10:11:06,461 views 32998 log into product app.
-INFO 2022-07-01 10:11:06,462 api 32998 search product by their name
-INFO 2022-07-01 10:11:06,462 api 32998 category selected successfully
-INFO 2022-07-01 10:11:46,508 views 32998 Product list page load successfully
-INFO 2022-07-01 10:11:48,445 views 32998 Product list page load successfully
-INFO 2022-07-01 10:29:13,528 views 35787 log into product app.
-INFO 2022-07-01 10:29:13,528 api 35787 search product by their name
-INFO 2022-07-01 10:29:13,529 api 35787 category selected successfully
-INFO 2022-07-01 10:33:56,211 views 36224 log into product app.
-INFO 2022-07-01 10:33:56,211 api 36224 search product by their name
-INFO 2022-07-01 10:33:56,212 api 36224 category selected successfully
-INFO 2022-07-01 10:34:45,002 views 36313 log into product app.
-INFO 2022-07-01 10:34:45,003 api 36313 search product by their name
-INFO 2022-07-01 10:34:45,003 api 36313 category selected successfully
-INFO 2022-07-01 10:34:47,167 views 36363 log into product app.
-INFO 2022-07-01 10:34:47,168 api 36363 search product by their name
-INFO 2022-07-01 10:34:47,168 api 36363 category selected successfully
-INFO 2022-07-01 10:35:51,426 views 36473 log into product app.
-INFO 2022-07-01 10:35:51,427 api 36473 search product by their name
-INFO 2022-07-01 10:35:51,427 api 36473 category selected successfully
-INFO 2022-07-01 10:36:27,092 views 36514 log into product app.
-INFO 2022-07-01 10:36:27,094 api 36514 search product by their name
-INFO 2022-07-01 10:36:27,095 api 36514 category selected successfully
-INFO 2022-07-01 10:37:11,205 views 36692 log into product app.
-INFO 2022-07-01 10:37:11,206 api 36692 search product by their name
-INFO 2022-07-01 10:37:11,207 api 36692 category selected successfully
-INFO 2022-07-01 10:40:05,728 views 36986 log into product app.
-INFO 2022-07-01 10:40:05,729 api 36986 search product by their name
-INFO 2022-07-01 10:40:05,729 api 36986 category selected successfully
-INFO 2022-07-01 10:40:15,404 views 37066 log into product app.
-INFO 2022-07-01 10:40:15,405 api 37066 search product by their name
-INFO 2022-07-01 10:40:15,405 api 37066 category selected successfully
-INFO 2022-07-01 10:41:39,744 views 37272 log into product app.
-INFO 2022-07-01 10:41:39,745 api 37272 search product by their name
-INFO 2022-07-01 10:41:39,745 api 37272 category selected successfully
-INFO 2022-07-01 10:41:50,917 views 37376 log into product app.
-INFO 2022-07-01 10:41:50,918 api 37376 search product by their name
-INFO 2022-07-01 10:41:50,918 api 37376 category selected successfully
-INFO 2022-07-01 10:41:55,073 views 37376 Product list page load successfully
-INFO 2022-07-01 10:47:58,747 views 38009 log into product app.
-INFO 2022-07-01 10:47:58,748 api 38009 search product by their name
-INFO 2022-07-01 10:47:58,748 api 38009 category selected successfully
-INFO 2022-07-01 10:48:35,661 views 38140 log into product app.
-INFO 2022-07-01 10:48:35,662 api 38140 search product by their name
-INFO 2022-07-01 10:48:35,663 api 38140 category selected successfully
-INFO 2022-07-01 10:49:48,272 views 38247 log into product app.
-INFO 2022-07-01 10:49:48,278 api 38247 search product by their name
-INFO 2022-07-01 10:49:48,278 api 38247 category selected successfully
-INFO 2022-07-01 10:50:01,763 views 38361 log into product app.
-INFO 2022-07-01 10:50:01,764 api 38361 search product by their name
-INFO 2022-07-01 10:50:01,764 api 38361 category selected successfully
-INFO 2022-07-01 10:50:04,709 views 38361 Product list page load successfully
-INFO 2022-07-01 11:09:49,691 views 38361 Product list page load successfully
-INFO 2022-07-01 11:10:03,864 views 38361 Product list page load successfully
-INFO 2022-07-01 11:10:06,695 views 38361 Product list page load successfully
-INFO 2022-07-01 11:10:13,480 views 38361 Product list page load successfully
-INFO 2022-07-01 11:12:24,008 views 39686 log into product app.
-INFO 2022-07-01 11:12:24,010 api 39686 search product by their name
-INFO 2022-07-01 11:12:24,010 api 39686 category selected successfully
-INFO 2022-07-01 11:13:03,849 views 39955 log into product app.
-INFO 2022-07-01 11:13:03,851 api 39955 search product by their name
-INFO 2022-07-01 11:13:03,851 api 39955 category selected successfully
-INFO 2022-07-01 11:13:58,615 views 40131 log into product app.
-INFO 2022-07-01 11:13:58,616 api 40131 search product by their name
-INFO 2022-07-01 11:13:58,617 api 40131 category selected successfully
-INFO 2022-07-01 11:20:36,228 views 41455 log into product app.
-INFO 2022-07-01 11:20:36,229 api 41455 search product by their name
-INFO 2022-07-01 11:20:36,229 api 41455 category selected successfully
-INFO 2022-07-01 11:29:53,946 views 42302 log into product app.
-INFO 2022-07-01 11:29:53,947 api 42302 search product by their name
-INFO 2022-07-01 11:29:53,947 api 42302 category selected successfully
-INFO 2022-07-01 11:30:17,641 views 42439 log into product app.
-INFO 2022-07-01 11:30:17,642 api 42439 search product by their name
-INFO 2022-07-01 11:30:17,642 api 42439 category selected successfully
-INFO 2022-07-01 11:30:50,304 views 42547 log into product app.
-INFO 2022-07-01 11:30:50,305 api 42547 search product by their name
-INFO 2022-07-01 11:30:50,305 api 42547 category selected successfully
-INFO 2022-07-01 11:31:02,691 views 42593 log into product app.
-INFO 2022-07-01 11:31:02,692 api 42593 search product by their name
-INFO 2022-07-01 11:31:02,692 api 42593 category selected successfully
-INFO 2022-07-01 11:31:04,911 views 42593 Product list page load successfully
-INFO 2022-07-01 11:31:28,145 views 42593 Product list page load successfully
-INFO 2022-07-01 11:46:35,867 views 44732 log into product app.
-INFO 2022-07-01 11:46:35,868 api 44732 search product by their name
-INFO 2022-07-01 11:46:35,868 api 44732 category selected successfully
-INFO 2022-07-01 11:46:59,941 views 44843 log into product app.
-INFO 2022-07-01 11:46:59,941 api 44843 search product by their name
-INFO 2022-07-01 11:46:59,942 api 44843 category selected successfully
-INFO 2022-07-01 11:57:00,321 views 46760 log into product app.
-INFO 2022-07-01 11:57:00,322 api 46760 search product by their name
-INFO 2022-07-01 11:57:00,322 api 46760 category selected successfully
-INFO 2022-07-01 12:04:29,061 views 47148 log into product app.
-INFO 2022-07-01 12:04:29,147 api 47148 search product by their name
-INFO 2022-07-01 12:04:29,147 api 47148 category selected successfully
-INFO 2022-07-01 12:04:40,536 views 47148 Product list page load successfully
-INFO 2022-07-01 12:04:40,768 views 47148 Product list page load successfully
-INFO 2022-07-01 12:04:41,541 views 47148 Product list page load successfully
-INFO 2022-07-01 12:04:43,063 api 47148 product serializer v1 called with all the fields.
-INFO 2022-07-01 12:04:43,295 api 47148 get all the pages successfully
-INFO 2022-07-01 12:04:43,295 api 47148 product serializer v1 called with all the fields.
-INFO 2022-07-01 12:04:43,551 api 47148 product serializer v1 called with all the fields.
-INFO 2022-07-01 12:04:43,787 api 47148 product serializer v2 called with name field only.
-INFO 2022-07-01 12:04:44,034 api 47148 product serializer v1 called with all the fields.
-INFO 2022-07-01 12:04:44,359 api 47148 product serializer v1 called with all the fields.
-INFO 2022-07-01 12:04:44,620 api 47148 product serializer v1 called with all the fields.
-INFO 2022-07-01 12:04:44,914 api 47148 product serializer v1 called with all the fields.
-INFO 2022-07-01 12:04:45,430 views 47148 Product list page load successfully
-INFO 2022-07-01 12:04:45,725 views 47148 Product list page load successfully
-INFO 2022-07-01 12:04:46,115 views 47148 Product list page load successfully
-INFO 2022-07-01 12:04:46,373 views 47148 cart create successfully.
-INFO 2022-07-01 12:04:46,607 views 47148 cart create successfully.
-INFO 2022-07-01 12:04:46,617 views 47148 Cart updated!
-INFO 2022-07-01 12:04:46,870 views 47148 Product list page load successfully
-INFO 2022-07-01 12:06:53,548 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:08,018 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:13,408 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:18,854 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:21,273 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:25,120 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:29,494 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:33,350 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:36,168 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:41,854 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:44,633 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:47,201 views 46760 Product list page load successfully
-INFO 2022-07-01 12:07:55,875 views 46760 cart create successfully.
-INFO 2022-07-01 12:08:09,462 views 46760 cart create successfully.
-INFO 2022-07-01 12:08:09,499 views 46760 Cart updated!
+INFO 2022-11-14 06:55:25,919 api 23546 search product by their name
+INFO 2022-11-14 06:55:25,921 api 23546 category selected successfully
+INFO 2022-11-14 06:57:45,714 views 24078 log into product app.
+INFO 2022-11-14 06:57:45,715 api 24078 search product by their name
+INFO 2022-11-14 06:57:45,716 api 24078 category selected successfully
+INFO 2022-11-14 06:59:31,080 views 24367 log into product app.
+INFO 2022-11-14 06:59:31,081 api 24367 search product by their name
+INFO 2022-11-14 06:59:31,081 api 24367 category selected successfully
+INFO 2022-11-14 07:03:42,236 views 24987 log into product app.
+INFO 2022-11-14 07:03:42,237 api 24987 search product by their name
+INFO 2022-11-14 07:03:42,237 api 24987 category selected successfully
+INFO 2022-11-14 07:04:19,506 views 25148 log into product app.
+INFO 2022-11-14 07:04:19,507 api 25148 search product by their name
+INFO 2022-11-14 07:04:19,507 api 25148 category selected successfully
+INFO 2022-11-14 07:07:33,231 views 25643 log into product app.
+INFO 2022-11-14 07:07:33,231 api 25643 search product by their name
+INFO 2022-11-14 07:07:33,231 api 25643 category selected successfully
+INFO 2022-11-14 07:07:43,417 views 25709 log into product app.
+INFO 2022-11-14 07:07:43,418 api 25709 search product by their name
+INFO 2022-11-14 07:07:43,418 api 25709 category selected successfully
+INFO 2022-11-14 07:07:52,118 views 25781 log into product app.
+INFO 2022-11-14 07:07:52,119 api 25781 search product by their name
+INFO 2022-11-14 07:07:52,119 api 25781 category selected successfully
+INFO 2022-11-14 07:37:38,193 views 29684 log into product app.
+INFO 2022-11-14 07:37:38,194 api 29684 search product by their name
+INFO 2022-11-14 07:37:38,195 api 29684 category selected successfully
+INFO 2022-11-14 07:37:59,679 views 29930 log into product app.
+INFO 2022-11-14 07:37:59,680 api 29930 search product by their name
+INFO 2022-11-14 07:37:59,680 api 29930 category selected successfully
+INFO 2022-11-14 07:38:34,713 views 30089 log into product app.
+INFO 2022-11-14 07:38:34,714 api 30089 search product by their name
+INFO 2022-11-14 07:38:34,714 api 30089 category selected successfully
+INFO 2022-11-14 07:44:44,495 views 31483 log into product app.
+INFO 2022-11-14 07:44:44,495 api 31483 search product by their name
+INFO 2022-11-14 07:44:44,495 api 31483 category selected successfully
+INFO 2022-11-14 07:46:55,147 views 31904 log into product app.
+INFO 2022-11-14 07:46:55,149 api 31904 search product by their name
+INFO 2022-11-14 07:46:55,149 api 31904 category selected successfully
+INFO 2022-11-14 07:47:52,281 views 32179 log into product app.
+INFO 2022-11-14 07:47:52,281 api 32179 search product by their name
+INFO 2022-11-14 07:47:52,282 api 32179 category selected successfully
+INFO 2022-11-14 07:48:41,715 views 32338 log into product app.
+INFO 2022-11-14 07:48:41,716 api 32338 search product by their name
+INFO 2022-11-14 07:48:41,717 api 32338 category selected successfully
+INFO 2022-11-14 07:49:03,603 views 32476 log into product app.
+INFO 2022-11-14 07:49:03,604 api 32476 search product by their name
+INFO 2022-11-14 07:49:03,605 api 32476 category selected successfully
+INFO 2022-11-14 07:49:16,205 views 32604 log into product app.
+INFO 2022-11-14 07:49:16,206 api 32604 search product by their name
+INFO 2022-11-14 07:49:16,206 api 32604 category selected successfully
+INFO 2022-11-14 07:50:00,659 views 32761 log into product app.
+INFO 2022-11-14 07:50:00,660 api 32761 search product by their name
+INFO 2022-11-14 07:50:00,660 api 32761 category selected successfully
+INFO 2022-11-14 07:50:11,079 views 32911 log into product app.
+INFO 2022-11-14 07:50:11,080 api 32911 search product by their name
+INFO 2022-11-14 07:50:11,080 api 32911 category selected successfully
+INFO 2022-11-14 07:50:19,455 views 32996 log into product app.
+INFO 2022-11-14 07:50:19,456 api 32996 search product by their name
+INFO 2022-11-14 07:50:19,457 api 32996 category selected successfully
+INFO 2022-11-14 07:50:24,591 views 33104 log into product app.
+INFO 2022-11-14 07:50:24,592 api 33104 search product by their name
+INFO 2022-11-14 07:50:24,592 api 33104 category selected successfully
+INFO 2022-11-14 07:50:28,811 views 33164 log into product app.
+INFO 2022-11-14 07:50:28,811 api 33164 search product by their name
+INFO 2022-11-14 07:50:28,811 api 33164 category selected successfully
+INFO 2022-11-14 07:50:34,411 views 33193 log into product app.
+INFO 2022-11-14 07:50:34,412 api 33193 search product by their name
+INFO 2022-11-14 07:50:34,412 api 33193 category selected successfully
+INFO 2022-11-14 07:50:49,077 views 33292 log into product app.
+INFO 2022-11-14 07:50:49,078 api 33292 search product by their name
+INFO 2022-11-14 07:50:49,078 api 33292 category selected successfully
+INFO 2022-11-14 07:51:40,336 views 33443 log into product app.
+INFO 2022-11-14 07:51:40,337 api 33443 search product by their name
+INFO 2022-11-14 07:51:40,338 api 33443 category selected successfully
+INFO 2022-11-14 08:35:41,319 views 38789 log into product app.
+INFO 2022-11-14 08:35:41,319 api 38789 search product by their name
+INFO 2022-11-14 08:35:41,319 api 38789 category selected successfully
+INFO 2022-11-14 08:35:49,573 views 38858 log into product app.
+INFO 2022-11-14 08:35:49,574 api 38858 search product by their name
+INFO 2022-11-14 08:35:49,574 api 38858 category selected successfully
+INFO 2022-11-14 08:40:12,137 views 39560 log into product app.
+INFO 2022-11-14 08:40:12,138 api 39560 search product by their name
+INFO 2022-11-14 08:40:12,139 api 39560 category selected successfully
+INFO 2022-11-14 08:40:24,658 views 39685 log into product app.
+INFO 2022-11-14 08:40:24,659 api 39685 search product by their name
+INFO 2022-11-14 08:40:24,659 api 39685 category selected successfully
+INFO 2022-11-14 08:42:04,358 views 40021 log into product app.
+INFO 2022-11-14 08:42:04,359 api 40021 search product by their name
+INFO 2022-11-14 08:42:04,360 api 40021 category selected successfully
+INFO 2022-11-14 11:58:59,067 views 40021 Product list page load successfully
+INFO 2022-11-14 11:59:03,951 views 40021 Product list page load successfully
+INFO 2022-11-14 12:00:23,240 views 40021 Product list page load successfully
+INFO 2022-11-14 12:00:57,219 views 40021 Product list page load successfully
+INFO 2022-11-14 12:00:58,254 views 40021 Product list page load successfully
+INFO 2022-11-14 12:00:59,378 views 40021 Product list page load successfully
+INFO 2023-01-24 09:31:56,592 views 31506 log into product app.
+INFO 2023-01-24 09:31:56,595 api 31506 search product by their name
+INFO 2023-01-24 09:31:56,595 api 31506 category selected successfully
+INFO 2023-01-24 09:32:03,632 views 31519 log into product app.
+INFO 2023-01-24 09:32:03,632 api 31519 search product by their name
+INFO 2023-01-24 09:32:03,633 api 31519 category selected successfully
+INFO 2023-01-24 09:33:19,763 views 31519 Product list page load successfully
+INFO 2023-01-24 09:33:24,999 views 31519 Product list page load successfully
+INFO 2023-01-24 09:33:32,205 views 31519 Product list page load successfully
+INFO 2023-01-24 09:35:38,635 views 31519 cart create successfully.
+INFO 2023-01-24 09:35:38,661 views 31519 Cart updated!

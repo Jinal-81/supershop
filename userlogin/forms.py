@@ -157,3 +157,10 @@ class UpdateAddress(forms.ModelForm):
         model = Address
         fields = ("city", "zipcode", "landmark", "state", "address_type")
 
+
+class ContactForm(forms.ModelForm):
+    """form for contact."""
+    class Meta:
+        model = MyUser
+        fields = ['username', ]
+

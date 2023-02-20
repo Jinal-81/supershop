@@ -57,7 +57,7 @@
   <li id="limargin">
       <form class="d-flex" method="post">
           {% csrf_token %}
-          {% render_field filter.form.name class="form-control" %}
+                <input type="text" class="form-control" name="search" id="search exampleInputPassword1" placeholder="Search a Product">
         <button class="btn btn-outline-secondary" id="buttoncolour" type="submit">Search</button>
       </form>
   </li>

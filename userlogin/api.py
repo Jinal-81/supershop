@@ -201,8 +201,8 @@ class EmailVerify(APIView):
                 if not instance:  # check that user exists
                     userlogin_info_logger.info(USER_NOT_EXISTS_LOG_MSG)
                     return Response({'message': USER_NOT_EXISTS})
-                code = methods.send_verification_mail(email)
-                instance.code = code[0]  # fetch code and change accordingly in user record.
+                code1 = methods.send_verification_mail(email)
+                instance.code1 = code1[0]  # fetch code and change accordingly in user record.
                 instance.save()
                 userlogin_info_logger.info(TOKEN_CREATED_LOG_MSG)
                 return Response(request.data, status=status.HTTP_201_CREATED)  # if successfully created.

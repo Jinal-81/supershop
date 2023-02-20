@@ -22,6 +22,9 @@
             <a class="nav-link" href="{% url 'profile' %}">Profile</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'deleteuser' user.pk %}">Contact</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'user_address' %}">Addresses</a>
           </li>
           <li class="nav-item">
@@ -53,8 +56,8 @@
 </nav>
 <!--Nav bar end-->
 <body id="bodyid">
-{% block content %}{% endblock %}
-{% block javascript %}
+    {% block content %}{% endblock %}
+    {% block javascript %}
 <!--    <script type="text/javascript" src="{% static 'js/user_address.js' %}"></script>-->
 <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>

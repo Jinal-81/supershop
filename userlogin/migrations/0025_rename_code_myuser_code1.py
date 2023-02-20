@@ -8,11 +8,11 @@ class Migration(migrations.Migration):
     dependencies = [
         ('userlogin', '0024_remove_myuser_code1'),
     ]
-
-    operations = [
-        migrations.RenameField(
-            model_name='myuser',
-            old_name='code',
-            new_name='code1',
-        ),
-    ]
+#
+#     operations = [
+#         migrations.RenameField(
+#             model_name='myuser',
+#             old_name='code',
+#             new_name='code1',
+#         ),
+#     ]

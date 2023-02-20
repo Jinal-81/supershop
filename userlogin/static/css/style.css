@@ -105,7 +105,7 @@
 }
 #cartcard{ /* card style id for cart */
     margin-top:40px;
-    margin-left:40px;
+    margin-left:418px;
     max-width: 950px;
     width: 90%;
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -1557,8 +1557,8 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end,body.swal2-no-backdrop .swa
   bottom: 0;
   left: 0;
   right: 0;
-  margin-top:170px;
-  margin-left:126px;
+  margin-top:172px;
+  margin-left:325px;
   height:250px;
   width:250px;
   opacity: 0;

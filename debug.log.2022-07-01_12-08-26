@@ -1,2 +1,0 @@
-DEBUG 2022-07-01 12:08:26,020 utils 46760 (0.001) SELECT "userlogin_address"."id", "userlogin_address"."user_id", "userlogin_address"."city", "userlogin_address"."zipcode", "userlogin_address"."landmark", "userlogin_address"."state", "userlogin_address"."address_type" FROM "userlogin_address" WHERE "userlogin_address"."user_id" = 54 ORDER BY "userlogin_address"."id" ASC; args=(54,); alias=default
-INFO 2022-07-01 12:08:26,023 basehttp 46760 "GET /address/ HTTP/1.1" 200 13131

@@ -7,24 +7,26 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail, BadHeaderError
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.views.generic import View, UpdateView
+from django.views.generic import View, UpdateView, FormView, DeleteView
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView
 from django.views.generic.base import TemplateResponseMixin
 
-from product.filters import ProductFilter
+from userlogin.filters import ProductFilter
 from product.models import Product, Category
 from . import forms
-from .forms import NewUserForm, UserLoginForm, UpdateProfile, AddAddress
+from .forms import NewUserForm, UserLoginForm, UpdateProfile, AddAddress, ContactForm
 from .models import MyUser, Address
 
 LOGIN_ERROR_MSG = "Please enter valid username and password"
@@ -77,47 +79,42 @@ userlogin_warning_logger = logging.getLogger('userlogin_warning')
 userlogin_warning_logger.warning('log into userlogin app.')
 
 
-# class IndexListView(ListView):
-#
-#     # model = Product
-#     paginate_by = 3  # if pagination is desired
-#     template_name = INDEX_URL
-#     # queryset = Product.objects.all().order_by('id')
-#     context_object_name = 'product_item'
-#
-#
-#     def get_queryset(self):
-#         """Return the last five published questions."""
-#         return Product.objects.all().order_by('id')
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['product_item'] = Product.objects.all().order_by('id')
-#         context['categories'] = Category.objects.all()
-#         return context
+class IndexView(ListView):
+    model = Product
+    template_name = 'userlogin/Homepage.html'
+    context_object_name = 'products_item'
 
-def index(request):
-    """
-    redirect to main page(index page) and filter product by their name.
-    """
-    categories = Category.objects.all()  # fetch all the categories.
-    products = Product.objects.all().order_by('id')  # fetch all the products
-    user_filter = ProductFilter(request.POST, queryset=products)  # filter product by their name
-    products = user_filter.qs  # filtered result
-    page = request.GET.get('page', 1)  # get the page
-
-    paginator = Paginator(products, 3)  # tell the paginator to paginate products queryset in 3 products per page
-    try:
-        products_item = paginator.page(page)
-        userlogin_info_logger.info(PRODUCT_LIST_LOG_MSG)
-    except PageNotAnInteger:
-        products_item = paginator.page(1)  # if page is not integer
-        userlogin_warning_logger.warning(PAGE_NOT_INTEGER_LOG_MSG)
-    except EmptyPage:
-        products_item = paginator.page(paginator.num_pages)  # if page is empty.
-        userlogin_warning_logger.warning(PAGE_EMPTY_LOG_MSG)
-    userlogin_info_logger.info(INDEX_PAGE_LOAD_LOG_MSG)
-    return render(request, INDEX_URL, {'filter': user_filter, 'categories': categories, 'products_item': products_item})
+    def get_queryset(self):
+        query = self.request.POST.get('search', " ")
+        products = Product.objects.filter(Q(name__icontains=query))
+        return products
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     context = super(IndexView, self).get_context_data(**kwargs)
+    #     context['filter'] = ProductFilter(self.request.POST, queryset=self.get_queryset())
+    #     return context
+#
+# def index(request):
+#     """
+#     redirect to main page(index page) and filter product by their name.
+#     """
+#     categories = Category.objects.all()  # fetch all the categories.
+#     products = Product.objects.all().order_by('id')  # fetch all the products
+#     user_filter = ProductFilter(request.POST, queryset=products)  # filter product by their name
+#     products = user_filter.qs  # filtered result
+#     page = request.GET.get('page', 1)  # get the page
+#
+#     paginator = Paginator(products, 3)  # tell the paginator to paginate products queryset in 3 products per page
+#     try:
+#         products_item = paginator.page(page)
+#         userlogin_info_logger.info(PRODUCT_LIST_LOG_MSG)
+#     except PageNotAnInteger:
+#         products_item = paginator.page(1)  # if page is not integer
+#         userlogin_warning_logger.warning(PAGE_NOT_INTEGER_LOG_MSG)
+#     except EmptyPage:
+#         products_item = paginator.page(paginator.num_pages)  # if page is empty.
+#         userlogin_warning_logger.warning(PAGE_EMPTY_LOG_MSG)
+#     userlogin_info_logger.info(INDEX_PAGE_LOAD_LOG_MSG)
+#     return render(request, INDEX_URL, {'filter': user_filter, 'categories': categories, 'products_item': products_item})
 
 
 def category_search(request, id):
@@ -183,43 +180,17 @@ def user_address_create(data: dict, user_pk):
     # create user
     return Address.objects.create(**dict1)
 
-
-class LoginView(View):
-    """login view for the user login."""
-    def get(self, request):
-        return render(request, LOGIN_URL, {'form': UserLoginForm})
-
-    def post(self, request):
-        form = UserLoginForm()
-        some_var = request.POST
-            # check that form method is post or not
-        # get and stored username and password
-        username = some_var.get('username')
-        password = some_var.get('password')
-        # call authenticate function and authenticate username and password
-        user = authenticate(request, username=username, password=password)
-        # check that user is not none
-        if user:
-            # call login method
-            login(request, user)
-            userlogin_info_logger.info(LOGIN_SUCCESS_MSG)
-            messages.success(request, LOGIN_SUCCESS_MSG)
-            return redirect('index')
-        else:
-            # print msg that user or account is not exist
-            userlogin_warning_logger.warning(LOGIN_ERROR_MSG)
-            messages.error(request, LOGIN_ERROR_MSG)
-
-        return render(request, 'userlogin/login.html', {'form': form})
-
-# def view_login(request):
-#     """
-#     login function for the user login
-#     """
-#     # variable for request.post
-#     some_var = request.POST
-#     # check that form method is post or not
-#     if request.method == 'POST':
+#
+# class LoginView(View):
+#     """login view for the user login."""
+#     def get(self, request):
+#         return render(request, LOGIN_URL, {'form': UserLoginForm})
+#
+#     def post(self, request):
+#         import pdb; pdb.set_trace()
+#         form = UserLoginForm()
+#         some_var = request.POST
+#             # check that form method is post or not
 #         # get and stored username and password
 #         username = some_var.get('username')
 #         password = some_var.get('password')
@@ -236,9 +207,36 @@ class LoginView(View):
 #             # print msg that user or account is not exist
 #             userlogin_warning_logger.warning(LOGIN_ERROR_MSG)
 #             messages.error(request, LOGIN_ERROR_MSG)
-#     form = UserLoginForm()
-#     userlogin_debug_logger.debug(LOGIN_PAGE_LOAD_LOG_MSG)
-#     return render(request, LOGIN_URL, {'form': form})
+#
+#         return render(request, 'userlogin/login.html', {'form': form})
+
+def view_login(request):
+    """
+    login function for the user login
+    """
+    # variable for request.post
+    some_var = request.POST
+    # check that form method is post or not
+    if request.method == 'POST':
+        # get and stored username and password
+        username = some_var.get('username')
+        password = some_var.get('password')
+        # call authenticate function and authenticate username and password
+        user = authenticate(request, username=username, password=password)
+        # check that user is not none
+        if user:
+            # call login method
+            login(request, user)
+            userlogin_info_logger.info(LOGIN_SUCCESS_MSG)
+            messages.success(request, LOGIN_SUCCESS_MSG)
+            return redirect('index')
+        else:
+            # print msg that user or account is not exist
+            userlogin_warning_logger.warning(LOGIN_ERROR_MSG)
+            messages.error(request, LOGIN_ERROR_MSG)
+    form = UserLoginForm()
+    userlogin_debug_logger.debug(LOGIN_PAGE_LOAD_LOG_MSG)
+    return render(request, LOGIN_URL, {'form': form})
 
 
 class SignupView(CreateView):
@@ -440,3 +438,29 @@ def remove_address(request):
 #             return JsonResponse({'sessionId': checkout_session['id']})
 #         except Exception as e:
 #             return JsonResponse({'error': str(e)})
+
+
+# class ContactFormView(SuccessMessageMixin, FormView):
+#     """class for the contact from view."""
+#     template_name = 'userlogin/contact.html'
+#     form_class = ContactForm
+#     success_url = '/'
+#     success_message = "form submitted successfully."
+#
+#     def from_valid(self, form):
+#         """form valid method."""
+#         return super(ContactFormView, self).from_valid(form)
+
+# class UpdateUserView(UpdateView):
+#     """class for the update information about the user."""
+#     model = MyUser
+#     template_name = 'userlogin/contact.html'
+#     fields = ['first_name', 'last_name', ]
+#     success_url = '/'
+
+class DeleteUserView(DeleteView):
+    """delete view for delete user from the table."""
+    model = MyUser
+    template_name = 'userlogin/contact.html'
+    success_url = '/'
+

@@ -26,6 +26,9 @@ from rest_framework_simplejwt.views import (
 
 from userlogin.api import LoginAPIView
 
+admin.site.site_header = "SuperShop Administration"
+admin.site.site_title = "Super Shop Admin"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('userlogin.urls')),
