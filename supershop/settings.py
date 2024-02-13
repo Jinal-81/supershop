@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-mc@%#g7&(5g3xw0(kk!6h2^h2m)(w4z#&*f@27!o!pp@2aucv9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".ngrok.io", "checkout.stripe.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".ngrok.io", "checkout.stripe.com", '0.0.0.0']
 
 
 # Application definition

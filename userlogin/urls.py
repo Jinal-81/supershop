@@ -5,7 +5,7 @@ from django.urls import path, re_path
 from . import views, api
 
 # app_name = 'Users'
-from .views import SignupView, IndexView, DeleteUserView
+from .views import  IndexView, DeleteUserView
 
 urlpatterns = [
     # path('', views.index, name="index"),
@@ -15,8 +15,8 @@ urlpatterns = [
     # path('login/', LoginView.as_view(), name="login"),
     # path('contact/', ContactFormView.as_view(), name="contact"),
     path('<pk>/deleteuser/', DeleteUserView.as_view(), name='deleteuser'),
-    # path('signup/', views.signup, name="signup"),
-    path('signup', SignupView.as_view(), name='signup'),
+    path('signup/', views.signup, name="signup"),
+    # path('signup', SignupView.as_view(), name='signup'),
     path('logout/', LogoutView.as_view(template_name='userlogin/Homepage.html'), name="logout"),
     path("password_reset", views.password_reset_request, name="password_reset"),
     path('profile/', views.user_profile, name='profile'),

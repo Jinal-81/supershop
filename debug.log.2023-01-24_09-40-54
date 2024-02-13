@@ -1,2 +1,0 @@
-INFO 2023-01-24 09:40:54,508 basehttp 31519 "POST /cart/cartitem_update/401 HTTP/1.1" 302 0
-INFO 2023-01-24 09:40:54,525 basehttp 31519 "GET /login/?next=/cart/cartitem_update/401 HTTP/1.1" 200 8564

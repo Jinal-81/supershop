@@ -1,2 +1,2 @@
-INFO 2023-01-24 09:40:58,756 basehttp 31519 "POST /cart/cartitem_update/401 HTTP/1.1" 302 0
-INFO 2023-01-24 09:40:58,772 basehttp 31519 "GET /login/?next=/cart/cartitem_update/401 HTTP/1.1" 200 8564
+INFO 2024-02-13 05:52:28,568 basehttp 15140 "GET /profile/ HTTP/1.1" 200 350192
+INFO 2024-02-13 05:52:28,625 basehttp 15140 "GET /media/images/666201_B60GyB8.png HTTP/1.1" 200 1972

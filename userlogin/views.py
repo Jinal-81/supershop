@@ -143,22 +143,22 @@ def category_search(request, id):
     return render(request, INDEX_URL, {'filter': user_filter, 'products_item': products_item, 'categories': categories})
 
 
-# def user_create(data: dict) -> None:
-#     """
-#     create new user
-#     """
-#     list_of_keys = ['username', 'password', 'email', 'first_name', 'last_name', 'mobile_number', 'birth_date',
-#                     'profile_pic']
-#     dict1 = {}
-#     # fetch one by one key from the list
-#     for key in list_of_keys:
-#         # update value accordingly
-#         dict1.update({key: data.get(key)})
-#         # if key value is password that format is change for insert data
-#         if key == "password":
-#             dict1.update({key: make_password(data.get(key))})
-#     # create user
-#     MyUser.objects.create(**dict1)
+def user_create(data: dict) -> None:
+    """
+    create new user
+    """
+    list_of_keys = ['username', 'password', 'email', 'first_name', 'last_name', 'mobile_number', 'birth_date',
+                    'profile_pic']
+    dict1 = {}
+    # fetch one by one key from the list
+    for key in list_of_keys:
+        # update value accordingly
+        dict1.update({key: data.get(key)})
+        # if key value is password that format is change for insert data
+        if key == "password":
+            dict1.update({key: make_password(data.get(key))})
+    # create user
+    MyUser.objects.create(**dict1)
 
 
 @csrf_exempt
@@ -239,37 +239,37 @@ def view_login(request):
     return render(request, LOGIN_URL, {'form': form})
 
 
-class SignupView(CreateView):
-    """register for user."""
-    model = MyUser  # modal for the create view
-    form_class = NewUserForm  # form for the user
-    # fields = ['username', 'first_name', 'last_name', 'password', 'mobile_number', 'birth_date', 'profile_pic']
-    template_name = 'userlogin/signin.html'  # template for the signin
-    success_url = reverse_lazy('login')  # success url
-# def signup(request):
-#     """
-#     registration for user.
-#     """
-#     if request.method == 'POST' or None:
-#         form = NewUserForm(request.POST or None, request.FILES)
-#         if form.is_valid():
-#             # called user create function for new user
-#             user_create(form.cleaned_data)
-#             # fetch users email id
-#             email = form.cleaned_data.get('email')
-#             # send mail to user for registration confirmation
-#             send_mail('Subject', 'Message', 'abc@lskdj.com', [email], fail_silently=False)
-#             # display message after successfully registration
-#             userlogin_info_logger.info(REGISTRATION_SUCCESS_MSG)
-#             messages.success(request, REGISTRATION_SUCCESS_MSG)
-#             # redirect to login page
-#             return redirect('login')
-#         # messages.error(request, FORM_NOT_VALID)
-#         userlogin_debug_logger.debug(SIGNUP_PAGE_LOAD_LOG_MSG)
-#         return render(request, SIGNUP_URL, {'register_form': form})
-#     form = NewUserForm()
-#     userlogin_debug_logger.debug(SIGNUP_PAGE_LOAD_LOG_MSG)
-#     return render(request, SIGNUP_URL, {'register_form': form})
+# class SignupView(CreateView):
+#     """register for user."""
+#     model = MyUser  # modal for the create view
+#     form_class = NewUserForm  # form for the user
+#     # fields = ['username', 'first_name', 'last_name', 'password', 'mobile_number', 'birth_date', 'profile_pic']
+#     template_name = 'userlogin/signin.html'  # template for the signin
+#     success_url = reverse_lazy('login')  # success url
+def signup(request):
+    """
+    registration for user.
+    """
+    if request.method == 'POST' or None:
+        form = NewUserForm(request.POST or None, request.FILES)
+        if form.is_valid():
+            # called user create function for new user
+            user_create(form.cleaned_data)
+            # fetch users email id
+            email = form.cleaned_data.get('email')
+            # send mail to user for registration confirmation
+            send_mail('Subject', 'Message', 'abc@lskdj.com', [email], fail_silently=False)
+            # display message after successfully registration
+            userlogin_info_logger.info(REGISTRATION_SUCCESS_MSG)
+            messages.success(request, REGISTRATION_SUCCESS_MSG)
+            # redirect to login page
+            return redirect('login')
+        # messages.error(request, FORM_NOT_VALID)
+        userlogin_debug_logger.debug(SIGNUP_PAGE_LOAD_LOG_MSG)
+        return render(request, SIGNUP_URL, {'register_form': form})
+    form = NewUserForm()
+    userlogin_debug_logger.debug(SIGNUP_PAGE_LOAD_LOG_MSG)
+    return render(request, SIGNUP_URL, {'register_form': form})
 
 
 def password_reset_request(request):

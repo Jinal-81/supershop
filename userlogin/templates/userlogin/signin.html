@@ -19,7 +19,7 @@
                   </div>
                   <h5 class="h3 fw-normal mb-3 pb-3" id="loginletterspacing">create your account</h5>
 <!--                  for function based view use register_form instead of form-->
-                  {% for field in form %}
+                  {% for field in register_form %}
                     <div class="form-group row">
                         <div class="col-lg-4 col-md-3 cold-sm-6 col-form-label"> {{field.label_tag}}</div>
                         <div class="col-lg-8 col-md-3 cold-sm-6"> {{field}} </div>

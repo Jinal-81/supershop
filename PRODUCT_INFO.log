@@ -104,3 +104,50 @@ INFO 2023-01-24 09:33:24,999 views 31519 Product list page load successfully
 INFO 2023-01-24 09:33:32,205 views 31519 Product list page load successfully
 INFO 2023-01-24 09:35:38,635 views 31519 cart create successfully.
 INFO 2023-01-24 09:35:38,661 views 31519 Cart updated!
+INFO 2023-02-24 09:26:29,130 views 22115 log into product app.
+INFO 2023-02-24 09:26:29,133 api 22115 search product by their name
+INFO 2023-02-24 09:26:29,134 api 22115 category selected successfully
+INFO 2023-02-24 09:30:00,498 views 22115 Product list page load successfully
+INFO 2023-02-24 09:30:13,030 views 22115 Product list page load successfully
+INFO 2023-02-24 09:32:19,116 views 22115 Product list page load successfully
+INFO 2023-02-24 09:32:35,442 views 22115 Product list page load successfully
+INFO 2024-02-12 05:01:02,410 views 7438 log into product app.
+INFO 2024-02-12 05:01:02,433 api 7438 search product by their name
+INFO 2024-02-12 05:01:02,434 api 7438 category selected successfully
+INFO 2024-02-12 05:01:44,264 views 7519 log into product app.
+INFO 2024-02-12 05:01:44,268 api 7519 search product by their name
+INFO 2024-02-12 05:01:44,268 api 7519 category selected successfully
+INFO 2024-02-12 05:01:52,415 views 7583 log into product app.
+INFO 2024-02-12 05:01:52,416 api 7583 search product by their name
+INFO 2024-02-12 05:01:52,417 api 7583 category selected successfully
+INFO 2024-02-12 05:03:07,504 views 7816 log into product app.
+INFO 2024-02-12 05:03:07,513 api 7816 search product by their name
+INFO 2024-02-12 05:03:07,513 api 7816 category selected successfully
+INFO 2024-02-12 05:25:50,939 views 11148 log into product app.
+INFO 2024-02-12 05:25:50,941 api 11148 search product by their name
+INFO 2024-02-12 05:25:50,941 api 11148 category selected successfully
+INFO 2024-02-13 05:26:59,888 views 12082 log into product app.
+INFO 2024-02-13 05:26:59,890 api 12082 search product by their name
+INFO 2024-02-13 05:26:59,890 api 12082 category selected successfully
+INFO 2024-02-13 05:28:52,557 views 12440 log into product app.
+INFO 2024-02-13 05:28:52,558 api 12440 search product by their name
+INFO 2024-02-13 05:28:52,558 api 12440 category selected successfully
+INFO 2024-02-13 05:29:02,571 views 12566 log into product app.
+INFO 2024-02-13 05:29:02,572 api 12566 search product by their name
+INFO 2024-02-13 05:29:02,572 api 12566 category selected successfully
+INFO 2024-02-13 05:33:48,784 views 13401 log into product app.
+INFO 2024-02-13 05:33:48,785 api 13401 search product by their name
+INFO 2024-02-13 05:33:48,785 api 13401 category selected successfully
+INFO 2024-02-13 05:43:47,614 views 15140 log into product app.
+INFO 2024-02-13 05:43:47,615 api 15140 search product by their name
+INFO 2024-02-13 05:43:47,616 api 15140 category selected successfully
+INFO 2024-02-13 05:48:29,626 views 15140 Product list page load successfully
+INFO 2024-02-13 05:48:43,166 views 15140 cart create successfully.
+INFO 2024-02-13 05:48:43,204 views 15140 Cart updated!
+INFO 2024-02-13 05:49:29,871 views 15140 Product list page load successfully
+INFO 2024-02-13 05:49:37,044 views 15140 Product list page load successfully
+INFO 2024-02-13 05:49:40,094 views 15140 Product list page load successfully
+INFO 2024-02-13 05:50:03,693 views 15140 Product list page load successfully
+INFO 2024-02-13 05:51:46,317 views 15140 Product list page load successfully
+INFO 2024-02-13 05:51:55,427 views 15140 Product list page load successfully
+INFO 2024-02-13 05:52:02,193 views 15140 Product list page load successfully
